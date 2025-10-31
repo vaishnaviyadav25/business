@@ -1,30 +1,19 @@
+"use client"; // 👈 Add this line at the very top
+
+import { Suspense } from "react";
 import Orderpage from "@/components/Orderpage";
 import Footerpage from "@/components/Footerpage";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: " Order – Vaishi",
-  description: "Track and manage your Vaishi orders easily. View order details, status, and delivery updates.",
-  keywords: ["Vaishi order", "order tracking", "order status", "Vaishi delivery", "Vaishi shop"],
-  openGraph: {
-    title: "Your Order – Vaishi",
-    description: "Check your Vaishi order details, shipping updates, and delivery progress.",
-    images: ["/Smalllogo.png"],
-  },
-  twitter: {
-    card: "summary",
-    title: "Your Order – Vaishi",
-    description: "View your Vaishi order details and track delivery progress.",
-    images: ["/Smalllogo.png"],
-  },
-};
 
 
-export default function Home() {
+export default function Order() {
   return (
     <main>
+      {/* Suspense ensures client-only hooks don’t crash prerender */}
+      <Suspense fallback={<div className="text-center py-20">Loading order...</div>}>
         <Orderpage />
-        <Footerpage/>
-        </main>
+      </Suspense>
+
+      <Footerpage />
+    </main>
   );
 }

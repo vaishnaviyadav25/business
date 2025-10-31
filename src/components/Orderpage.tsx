@@ -18,28 +18,28 @@ export default function OrderPage() {
   const urlPrice = parseFloat(searchParams.get("price") || "0");
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [singleQuantity, setSingleQuantity] = useState<number>(1);
+  const [singleQuantity, setSingleQuantity] = useState(1);
   const [status, setStatus] = useState<string | null>(null);
-  const [address, setAddress] = useState<string>("");
+  const [address, setAddress] = useState("");
   const [loadingLocation, setLoadingLocation] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const stored = localStorage.getItem("cart");
-
     if (stored) {
       try {
         const parsed: unknown = JSON.parse(stored);
 
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const normalized = (parsed as Partial<CartItem>[]).map((p) => ({
-            name: p.name ?? "",
-            price: Number(p.price) || 0,
-            quantity: Number(p.quantity) || 1,
-            images: p.images || [],
-          }));
-
+          const normalized = (parsed as Partial<CartItem>[]).map(
+            (p: Partial<CartItem>) => ({
+              name: p.name ?? "",
+              price: Number(p.price) || 0,
+              quantity: Number(p.quantity) || 1,
+              images: p.images || [],
+            })
+          );
           setCartItems(normalized);
           return;
         }
