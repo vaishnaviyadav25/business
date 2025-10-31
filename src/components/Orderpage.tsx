@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link"; 
+import Link from "next/link";
 
 type CartItem = {
   name: string;
@@ -20,27 +20,32 @@ export default function OrderPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [singleQuantity, setSingleQuantity] = useState<number>(1);
   const [status, setStatus] = useState<string | null>(null);
-  const [address, setAddress] = useState<string>(""); // for location
+  const [address, setAddress] = useState<string>("");
   const [loadingLocation, setLoadingLocation] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const stored = localStorage.getItem("cart");
+
     if (stored) {
       try {
-        const parsed = JSON.parse(stored);
+        const parsed: unknown = JSON.parse(stored);
+
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const normalized = parsed.map((p: any) => ({
-            name: p.name,
+          const normalized = (parsed as Partial<CartItem>[]).map((p) => ({
+            name: p.name ?? "",
             price: Number(p.price) || 0,
             quantity: Number(p.quantity) || 1,
             images: p.images || [],
           }));
+
           setCartItems(normalized);
           return;
         }
-      } catch {}
+      } catch (err) {
+        console.error("Error parsing cart:", err);
+      }
     }
 
     if (urlProduct && urlPrice > 0) {
@@ -62,10 +67,13 @@ export default function OrderPage() {
       ? [{ ...cartItems[0], quantity: Math.max(1, singleQuantity) }]
       : cartItems;
 
-  const totalQuantity = itemsToShow.reduce((s, it) => s + it.quantity, 0);
-  const grandTotal = itemsToShow.reduce((s, it) => s + it.price * it.quantity, 0);
+  const totalQuantity = itemsToShow.reduce((sum, item) => sum + item.quantity, 0);
+  const grandTotal = itemsToShow.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
-  // 🗺️ Get current location
+  // 📍 Get current location
   const handleGetLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser.");
@@ -99,6 +107,7 @@ export default function OrderPage() {
     );
   };
 
+  // 📨 Form submit handler
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
@@ -112,7 +121,10 @@ export default function OrderPage() {
     const formData = new FormData(form);
 
     const productSummary = itemsToShow
-      .map((it) => `${it.name} — ₹${it.price} × ${it.quantity} = ₹${it.price * it.quantity}`)
+      .map(
+        (it) =>
+          `${it.name} — ₹${it.price} × ${it.quantity} = ₹${it.price * it.quantity}`
+      )
       .join(" | ");
 
     formData.append("products", productSummary);
@@ -151,7 +163,9 @@ export default function OrderPage() {
         ) : (
           <>
             <div className="mb-4 border border-pink-200 rounded-lg p-4 bg-pink-50">
-              <h2 className="text-lg font-semibold text-pink-600 mb-3">Order Summary</h2>
+              <h2 className="text-lg font-semibold text-pink-600 mb-3">
+                Order Summary
+              </h2>
 
               <ul className="space-y-3 text-gray-700">
                 {itemsToShow.map((item, idx) => (
@@ -164,7 +178,9 @@ export default function OrderPage() {
                         <Image
                           src={item.images[0]}
                           alt={item.name}
-                          className="w-14 h-14 object-cover rounded-lg border"
+                          width={56}
+                          height={56}
+                          className="object-cover rounded-lg border"
                         />
                       )}
                       <div>
@@ -187,10 +203,14 @@ export default function OrderPage() {
                         />
                       </div>
                     ) : (
-                      <div className="text-sm font-semibold">Qty: {item.quantity}</div>
+                      <div className="text-sm font-semibold">
+                        Qty: {item.quantity}
+                      </div>
                     )}
 
-                    <div className="font-semibold ml-4">₹{item.price * item.quantity}</div>
+                    <div className="font-semibold ml-4">
+                      ₹{item.price * item.quantity}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -275,7 +295,9 @@ export default function OrderPage() {
                 disabled={loadingLocation}
                 className="mt-2 text-sm text-pink-600 hover:text-pink-700 font-medium"
               >
-                {loadingLocation ? "Fetching location..." : "📍 Use My Current Location"}
+                {loadingLocation
+                  ? "Fetching location..."
+                  : "📍 Use My Current Location"}
               </button>
             </div>
 

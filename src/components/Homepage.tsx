@@ -53,7 +53,7 @@ export default function HomePage() {
     <span className="w-[400px] inline-block"></span>
 
     <span className="mr-[400px]">
-      🎁 Special Offer: Get a FREE GIFT on your FIRST order above ₹250 💖
+       &quot;🎁 Special Offer: Get a FREE GIFT on your FIRST order above ₹250 💖&quot;
     </span>
   </motion.div>
 </div>
