@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/layout/Navigation";
+import { Analytics } from "@vercel/analytics/react"; 
 
 // ✅ Google fonts
 const geistSans = Geist({
@@ -105,6 +106,7 @@ export default function RootLayout({
       >
         <Navigation />
         <main className="pt-20">{children}</main>
+         <Analytics /> 
       </body>
     </html>
   );
