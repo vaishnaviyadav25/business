@@ -68,7 +68,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            "Every Piece Tells a Story — Crafted with Love 💖"
+            Every Piece Tells a Story — Crafted with Love 💖
           </motion.h1>
           <p className="text-lg md:text-xl mb-8">
             Macramé Bags & Butterflies • Resin Preserved Jewelry • Silk Thread Designs
