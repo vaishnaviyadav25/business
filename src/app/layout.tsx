@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   "Indian handmade crafts",
   "macrame keychains and bags",
   "handmade jewelry and accessories",
-  "decorative handmade products"
+  "decorative handmade product"
 
 
   ],
