@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+const MotionImage = motion(Image);
 
 interface Product {
   id: number;
@@ -182,7 +185,7 @@ export default function Productpage() {
                 }}
               >
                 <div className="relative w-full h-56 overflow-hidden rounded-xl">
-                  <motion.img
+                  <MotionImage
                     src={product.images[0]}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-90"
@@ -239,7 +242,7 @@ export default function Productpage() {
               transition={{ duration: 0.4 }}
               className="relative rounded-2xl overflow-hidden shadow-lg"
             >
-              <img
+              <Image
                 src={selectedProduct.images[activeImage]}
                 alt={selectedProduct.name}
                 className="w-full h-80 object-cover rounded-2xl"
@@ -249,7 +252,7 @@ export default function Productpage() {
 
             <div className="flex justify-center mt-4 gap-3">
               {selectedProduct.images.map((img, i) => (
-                <img
+                <Image
                   key={i}
                   src={img}
                   alt="thumb"

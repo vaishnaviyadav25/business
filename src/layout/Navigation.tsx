@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Home, Phone, ClipboardList, Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,7 +30,7 @@ export const Navigation = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between py-3">
         {/* 🛍 Logo */}
         <Link href="/" className="flex items-center">
-          <img
+          <Image
             src="/Mylogo.png"
             alt="Shop Logo"
             width={100}

@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { Instagram, Mail } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -37,7 +37,7 @@ export default function Footer() {
             <div className="flex flex-col items-center md:items-start text-center md:text-left mb-4">
               <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
                 <Link href="/" className="flex items-center">
-          <img
+          <Image
             src="/Mylogo.png"
             alt="Shop Logo"
             width={100}

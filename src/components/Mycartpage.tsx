@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface CartItem {
   id: number;
@@ -119,7 +120,7 @@ const Mycartpage: React.FC = () => {
                 className="flex flex-col sm:flex-row items-center justify-between border-b border-gray-200 py-4"
               >
                 <div className="flex items-center space-x-4">
-                  <img
+                  <Image
                     src={item.images[0]}
                     alt={item.name}
                     className="w-24 h-24 object-cover rounded-xl shadow-sm"

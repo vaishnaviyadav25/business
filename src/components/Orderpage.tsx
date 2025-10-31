@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link"; 
 
 type CartItem = {
   name: string;
@@ -159,7 +161,7 @@ export default function OrderPage() {
                   >
                     <div className="flex items-center gap-3 flex-1">
                       {item.images?.[0] && (
-                        <img
+                        <Image
                           src={item.images[0]}
                           alt={item.name}
                           className="w-14 h-14 object-cover rounded-lg border"
@@ -214,21 +216,21 @@ export default function OrderPage() {
               ✅ Thank you! Your order has been placed successfully.
             </div>
 
-            <a
+            <Link
               href="/"
               className="mt-6 inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition"
             >
               Go Back to Home
-            </a>
+            </Link>
 
             <p className="text-gray-700 mt-4">
               Want to know about your delivery?{" "}
-              <a
+              <Link
                 href="/contact"
                 className="text-green-600 font-medium hover:underline"
               >
                 Contact us on WhatsApp
-              </a>
+              </Link>
             </p>
           </div>
         ) : (
