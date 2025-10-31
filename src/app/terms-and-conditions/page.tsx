@@ -1,9 +1,8 @@
-"use client";
 
 import React from "react";
 import Footerpage from "@/components/Footerpage"
 import type { Metadata } from "next";
-
+  
 export const metadata: Metadata = {
   title: "Terms and Conditions – Vaishi",
   description: "Review Vaishi’s Terms and Conditions to understand our policies on orders, payments, and product use.",
