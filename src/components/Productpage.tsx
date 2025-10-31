@@ -5,8 +5,14 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import type { ComponentType } from "react";
+import type { MotionProps } from "framer-motion";
+import type { ImageProps } from "next/image";
 
-const MotionImage = motion(Image as any); // ✅ TypeScript fix
+
+const MotionImage = motion(
+  Image as unknown as ComponentType<ImageProps & MotionProps>
+);
 
 interface Product {
   id: number;

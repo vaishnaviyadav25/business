@@ -45,7 +45,7 @@ export default function HomePage() {
     }}
   >
     <span className="mr-[400px]">
-        &quot;🎁 Special Offer: Get a FREE GIFT on your FIRST order above ₹250 💖&quot;
+        {"'🎁 Special Offer: Get a FREE GIFT on your FIRST order above ₹250 💖'"}
 
     </span>
 
@@ -53,7 +53,7 @@ export default function HomePage() {
     <span className="w-[400px] inline-block"></span>
 
     <span className="mr-[400px]">
-       &quot;🎁 Special Offer: Get a FREE GIFT on your FIRST order above ₹250 💖&quot;
+       {"'🎁 Special Offer: Get a FREE GIFT on your FIRST order above ₹250 💖'"}
     </span>
   </motion.div>
 </div>
