@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/layout/Navigation";
-import { Analytics } from "@vercel/analytics/react"; 
+import { Analytics } from "@vercel/analytics/react";
 
 // ✅ Google fonts
 const geistSans = Geist({
@@ -21,45 +21,42 @@ export const metadata: Metadata = {
   description:
     "Vaishi offers handcrafted products made with creativity and care. Explore our exclusive collection and bring art into your everyday life.",
   keywords: [
-   
-  "Vaishi",
-  "Vaishi handmade products",
-  "Vaishi macrame bags",
-  "Vaishi craft store",
-  "handcrafted gifts online",
-  "handmade home decor",
-  "macrame wall hangings",
-  "artistic handmade accessories",
-  "eco-friendly crafts",
-  "unique handmade designs",
-  "boho decor items",
-  "aesthetic home decor",
-  "handmade fashion bags",
-  "creative gift ideas",
-  "custom handcrafted products",
-  "sustainable handmade art",
-  "Indian handmade crafts",
-  "macrame keychains and bags",
-  "handmade jewelry and accessories",
-  "decorative handmade product"
-
-
+    "Vaishi",
+    "Vaishi handmade products",
+    "Vaishi macrame bags",
+    "Vaishi craft store",
+    "handcrafted gifts online",
+    "handmade home decor",
+    "macrame wall hangings",
+    "artistic handmade accessories",
+    "eco-friendly crafts",
+    "unique handmade designs",
+    "boho decor items",
+    "aesthetic home decor",
+    "handmade fashion bags",
+    "creative gift ideas",
+    "custom handcrafted products",
+    "sustainable handmade art",
+    "Indian handmade crafts",
+    "macrame keychains and bags",
+    "handmade jewelry and accessories",
+    "decorative handmade product",
   ],
   authors: [{ name: "Vaishi" }],
   creator: "Vaishi",
   publisher: "Vaishi",
   icons: {
-    icon: "/Smalllogo.png", // favicon
+    icon: "/Smalllogo.png", // ✅ your favicon in /public
   },
   openGraph: {
     title: "Vaishi – Handcrafted with Love",
     description:
       "Discover Vaishi, where creativity meets craftsmanship. Explore our unique handmade creations.",
-    url: "https://your-domain.com", // 🔹 Replace when site goes live
+    url: "https://vaishi.vercel.app", // ✅ updated URL
     siteName: "Vaishi",
     images: [
       {
-        url: "/Smalllogo.png", // SEO & social sharing logo
+        url: "https://vaishi.vercel.app/Smalllogo.png", // ✅ absolute URL for social cards
         width: 600,
         height: 600,
         alt: "Vaishi Logo",
@@ -73,7 +70,7 @@ export const metadata: Metadata = {
     title: "Vaishi – Handcrafted with Love",
     description:
       "Discover Vaishi’s beautiful handmade products crafted with creativity and passion.",
-    images: ["/Smalllogo.png"],
+    images: ["https://vaishi.vercel.app/Smalllogo.png"], // ✅ updated URL
   },
 };
 
@@ -86,7 +83,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* 🔹 JSON-LD Structured Data for Logo (helps Google show brand logo) */}
+        {/* 🔹 JSON-LD Structured Data for Logo (Google uses this for brand info) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -94,9 +91,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Vaishi",
-              url: "https://your-domain.com", // replace later
-              logo: "https://your-domain.com/Smalllogo.png", // replace later
-              sameAs: [], // add social links here when ready
+              url: "https://vaishi.vercel.app", // ✅ updated domain
+              logo: "https://vaishi.vercel.app/Smalllogo.png", // ✅ updated absolute logo path
+              sameAs: [], // add your Instagram, etc., later
             }),
           }}
         />
@@ -106,8 +103,9 @@ export default function RootLayout({
       >
         <Navigation />
         <main className="pt-20">{children}</main>
-         <Analytics /> 
+        <Analytics />
       </body>
     </html>
   );
 }
+

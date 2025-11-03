@@ -9,7 +9,6 @@ import type { ComponentType } from "react";
 import type { MotionProps } from "framer-motion";
 import type { ImageProps } from "next/image";
 
-
 const MotionImage = motion(
   Image as unknown as ComponentType<ImageProps & MotionProps>
 );
@@ -167,7 +166,7 @@ export default function Productpage() {
                 {cat} Collection
               </h2>
 
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {products
                   .filter((p) => p.category === cat)
                   .map((product) => (
@@ -178,10 +177,11 @@ export default function Productpage() {
                         setActiveImage(0);
                         setQuantity(1);
                       }}
-                      className="group bg-white rounded-2xl p-5 flex flex-col items-center shadow-lg cursor-pointer relative overflow-hidden hover:shadow-pink-200 transition-all duration-500"
-                      whileHover={{ scale: 1.03, rotateY: 3 }}
+                      className="group bg-white rounded-2xl p-4 flex flex-col items-center shadow-md cursor-pointer relative overflow-hidden hover:shadow-pink-200 transition-all duration-500"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 1.03 }} // hover simulation on mobile
                     >
-                      <div className="relative w-full h-56 overflow-hidden rounded-xl">
+                      <div className="relative w-full h-44 sm:h-56 overflow-hidden rounded-xl">
                         <MotionImage
                           src={product.images[0]}
                           alt={product.name}
@@ -189,16 +189,26 @@ export default function Productpage() {
                           height={400}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-90"
                         />
-                        <div className="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-t from-black/50 to-transparent">
-                          <button className="bg-gradient-to-r from-pink-500 to-pink-400 text-white px-5 py-2 mb-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+
+                        {/* Always visible on mobile */}
+                        <div
+                          className="absolute inset-0 flex items-end justify-center 
+                                    bg-gradient-to-t from-black/40 to-transparent 
+                                    opacity-100 sm:opacity-0 sm:group-hover:opacity-100 
+                                    transition-all duration-500"
+                        >
+                          <button className="bg-gradient-to-r from-pink-500 to-pink-400 text-white text-sm px-4 py-2 mb-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                             View Details
                           </button>
                         </div>
                       </div>
-                      <h2 className="text-xl font-semibold text-gray-800 text-center mt-4">
+
+                      <h2 className="text-base sm:text-lg font-semibold text-gray-800 text-center mt-3">
                         {product.name}
                       </h2>
-                      <p className="text-gray-600 mt-1 mb-3">₹{product.price}</p>
+                      <p className="text-gray-600 mt-1 mb-2 sm:mb-3">
+                        ₹{product.price}
+                      </p>
                     </motion.div>
                   ))}
               </div>
@@ -217,39 +227,40 @@ export default function Productpage() {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="relative bg-white/70 backdrop-blur-lg border border-white/30 shadow-2xl rounded-3xl max-w-5xl w-full p-8 mx-4 overflow-hidden"
+              className="relative bg-white/80 backdrop-blur-lg border border-white/30 shadow-2xl rounded-3xl max-w-5xl w-full p-6 sm:p-8 mx-4 overflow-y-auto max-h-[90vh]"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 20, stiffness: 120 }}
+              transition={{ type: 'spring', damping: 20, stiffness: 120 }}
             >
+              {/* Close button */}
               <button
                 onClick={() => setSelectedProduct(null)}
-                className="absolute top-4 right-5 text-gray-500 hover:text-pink-600 text-3xl font-bold"
+                className="absolute top-3 right-4 z-50 text-gray-500 hover:text-pink-600 text-3xl sm:text-4xl font-bold bg-white/70 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:shadow-lg transition-all"
               >
                 ×
               </button>
 
-              <div className="flex flex-col md:flex-row gap-10">
+              <div className="flex flex-col md:flex-row gap-8 md:gap-10">
                 <div className="flex-1">
                   <motion.div
                     key={selectedProduct.images[activeImage]}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4 }}
-                    className="relative rounded-2xl overflow-hidden shadow-lg"
+                    className="relative rounded-2xl overflow-hidden shadow-lg z-10"
                   >
                     <Image
                       src={selectedProduct.images[activeImage]}
                       alt={selectedProduct.name}
                       width={500}
                       height={500}
-                      className="w-full h-80 object-cover rounded-2xl"
+                      className="w-full h-72 sm:h-80 object-cover rounded-2xl"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                   </motion.div>
 
-                  <div className="flex justify-center mt-4 gap-3">
+                  <div className="flex justify-center mt-4 gap-3 flex-wrap">
                     {selectedProduct.images.map((img, i) => (
                       <Image
                         key={i}
@@ -270,10 +281,10 @@ export default function Productpage() {
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h2 className="text-3xl font-extrabold text-gray-800 mb-3">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-3">
                       {selectedProduct.name}
                     </h2>
-                    <p className="text-gray-600 mb-4 text-lg">
+                    <p className="text-gray-600 mb-4 text-base sm:text-lg">
                       {selectedProduct.desc}
                     </p>
 
@@ -319,7 +330,7 @@ export default function Productpage() {
                     </p>
                   </div>
 
-                  <div className="flex gap-4 mt-6">
+                  <div className="flex gap-4 mt-6 flex-col sm:flex-row">
                     <Link
                       href={`/order?product=${encodeURIComponent(
                         selectedProduct.name

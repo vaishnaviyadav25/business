@@ -123,6 +123,8 @@ const Mycartpage: React.FC = () => {
                   <Image
                     src={item.images[0]}
                     alt={item.name}
+                    width={800}
+  height={450}
                     className="w-24 h-24 object-cover rounded-xl shadow-sm"
                   />
                   <div>
