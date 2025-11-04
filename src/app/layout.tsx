@@ -84,6 +84,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
           <meta name="google-site-verification" content="DH-TpGgm-OrhsRnnst8fBWHcDsdEr8tp4Rf_C0Bqz9E" />
+          <meta name="p:domain_verify" content="48a48a0bc656c4618998b020e156f197"/>
         {/* 🔹 JSON-LD Structured Data for Logo (Google uses this for brand info) */}
         <script
           type="application/ld+json"
@@ -93,7 +94,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: "Vaishi",
               url: "https://vaishi.vercel.app", // ✅ updated domain
-              logo: "https://vaishi.vercel.app/Smalllogo.png", // ✅ updated absolute logo path
+              logo: "/Smalllogo.png", // ✅ updated absolute logo path
               sameAs: [], // add your Instagram, etc., later
             }),
           }}
