@@ -87,6 +87,17 @@ export const Navigation = () => {
             </Link>
             {pathname === '/cart' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>  
+
+           <div className="flex flex-col items-start">
+            <Link
+              href="/webpage"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 p-3 rounded-full border border-red-300 text-red-500 hover:bg-green-100 transition-all w-full"
+            >
+              <ShoppingCart size={18} /> Webservices
+            </Link>
+            {pathname === '/webpage' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
+          </div>  
           
         </div>
 
