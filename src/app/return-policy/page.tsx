@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Return Policy – Vaishi",
     description: "Understand Vaishi’s return process for defective items with unboxing proof.",
-    images: ["/Smalllogo.png"],
+    images: ["/Mylogo.png"],
   },
   twitter: {
     card: "summary",
     title: "Return Policy – Vaishi",
     description: "Learn how to request a return for defective items with proof of unboxing.",
-    images: ["/Smalllogo.png"],
+    images: ["/Mylogo.png"],
   },
 };
 

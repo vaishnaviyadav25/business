@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Terms and Conditions – Vaishi",
     description: "Learn about Vaishi’s terms regarding orders, returns, and product usage.",
-    images: ["/Smalllogo.png"],
+    images: ["/Mylogo.png"],
   },
   twitter: {
     card: "summary",
     title: "Terms and Conditions – Vaishi",
     description: "Read Vaishi’s Terms of Service to understand our shopping and return policies.",
-    images: ["/Smalllogo.png"],
+    images: ["/Mylogo.png"],
   },
 };
 

@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Privacy Policy – Vaishi",
     description: "Learn how Vaishi handles your data with transparency and care.",
-    images: ["/Smalllogo.png"],
+    images: ["/Mylogo.png"],
   },
   twitter: {
     card: "summary",
     title: "Privacy Policy – Vaishi",
     description:
       "Understand Vaishi’s commitment to protecting your privacy and data.",
-    images: ["/Smalllogo.png"],
+    images: ["/Mylogo.png"],
   },
 };
 
