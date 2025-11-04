@@ -83,6 +83,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+          <meta name="google-site-verification" content="DH-TpGgm-OrhsRnnst8fBWHcDsdEr8tp4Rf_C0Bqz9E" />
         {/* 🔹 JSON-LD Structured Data for Logo (Google uses this for brand info) */}
         <script
           type="application/ld+json"
@@ -97,6 +98,7 @@ export default function RootLayout({
             }),
           }}
         />
+        
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
