@@ -19,7 +19,7 @@ export default function HomePage() {
     },
     {
       name: " Keychain",
-      img: "/keychain.jpeg",
+      img: "/Keychain.jpeg",
       price: "₹129",
       icon: "🌼",
     },
@@ -85,7 +85,7 @@ export default function HomePage() {
         <Swiper
           modules={[Autoplay, Pagination]}
           autoplay={{
-            delay: 1000,
+            delay: 600,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
