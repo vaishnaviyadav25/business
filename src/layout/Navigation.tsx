@@ -35,8 +35,10 @@ export const Navigation = () => {
             alt="Shop Logo"
             width={100}
             height={50}
+            style={{ height: "auto" }}
             className="object-contain"
           />
+
         </Link>
 
         {/* 🔗 Desktop Nav */}
@@ -75,9 +77,9 @@ export const Navigation = () => {
           </div>
 
           {/* Order */}
-          
 
- <div className="flex flex-col items-start">
+
+          <div className="flex flex-col items-start">
             <Link
               href="/cart"
               onClick={() => setMenuOpen(false)}
@@ -86,9 +88,9 @@ export const Navigation = () => {
               <ShoppingCart size={18} /> Cart
             </Link>
             {pathname === '/cart' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
-          </div>  
+          </div>
 
-           <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start">
             <Link
               href="/webpage"
               onClick={() => setMenuOpen(false)}
@@ -97,11 +99,11 @@ export const Navigation = () => {
               <ShoppingCart size={18} /> Webservices
             </Link>
             {pathname === '/webpage' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
-          </div>  
-          
+          </div>
+
         </div>
 
-        
+
 
 
         {/* 🍔 Mobile Menu Icon */}
@@ -156,9 +158,9 @@ export const Navigation = () => {
             {pathname === '/contact' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>
 
-        
 
-           <div className="flex flex-col items-start">
+
+          <div className="flex flex-col items-start">
             <Link
               href="/cart"
               onClick={() => setMenuOpen(false)}
@@ -169,8 +171,8 @@ export const Navigation = () => {
             {pathname === '/cart' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>
 
-          
-           <div className="flex flex-col items-start">
+
+          <div className="flex flex-col items-start">
             <Link
               href="/webpage"
               onClick={() => setMenuOpen(false)}
@@ -179,7 +181,7 @@ export const Navigation = () => {
               <ShoppingCart size={18} /> Webservices
             </Link>
             {pathname === '/webpage' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
-          </div>  
+          </div>
         </motion.div>
       )}
     </motion.nav>

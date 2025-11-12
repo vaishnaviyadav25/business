@@ -29,11 +29,11 @@ const products: Product[] = [
   {
     id: 1,
     category: "Macramé",
-    name: "Macramé Bag",
-    price: 199,
+    name: "Macramé sling Bag",
+    price: 429,
     images: [
-      "https://baromarket.in/cdn/shop/products/IMG_20210831_105822.jpg?v=1643105635",
-      "https://baromarket.in/cdn/shop/products/IMG_20210920_122059_2.jpg?v=1643105636",
+      "https://m.media-amazon.com/images/I/6174ohKS-KL._AC_UY1000_.jpg",
+      "https://m.media-amazon.com/images/I/6174ohKS-KL._AC_UY1000_.jpg",
     ],
     desc: "A cute handcrafted butterfly keychain made with love — perfect for bags, keys, or gifting 💖",
     material: "Premium cotton macramé thread",
@@ -49,66 +49,80 @@ const products: Product[] = [
       "https://i.ytimg.com/vi/4APYwRUvJXQ/maxresdefault.jpg",
       "https://i.ytimg.com/vi/4APYwRUvJXQ/maxresdefault.jpg",
     ],
-    desc: "A cute handcrafted butterfly keychain made with love — perfect for bags, keys, or gifting 💖",
+    desc: "A cute handcrafted butterfly keychain made with love — perfect for bags, keys, or gifting 💖 , Set of 5 " ,
     material: "Premium cotton macramé thread",
     size: "10 cm x 6 cm",
     care: "Wipe gently with a dry cloth. Avoid moisture.",
   },
   {
-    id: 3,
-    category: "Resin",
-    name: "Resin Rose Preserved",
-    price: 499,
-    images: [
-      "https://www.artsty.com/cdn/shop/files/e6bf0c12-0c6a-4c08-b030-a16a89961aec.jpg?v=1735103110",
-    ],
-    desc: "Beautiful resin coasters with ocean theme — perfect for gifting and home décor.",
-    material: "High-quality epoxy resin",
-    size: "10 cm diameter",
-    care: "Wipe with soft dry cloth.",
-  },
+  id: 3,
+  category: "Beaded Art 🎨 ",
+  name: "Colorful Beaded Keychain",
+  price: 129,
+  images: [
+    "/Keychain.jpeg", // save your image in public folder as keychain.jpeg
+  ],
+  desc: "Vibrant handmade beaded keychain — a perfect accessory for bags, keys, or as a thoughtful gift.",
+  material: "Durable high-quality beads and thread",
+  size: "Free size",
+  care: "Keep away from water and sharp objects to maintain its shine and shape.",
+},
   {
-    id: 4,
-    category: "Resin",
-    name: "Resin Preserved Pendant",
-    price: 499,
-    images: [
-      "https://mybageecha.com/cdn/shop/files/Ocean_Crest_Necklace_1.jpg?v=1704964893",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk6CVt2H2_TcnGJJdOOqSAkj6rdZLCE7KPQA&s",
-    ],
-    desc: "Beautiful resin coasters with ocean theme — perfect for gifting and home décor.",
-    material: "High-quality epoxy resin",
-    size: "10 cm diameter",
-    care: "Wipe with soft dry cloth.",
-  },
+  id: 4,
+  category: "Beaded Art 🎨 ",
+  name: "Beaded Keychain",
+  price: 149,
+  images: [
+    "/Key.jpeg", // make sure you save your image in public folder
+  ],
+  desc: "Handcrafted beaded keychain — colorful, durable, and perfect as a gift or accessory.",
+  material: "High-quality beads and thread",
+  size: "Free size",
+  care: "Avoid water and handle gently to maintain durability.",
+},
+ {
+  id: 5,
+ category: "Beaded Art 🎨 ",
+  name: "Handmade Beaded Bracelet",
+  price: 99,
+  images: [
+    "/bracelet.jpeg", // save your image in public folder as bracelet.jpeg
+  ],
+  desc: "Beautiful handmade beaded bracelet — perfect for daily wear or gifting to loved ones.",
+  material: "High-quality beads with elastic thread",
+  size: "Free size, stretches to fit most wrists",
+  care: "Avoid water and harsh chemicals to keep beads bright and elastic intact.",
+},
   {
-    id: 5,
-    category: "Silk Art",
-    name: "Silk Hair Clips",
-    price: 699,
+    id: 6,
+    category: "Embriodery Art 🧶",
+    name: " Hair Clips",
+    price: 89,
     images: [
       "https://m.media-amazon.com/images/I/81AEWV7bQxL._SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81dHQ1htg6L._SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71qp5fyjU2L._SL1500_.jpg",
     ],
-    desc: "Hand-painted silk scarf with floral design — lightweight and elegant.",
-    material: "Pure silk",
-    size: "150 cm x 40 cm",
+    desc: "Red  and white  small rose — lightweight and elegant.(Pack of 2)",
+    material: "cotton cloth",
+    size: "Free size",
     care: "Dry clean only.",
   },
-  {
-    id: 6,
-    category: "Silk Art",
-    name: "Silk Bangles",
-    price: 699,
+   {
+    id: 7,
+    category: "Embriodery Art 🧶",
+    name: " Hair Clips",
+    price: 89,
     images: [
-      "https://asthetika.in/cdn/shop/files/ABG24-002-S14_1500x.jpg?v=1718715346",
+    "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
+
     ],
-    desc: "Hand-painted silk scarf with floral design — lightweight and elegant.",
-    material: "Pure silk",
-    size: "150 cm x 40 cm",
+    desc: "Hand-made hair clip . Beautiful flowers and leaves -- lightweight  and elegant.(pack of 2)",
+    material: "cotton cloth ",
+    size: "Free size",
     care: "Dry clean only.",
   },
+
 ];
 
 export default function Productpage() {
@@ -171,45 +185,51 @@ export default function Productpage() {
                   .filter((p) => p.category === cat)
                   .map((product) => (
                     <motion.div
-                      key={product.id}
-                      onClick={() => {
-                        setSelectedProduct(product);
-                        setActiveImage(0);
-                        setQuantity(1);
-                      }}
-                      className="group bg-white rounded-2xl p-4 flex flex-col items-center shadow-md cursor-pointer relative overflow-hidden hover:shadow-pink-200 transition-all duration-500"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 1.03 }} // hover simulation on mobile
-                    >
-                      <div className="relative w-full h-44 sm:h-56 overflow-hidden rounded-xl">
-                        <MotionImage
-                          src={product.images[0]}
-                          alt={product.name}
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-90"
-                        />
+  key={product.id}
+  onClick={() => {
+    setSelectedProduct(product);
+    setActiveImage(0);
+    setQuantity(1);
+  }}
+  className="group relative rounded-3xl bg-gradient-to-br from-white via-pink-50 to-rose-50 
+             border border-pink-100 shadow-[0_8px_30px_rgb(249,168,212,0.15)] 
+             hover:shadow-[0_8px_40px_rgb(244,114,182,0.3)] transition-all duration-500 
+             cursor-pointer overflow-hidden flex flex-col items-center p-5"
+  whileHover={{ scale: 1.03 }}
+  whileTap={{ scale: 1.01 }}
+>
+  {/* Image Section */}
+  <div className="relative w-full h-52 overflow-hidden rounded-2xl flex items-center justify-center bg-white shadow-inner">
+    <MotionImage
+      src={product.images[0]}
+      alt={product.name}
+      width={400}
+      height={400}
+      className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+    />
 
-                        {/* Always visible on mobile */}
-                        <div
-                          className="absolute inset-0 flex items-end justify-center 
-                                    bg-gradient-to-t from-black/40 to-transparent 
-                                    opacity-100 sm:opacity-0 sm:group-hover:opacity-100 
-                                    transition-all duration-500"
-                        >
-                          <button className="bg-gradient-to-r from-pink-500 to-pink-400 text-white text-sm px-4 py-2 mb-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
-                            View Details
-                          </button>
-                        </div>
-                      </div>
+    <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+      <button className="bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xs sm:text-sm px-4 py-2 mb-3 rounded-full shadow-lg hover:scale-105 transition-transform">
+        View Details
+      </button>
+    </div>
+  </div>
 
-                      <h2 className="text-base sm:text-lg font-semibold text-gray-800 text-center mt-3">
-                        {product.name}
-                      </h2>
-                      <p className="text-gray-600 mt-1 mb-2 sm:mb-3">
-                        ₹{product.price}
-                      </p>
-                    </motion.div>
+  {/* Product Details */}
+  <div className="w-full text-center mt-4 space-y-1">
+    <h2 className="text-lg sm:text-xl font-semibold text-gray-800 group-hover:text-pink-700 transition-colors">
+      {product.name}
+    </h2>
+    <p className="text-sm text-gray-500 line-clamp-2 leading-snug">
+      {product.desc}
+    </p>
+    <p className="text-xl font-bold text-pink-600 mt-2">₹{product.price}</p>
+  </div>
+
+  {/* Decorative glow */}
+  <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-200/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+</motion.div>
+
                   ))}
               </div>
             </motion.div>
