@@ -8,7 +8,7 @@ import {
   CardContent,
   Button,
 } from "@mui/material";
-import { Laptop, Store, Brush, TrendingUp } from "@mui/icons-material";
+import { Laptop, Store, TrendingUp } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
