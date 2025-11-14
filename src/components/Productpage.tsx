@@ -32,8 +32,8 @@ const products: Product[] = [
     name: "Macramé sling Bag",
     price: 429,
     images: [
-      "https://m.media-amazon.com/images/I/6174ohKS-KL._AC_UY1000_.jpg",
-      "https://m.media-amazon.com/images/I/6174ohKS-KL._AC_UY1000_.jpg",
+      "/Bag.jpeg",
+      "/bag1.jpeg",
     ],
     desc: "A cute handcrafted butterfly keychain made with love — perfect for bags, keys, or gifting 💖",
     material: "Premium cotton macramé thread",
@@ -44,60 +44,60 @@ const products: Product[] = [
     id: 2,
     category: "Macramé",
     name: "Macramé Butterfly",
-    price: 199,
+    price: 299,
     images: [
-      "https://i.ytimg.com/vi/4APYwRUvJXQ/maxresdefault.jpg",
-      "https://i.ytimg.com/vi/4APYwRUvJXQ/maxresdefault.jpg",
+      "/Butterflies.jpeg",
+      "/Butterflies1.jpeg",
     ],
-    desc: "A cute handcrafted butterfly keychain made with love — perfect for bags, keys, or gifting 💖 , Set of 5 " ,
+    desc: "A cute handcrafted butterfly keychain made with love — perfect for bags, keys, or gifting 💖 , Set of 3 ",
     material: "Premium cotton macramé thread",
     size: "10 cm x 6 cm",
     care: "Wipe gently with a dry cloth. Avoid moisture.",
   },
   {
-  id: 3,
-  category: "Beaded Art 🎨 ",
-  name: "Colorful Beaded Keychain",
-  price: 129,
-  images: [
-    "/Keychain.jpeg", // save your image in public folder as keychain.jpeg
-  ],
-  desc: "Vibrant handmade beaded keychain — a perfect accessory for bags, keys, or as a thoughtful gift.",
-  material: "Durable high-quality beads and thread",
-  size: "Free size",
-  care: "Keep away from water and sharp objects to maintain its shine and shape.",
-},
+    id: 3,
+    category: "Beaded Art 🎨 ",
+    name: "Colorful Beaded Keychain",
+    price: 159,
+    images: [
+      "/Keychain.jpeg", // save your image in public folder as keychain.jpeg
+    ],
+    desc: "Vibrant handmade beaded keychain — a perfect accessory for bags, keys, or as a thoughtful gift.",
+    material: "Durable high-quality beads and thread",
+    size: "Free size",
+    care: "Keep away from water and sharp objects to maintain its shine and shape.",
+  },
   {
-  id: 4,
-  category: "Beaded Art 🎨 ",
-  name: "Beaded Keychain",
-  price: 149,
-  images: [
-    "/Key.jpeg", // make sure you save your image in public folder
-  ],
-  desc: "Handcrafted beaded keychain — colorful, durable, and perfect as a gift or accessory.",
-  material: "High-quality beads and thread",
-  size: "Free size",
-  care: "Avoid water and handle gently to maintain durability.",
-},
- {
-  id: 5,
- category: "Beaded Art 🎨 ",
-  name: "Handmade Beaded Bracelet",
-  price: 99,
-  images: [
-    "/bracelet.jpeg", // save your image in public folder as bracelet.jpeg
-  ],
-  desc: "Beautiful handmade beaded bracelet — perfect for daily wear or gifting to loved ones.",
-  material: "High-quality beads with elastic thread",
-  size: "Free size, stretches to fit most wrists",
-  care: "Avoid water and harsh chemicals to keep beads bright and elastic intact.",
-},
+    id: 4,
+    category: "Beaded Art 🎨 ",
+    name: "Beaded Keychain",
+    price: 159,
+    images: [
+      "/Key.jpeg", // make sure you save your image in public folder
+    ],
+    desc: "Handcrafted beaded keychain — colorful, durable, and perfect as a gift or accessory.",
+    material: "High-quality beads and thread",
+    size: "Free size",
+    care: "Avoid water and handle gently to maintain durability.",
+  },
+  {
+    id: 5,
+    category: "Beaded Art 🎨 ",
+    name: "Handmade Beaded Bracelet",
+    price: 99,
+    images: [
+      "/bracelet.jpeg", // save your image in public folder as bracelet.jpeg
+    ],
+    desc: "Beautiful handmade beaded bracelet — perfect for daily wear or gifting to loved ones.",
+    material: "High-quality beads with elastic thread",
+    size: "Free size, stretches to fit most wrists",
+    care: "Avoid water and harsh chemicals to keep beads bright and elastic intact.",
+  },
   {
     id: 6,
     category: "Embriodery Art 🧶",
     name: " Hair Clips",
-    price: 89,
+    price: 99,
     images: [
       "https://m.media-amazon.com/images/I/81AEWV7bQxL._SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81dHQ1htg6L._SL1500_.jpg",
@@ -108,13 +108,13 @@ const products: Product[] = [
     size: "Free size",
     care: "Dry clean only.",
   },
-   {
+  {
     id: 7,
     category: "Embriodery Art 🧶",
     name: " Hair Clips",
-    price: 89,
+    price: 99,
     images: [
-    "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
+      "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
 
     ],
     desc: "Hand-made hair clip . Beautiful flowers and leaves -- lightweight  and elegant.(pack of 2)",
@@ -185,50 +185,86 @@ export default function Productpage() {
                   .filter((p) => p.category === cat)
                   .map((product) => (
                     <motion.div
-  key={product.id}
-  onClick={() => {
-    setSelectedProduct(product);
-    setActiveImage(0);
-    setQuantity(1);
-  }}
-  className="group relative rounded-3xl bg-gradient-to-br from-white via-pink-50 to-rose-50 
+                      key={product.id}
+                      onClick={() => {
+                        setSelectedProduct(product);
+                        setActiveImage(0);
+                        setQuantity(1);
+                      }}
+                      className="group relative rounded-3xl bg-gradient-to-br from-white via-pink-50 to-rose-50 
              border border-pink-100 shadow-[0_8px_30px_rgb(249,168,212,0.15)] 
              hover:shadow-[0_8px_40px_rgb(244,114,182,0.3)] transition-all duration-500 
              cursor-pointer overflow-hidden flex flex-col items-center p-5"
-  whileHover={{ scale: 1.03 }}
-  whileTap={{ scale: 1.01 }}
->
-  {/* Image Section */}
-  <div className="relative w-full h-52 overflow-hidden rounded-2xl flex items-center justify-center bg-white shadow-inner">
-    <MotionImage
-      src={product.images[0]}
-      alt={product.name}
-      width={400}
-      height={400}
-      className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
-    />
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 1.01 }}
+                    >
+                      {/* Image Section */}
+                      {/* Image Section (Shiny 3D Version) */}
+                      <div
+                        className="
+    relative w-full h-52 overflow-hidden rounded-3xl
+    flex items-center justify-center
+    bg-gradient-to-br from-pink-50 via-rose-100 to-amber-50
+    shadow-[0_8px_25px_rgba(0,0,0,0.15)]
+    border border-pink-200/60
+    group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.25)]
+    transition-all duration-500
+  "
+                      >
+                        {/* Soft glow overlay */}
+                        <div className="absolute inset-0 bg-white/30 pointer-events-none" />
 
-    <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-      <button className="bg-gradient-to-r from-pink-500 to-rose-400 text-white text-xs sm:text-sm px-4 py-2 mb-3 rounded-full shadow-lg hover:scale-105 transition-transform">
-        View Details
-      </button>
-    </div>
-  </div>
+                        {/* Corner Emojis */}
+                        <div className="absolute top-1 left-1 text-lg">✨</div>
+                        <div className="absolute top-1 right-1 text-lg">🌸</div>
+                        <div className="absolute bottom-1 left-1 text-lg">💖</div>
+                        <div className="absolute bottom-1 right-1 text-lg">⭐</div>
 
-  {/* Product Details */}
-  <div className="w-full text-center mt-4 space-y-1">
-    <h2 className="text-lg sm:text-xl font-semibold text-gray-800 group-hover:text-pink-700 transition-colors">
-      {product.name}
-    </h2>
-    <p className="text-sm text-gray-500 line-clamp-2 leading-snug">
-      {product.desc}
-    </p>
-    <p className="text-xl font-bold text-pink-600 mt-2">₹{product.price}</p>
-  </div>
+                        {/* Gradient borders */}
+                        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-pink-300 via-rose-400 to-amber-300 opacity-70"></div>
+                        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-300 via-rose-400 to-pink-300 opacity-70"></div>
+                        <div className="absolute top-0 left-0 h-full w-[2px] bg-gradient-to-b from-pink-300 via-rose-400 to-amber-300 opacity-70"></div>
+                        <div className="absolute top-0 right-0 h-full w-[2px] bg-gradient-to-b from-amber-300 via-rose-400 to-pink-300 opacity-70"></div>
 
-  {/* Decorative glow */}
-  <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-200/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-</motion.div>
+                        {/* Shine animation */}
+                        <div
+                          className="
+      absolute -top-10 left-0 w-full h-16
+      bg-white/40 blur-xl opacity-60 rounded-full
+      animate-pulse
+    "
+                        />
+
+                        {/* Product Image */}
+                        <MotionImage
+                          src={product.images[0]}
+                          alt={product.name}
+                          width={400}
+                          height={400}
+                          className="
+      w-full h-full object-contain
+      transition-transform duration-700
+      group-hover:scale-110
+      drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]
+    "
+                        />
+                      </div>
+
+
+                      {/* Product Details */}
+                      <div className="w-full text-center mt-4 space-y-1">
+                        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 group-hover:text-pink-700 transition-colors">
+                          {product.name}
+                        </h2>
+                        <p className="text-sm text-gray-500 line-clamp-2 leading-snug">
+                          {product.desc}
+                        </p>
+                        <p className="text-xl font-bold text-pink-600 mt-2">₹{product.price}</p>
+                      </div>
+
+                      {/* Decorative glow */}
+                      <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-200/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    </motion.div>
 
                   ))}
               </div>
@@ -265,20 +301,72 @@ export default function Productpage() {
                 <div className="flex-1">
                   <motion.div
                     key={selectedProduct.images[activeImage]}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="relative rounded-2xl overflow-hidden shadow-lg z-10"
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="
+    relative
+    rounded-3xl
+    overflow-hidden
+    w-full
+    h-80
+    flex
+    items-center
+    justify-center
+
+    bg-gradient-to-br from-pink-50 via-rose-100 to-amber-50
+    shadow-[0_12px_40px_rgba(0,0,0,0.18)]
+    border border-pink-200/60
+
+    hover:shadow-[0_20px_55px_rgba(0,0,0,0.28)]
+    hover:scale-[1.02]
+    transition-all duration-500
+  "
                   >
+                    {/* Soft inner glow ring */}
+                    <div
+                      className="
+      absolute inset-0 pointer-events-none
+      bg-gradient-to-br from-white/40 via-transparent to-transparent
+    "
+                    />
+
+                    {/* Shiny emoji corner accents */}
+                    <div className="absolute top-2 left-2 text-xl">✨</div>
+                    <div className="absolute top-2 right-2 text-xl">🌸</div>
+                    <div className="absolute bottom-2 left-2 text-xl">💖</div>
+                    <div className="absolute bottom-2 right-2 text-xl">⭐</div>
+
+                    {/* Decorative glowing lines */}
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-pink-300 via-rose-400 to-amber-300 opacity-70"></div>
+                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-300 via-rose-400 to-pink-300 opacity-70"></div>
+                    <div className="absolute top-0 left-0 h-full w-[2px] bg-gradient-to-b from-pink-300 via-rose-400 to-amber-300 opacity-70"></div>
+                    <div className="absolute top-0 right-0 h-full w-[2px] bg-gradient-to-b from-amber-300 via-rose-400 to-pink-300 opacity-70"></div>
+
+                    {/* Shine overlay */}
+                    <div
+                      className="
+      absolute -top-10 left-0 w-full h-24
+      bg-white/40
+      blur-xl
+      opacity-60
+      rounded-full
+      animate-pulse
+    "
+                    />
+
                     <Image
                       src={selectedProduct.images[activeImage]}
                       alt={selectedProduct.name}
                       width={500}
                       height={500}
-                      className="w-full h-72 sm:h-80 object-cover rounded-2xl"
+                      className="object-contain max-h-full max-w-full
+      drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]
+    "
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                   </motion.div>
+
+
 
                   <div className="flex justify-center mt-4 gap-3 flex-wrap">
                     {selectedProduct.images.map((img, i) => (
@@ -289,11 +377,10 @@ export default function Productpage() {
                         width={100}
                         height={100}
                         onClick={() => setActiveImage(i)}
-                        className={`w-16 h-16 object-cover rounded-xl cursor-pointer transition-all duration-300 border-2 ${
-                          activeImage === i
-                            ? "border-pink-500 scale-110 shadow-md"
-                            : "border-transparent opacity-70 hover:opacity-100"
-                        }`}
+                        className={`w-16 h-16 object-cover rounded-xl cursor-pointer transition-all duration-300 border-2 ${activeImage === i
+                          ? "border-pink-500 scale-110 shadow-md"
+                          : "border-transparent opacity-70 hover:opacity-100"
+                          }`}
                       />
                     ))}
                   </div>

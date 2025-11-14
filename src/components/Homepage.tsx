@@ -13,21 +13,21 @@ export default function HomePage() {
   const products = [
     {
       name: "Macramé Sling Bag",
-      img: "https://m.media-amazon.com/images/I/6174ohKS-KL._AC_UY1000_.jpg",
-      price: "₹400",
+      img: "/Bag.jpeg",
+      price: "₹450",
       icon: "🌸",
     },
     {
       name: " Keychain",
       img: "/Keychain.jpeg",
-      price: "₹129",
+      price: "₹159",
       icon: "🌼",
     },
 
     {
       name: "Hair clip set",
       img: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
-      price: "₹89",
+      price: "₹99",
       icon: "🌻",
     },
     {
@@ -42,16 +42,16 @@ export default function HomePage() {
   const promotionalPosters = [
     {
       title: "Macramé Sling Bag",
-      subtitle: "₹400",
+      subtitle: "₹450",
       description: "Stylish & Handcrafted",
-      image: "https://m.media-amazon.com/images/I/6174ohKS-KL._AC_UY1000_.jpg",
+      image: "/Bag.jpeg",
       gradient: "from-pink-300 via-rose-300 to-pink-300",
       link: "/product",
       badge: "Best Seller",
     },
     {
       title: "Beaded Keychain",
-      subtitle: "₹129",
+      subtitle: "₹159",
       description: " Keychain pack of 1 ",
       image: "/Keychain.jpeg",
       gradient: "from-purple-300 via-pink-300 to-purple-300",
@@ -60,7 +60,7 @@ export default function HomePage() {
     },
     {
       title: "Hair Clip Set",
-      subtitle: "₹89",
+      subtitle: "₹99",
       description: "Elegant Accessories",
       image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
       gradient: "from-rose-300 via-pink-300 to-rose-300",
