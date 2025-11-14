@@ -248,7 +248,22 @@ export default function Productpage() {
       drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]
     "
                         />
-                      </div>
+                        
+                                         </div>
+<button
+  className="mt-3 bg-white/90 backdrop-blur-md
+  px-4 py-2 rounded-xl shadow-md border border-pink-200
+  text-gray-700 font-semibold text-sm
+  hover:shadow-lg hover:scale-105 transition-all duration-300"
+  onClick={() => {
+    setSelectedProduct(product);
+    setActiveImage(0);
+    setQuantity(1);
+  }}
+>
+  👀 View Details
+</button>
+
 
 
                       {/* Product Details */}
@@ -364,6 +379,7 @@ export default function Productpage() {
       drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]
     "
                     />
+              
                   </motion.div>
 
 
