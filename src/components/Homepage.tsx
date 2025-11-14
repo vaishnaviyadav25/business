@@ -81,195 +81,203 @@ export default function HomePage() {
   return (
     <main className="bg-gradient-to-b from-pink-50 to-white text-gray-800">
       {/* 🎨 Scrolling Promotional Banner */}
-      <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden">
-        <Swiper
-          modules={[Autoplay, Pagination]}
-          autoplay={{
-            delay: 600,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          speed={1000}
-          loop={true}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-          }}
-          className="h-full w-full mt-10"
+  <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden">
+  <Swiper
+    modules={[Autoplay, Pagination]}
+    autoplay={{
+      delay: 600,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    }}
+    speed={1000}
+    loop={true}
+    pagination={{
+      clickable: true,
+      dynamicBullets: true,
+    }}
+    className="h-full w-full mt-10"
+  >
+    {promotionalPosters.map((poster, index) => (
+      <SwiperSlide key={index}>
+        <div
+          className={`relative h-full w-full bg-gradient-to-br ${poster.gradient} flex items-center justify-center overflow-hidden`}
         >
-          {promotionalPosters.map((poster, index) => (
-            <SwiperSlide key={index}>
-              <div
-                className={`relative h-full w-full bg-gradient-to-br ${poster.gradient} flex items-center justify-between overflow-hidden`}
+          {/* Ambient glow layers */}
+          <motion.div
+            className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/20 blur-[90px]"
+            animate={{ opacity: [0.25, 0.4, 0.25], scale: [1, 1.1, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-rose-200/30 blur-[110px]"
+            animate={{ opacity: [0.15, 0.3, 0.15], scale: [1, 1.12, 1] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          
+          {/* Main Square Container */}
+          <div className="relative w-[90%] h-[80%] max-w-4xl max-h-[450px] flex flex-col md:flex-row items-center justify-between bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
+            
+            {/* Left Side - Product Image with Motion */}
+            <div className="relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8">
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0, rotate: -6 }}
+                animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 120 }}
+                whileHover={{ scale: 1.04, rotate: 2 }}
+                className="relative z-10 w-full h-full flex items-center justify-center"
               >
-                {/* Ambient glow layers */}
-                <motion.div
-                  className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/20 blur-[90px]"
-                  animate={{ opacity: [0.25, 0.4, 0.25], scale: [1, 1.1, 1] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <motion.div
-                  className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-rose-200/30 blur-[110px]"
-                  animate={{ opacity: [0.15, 0.3, 0.15], scale: [1, 1.12, 1] }}
-                  transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                />
-                {/* Left Side - Product Image with Motion */}
-                <div className="relative w-full md:w-1/2 h-full flex items-center justify-center p-8 md:p-12">
-                  <motion.div
-                    initial={{ scale: 0.9, opacity: 0, rotate: -6 }}
-                    animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 120 }}
-                    whileHover={{ scale: 1.04, rotate: 2 }}
-                    className="relative z-10"
-                  >
-                    {/* Framed product with animated shine */}
-                    <div className="relative p-[3px] rounded-[28px] bg-gradient-to-br from-white/70 via-white/30 to-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
-                      <div className="relative bg-white/20 backdrop-blur-md rounded-[25px] p-6 md:p-8 border border-white/30 overflow-hidden">
-                        <motion.div
-                          className="absolute -top-10 -left-10 w-40 h-40 rotate-45 bg-white/20"
-                          animate={{ x: [0, 220, 0] }}
-                          transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                {/* Square framed product with animated shine */}
+                <div className="relative w-full h-full max-w-xs max-h-80 p-2 rounded-xl bg-gradient-to-br from-white/70 via-white/30 to-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+                  <div className="relative w-full h-full bg-white/20 backdrop-blur-md rounded-lg border border-white/30 overflow-hidden">
+                    <motion.div
+                      className="absolute -top-10 -left-10 w-40 h-40 rotate-45 bg-white/20"
+                      animate={{ x: [0, 220, 0] }}
+                      transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.35, duration: 0.6 }}
+                      whileHover={{ y: -8 }}
+                      className="w-full h-full flex items-center justify-center"
+                    >
+                      <div className="relative w-full h-full flex items-center justify-center p-4">
+                        <Image
+                          src={poster.image}
+                          alt={poster.title}
+                          width={400}
+                          height={300}
+                          className="w-full h-full max-h-64 object-contain drop-shadow-2xl"
                         />
-                        <motion.div
-                          initial={{ y: 20, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ delay: 0.35, duration: 0.6 }}
-                          whileHover={{ y: -8 }}
-                        >
-                          <div className="relative w-full h-auto max-h-[400px]">
-                            <Image
-                              src={poster.image}
-                              alt={poster.title}
-                              width={800}
-                              height={800}
-                              className="relative w-full h-auto max-h-[400px] object-contain drop-shadow-2xl"
-                            />
-                          </div>
-                        </motion.div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
 
-                  {/* Floating Badge */}
-                  <motion.div
-                    className="absolute top-6 left-6 bg-white text-pink-600 font-bold px-4 py-2 rounded-full text-sm shadow-[0_10px_30px_rgba(255,255,255,0.4)] border border-white/70"
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.6, type: "spring" }}
+              {/* Floating Badge */}
+              <motion.div
+                className="absolute top-4 left-4 bg-white text-pink-600 font-bold px-3 py-1 rounded-lg text-sm shadow-[0_10px_30px_rgba(255,255,255,0.4)] border border-white/70"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.6, type: "spring" }}
+              >
+                {poster.badge}
+              </motion.div>
+            </div>
+
+            {/* Right Side - Content (Hidden on mobile) */}
+            <div className="absolute md:relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8 bg-gradient-to-l md:bg-gradient-to-r from-black/40 md:from-transparent to-transparent">
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-center md:text-left z-20 w-full max-w-md"
+              >
+                {/* All text content hidden on mobile */}
+                <div className="hidden md:block">
+                  <motion.h2
+                    className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 drop-shadow-2xl leading-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
                   >
-                    {poster.badge}
-                  </motion.div>
-                </div>
-
-                {/* Right Side - Content */}
-                <div className="absolute md:relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-12 bg-gradient-to-l md:bg-gradient-to-r from-black/40 md:from-transparent to-transparent">
-                  <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-center md:text-left z-20 max-w-xl"
+                    {poster.title}
+                  </motion.h2>
+                  <motion.p
+                    className="text-xl md:text-2xl text-white/95 mb-2 font-extrabold drop-shadow-lg tracking-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
                   >
-                    <motion.h2
-                      className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-2xl leading-tight"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
+                    {poster.subtitle}
+                  </motion.p>
+                  {/* Rating */}
+                  <motion.div
+                    className="flex items-center justify-center md:justify-start gap-2 text-white/90 mb-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.65 }}
+                  >
+                    <span className="text-yellow-300">★★★★★</span>
+                    <span className="text-xs">4.9/5 • 120+ reviews</span>
+                  </motion.div>
+                  <motion.p
+                    className="text-sm md:text-base text-white/90 mb-6 drop-shadow-md leading-relaxed"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    {poster.description}
+                  </motion.p>
+                  <motion.div
+                    className="flex items-center justify-center md:justify-start gap-2"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <Link
+                      href={poster.link}
+                      className="inline-block bg-white text-pink-600 font-bold py-2 px-5 rounded-lg shadow-2xl hover:bg-pink-50 hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 text-sm"
                     >
-                      {poster.title}
-                    </motion.h2>
-                    <motion.p
-                      className="text-2xl md:text-4xl text-white/95 mb-3 font-extrabold drop-shadow-lg tracking-tight"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
+                      Shop Now →
+                    </Link>
+                    <Link
+                      href={poster.link}
+                      className="inline-block bg-white/15 text-white font-semibold py-2 px-5 rounded-lg border border-white/40 hover:bg-white/25 transition-all duration-300 text-sm"
                     >
-                      {poster.subtitle}
-                    </motion.p>
-                    {/* Rating */}
-                    <motion.div
-                      className="flex items-center justify-center md:justify-start gap-2 text-white/90 mb-4"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.65 }}
-                    >
-                      <span className="text-yellow-300">★★★★★</span>
-                      <span className="text-sm">4.9/5 • 120+ reviews</span>
-                    </motion.div>
-                    <motion.p
-                      className="text-base md:text-lg text-white/90 mb-8 drop-shadow-md leading-relaxed"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7 }}
-                    >
-                      {poster.description}
-                    </motion.p>
-                    <motion.div
-                      className="flex items-center justify-center md:justify-start gap-3"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.8 }}
-                    >
-                      <Link
-                        href={poster.link}
-                        className="inline-block bg-white text-pink-600 font-bold py-3 px-7 rounded-full shadow-2xl hover:bg-pink-50 hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105"
-                      >
-                        Shop Now →
-                      </Link>
-                      <Link
-                        href={poster.link}
-                        className="inline-block bg-white/15 text-white font-semibold py-3 px-7 rounded-full border border-white/40 hover:bg-white/25 transition-all duration-300"
-                      >
-                        View Details
-                      </Link>
-                    </motion.div>
+                      View Details
+                    </Link>
+                  </motion.div>
 
-                    {/* Small preview chips */}
-                    <motion.div
-                      className="mt-6 hidden md:flex items-center gap-3"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.9 }}
-                    >
-                      {[products[0]?.img, products[1]?.img, products[2]?.img]
-                        .filter(Boolean)
-                        .map((thumb, i) => (
-                          <div key={`thumb-${i}`} className="w-10 h-10 relative rounded-full overflow-hidden ring-2 ring-white/70 shadow">
-                            <Image
-                              src={thumb as string}
-                              alt="thumb"
-                              fill
-                              sizes="40px"
-                              className="object-cover"
-                            />
-                          </div>
-                        ))}
-                      <span className="text-white/90 text-sm">More colors &amp; styles</span>
-                    </motion.div>
+                  {/* Small preview chips */}
+                  <motion.div
+                    className="mt-4 hidden md:flex items-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                  >
+                    {[products[0]?.img, products[1]?.img, products[2]?.img]
+                      .filter(Boolean)
+                      .map((thumb, i) => (
+                        <div key={`thumb-${i}`} className="w-8 h-8 relative rounded-lg overflow-hidden ring-2 ring-white/70 shadow">
+                          <Image
+                            src={thumb as string}
+                            alt="thumb"
+                            fill
+                            sizes="32px"
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
+                    <span className="text-white/90 text-xs">More colors &amp; styles</span>
                   </motion.div>
                 </div>
+              </motion.div>
+            </div>
+          </div>
 
-                {/* Animated Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <motion.div
-                    className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      x: [0, 50, 0],
-                      y: [0, 30, 0],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
-
+          {/* Animated Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <motion.div
+              className="absolute top-0 right-0 w-64 h-64 bg-white rounded-lg blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                x: [0, 50, 0],
+                y: [0, 30, 0],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</section>
       {/* 🎁 Offer Banner */}
       <div className="bg-pink-500 text-white py-3 overflow-hidden relative">
         <motion.div
