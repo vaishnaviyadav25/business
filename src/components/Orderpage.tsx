@@ -171,45 +171,53 @@ export default function OrderPage() {
                 {itemsToShow.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex items-center justify-between border-b border-pink-100 pb-3"
+                    className="flex items-center justify-between border-b border-pink-100 pb-3 gap-4"
                   >
-                    <div className="flex items-center gap-3 flex-1">
-                      {item.images?.[0] && (
-                        <Image
-                          src={item.images[0]}
-                          alt={item.name}
-                          width={56}
-                          height={56}
-                          className="object-cover rounded-lg border"
-                        />
-                      )}
-                      <div>
+                    {/* Image */}
+                    {item.images?.[0] && (
+                      <Image
+                        src={item.images[0]}
+                        alt={item.name}
+                        width={60}
+                        height={60}
+                        className="object-cover rounded-lg border flex-shrink-0"
+                      />
+                    )}
+
+                    {/* Product Info */}
+                    <div className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full">
+                      <div className="flex-1">
                         <div className="font-medium">{item.name}</div>
                         <div className="text-sm text-gray-500">₹{item.price}</div>
                       </div>
-                    </div>
 
-                    {urlProduct && cartItems.length === 1 ? (
-                      <div className="flex items-center gap-2">
-                        <label className="text-sm text-gray-600">Qty</label>
-                        <input
-                          type="number"
-                          min={1}
-                          value={singleQuantity}
-                          onChange={(e) =>
-                            setSingleQuantity(Math.max(1, Number(e.target.value) || 1))
-                          }
-                          className="w-16 border border-gray-300 rounded px-2 py-1"
-                        />
-                      </div>
-                    ) : (
-                      <div className="text-sm font-semibold">
-                        Qty: {item.quantity}
-                      </div>
-                    )}
+                      {/* Quantity & subtotal */}
+                      <div className="flex items-center gap-4 text-center">
+                        {urlProduct && cartItems.length === 1 ? (
+                          <div className="flex items-center gap-1">
+                            <label className="text-sm text-gray-600">Qty</label>
+                            <input
+                              type="number"
+                              min={1}
+                              value={singleQuantity}
+                              onChange={(e) =>
+                                setSingleQuantity(
+                                  Math.max(1, Number(e.target.value) || 1)
+                                )
+                              }
+                              className="w-16 border border-gray-300 rounded px-2 py-1"
+                            />
+                          </div>
+                        ) : (
+                          <div className="text-sm font-semibold">
+                            Qty: {item.quantity}
+                          </div>
+                        )}
 
-                    <div className="font-semibold ml-4">
-                      ₹{item.price * item.quantity}
+                        <div className="font-semibold">
+                          ₹{item.price * item.quantity}
+                        </div>
+                      </div>
                     </div>
                   </li>
                 ))}

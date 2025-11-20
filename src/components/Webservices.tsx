@@ -15,29 +15,29 @@ import { useRouter } from "next/navigation";
 const Webservices = () => {
   const router = useRouter();
 
-  // Elegant, Vaishi-style colors — warm, creative, handmade tone
-  const primaryColor = "#5B3E2B"; // Deep earthy brown
-  const accentColor = "#E3B783"; // Soft beige-gold highlight
-  const backgroundColor = "#F9F5F0"; // Light handmade-paper tone
+  // Minimal pink aesthetic
+  const primaryColor = "#D6336C"; // deep pink
+  const accentColor = "#FFC1E3"; // soft pink highlight
+  const backgroundColor = "#FFF0F6"; // light pink background
 
   const services = [
     {
       icon: <Laptop sx={{ fontSize: 40, color: primaryColor }} />,
       title: "Portfolio & Business Websites",
       description:
-        "Launch your personal or business website that reflects your story, creativity, and goals — just like Vaishi.",
+        "Launch a beautiful, responsive website that showcases your story and creativity.",
     },
     {
       icon: <Store sx={{ fontSize: 40, color: primaryColor }} />,
       title: "E-Commerce Store Setup",
       description:
-        "Start selling online with Shopify, WooCommerce, or custom store solutions built for your brand.",
+        "Start selling online with a clean, modern store designed to boost your brand.",
     },
     {
       icon: <TrendingUp sx={{ fontSize: 40, color: primaryColor }} />,
       title: "SEO & Digital Presence",
       description:
-        "Boost your reach on Google and social media with proper SEO setup, analytics, and digital strategy.",
+        "Enhance your online visibility with smart SEO, analytics, and social media setup.",
     },
   ];
 
@@ -45,14 +45,14 @@ const Webservices = () => {
     <Box
       sx={{
         backgroundColor,
-        py: { xs: 6, md: 8 },
+        py: { xs: 6, md: 10 },
         px: { xs: 2, sm: 6 },
         textAlign: "center",
       }}
     >
       {/* Heading */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
@@ -62,7 +62,7 @@ const Webservices = () => {
             fontWeight: 700,
             color: primaryColor,
             mb: 1,
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Poppins', sans-serif",
           }}
         >
           Vaishi Web Studio
@@ -70,14 +70,15 @@ const Webservices = () => {
         <Typography
           variant="subtitle1"
           sx={{
-            color: "text.secondary",
+            color: primaryColor,
+            opacity: 0.8,
             mb: 5,
-            maxWidth: 600,
+            maxWidth: 650,
             mx: "auto",
             fontFamily: "'Inter', sans-serif",
           }}
         >
-          We don’t just craft handmade products — we also craft beautiful websites.
+          We create minimal, elegant websites that reflect your style and brand aesthetic.
         </Typography>
       </motion.div>
 
@@ -87,25 +88,25 @@ const Webservices = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          gap: 3,
+          gap: { xs: 3, md: 4 },
         }}
       >
         {services.map((service, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.15, duration: 0.6 }}
           >
             <Card
               sx={{
                 borderRadius: 3,
-                boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
+                boxShadow: "0 4px 12px rgba(214, 51, 108, 0.12)",
                 backgroundColor: "#fff",
-                width: 280,
+                width: { xs: 260, sm: 280 },
                 "&:hover": {
                   transform: "translateY(-6px)",
-                  boxShadow: "0px 6px 16px rgba(0,0,0,0.15)",
+                  boxShadow: "0 6px 20px rgba(214, 51, 108, 0.2)",
                   transition: "0.3s",
                 },
               }}
@@ -126,7 +127,8 @@ const Webservices = () => {
                 <Typography
                   variant="body2"
                   sx={{
-                    color: "text.secondary",
+                    color: primaryColor,
+                    opacity: 0.8,
                     fontFamily: "'Inter', sans-serif",
                   }}
                 >
@@ -146,16 +148,16 @@ const Webservices = () => {
           sx={{
             backgroundColor: primaryColor,
             color: "#fff",
-            px: 4,
+            px: 5,
             py: 1.5,
             fontWeight: 600,
             borderRadius: "30px",
             fontFamily: "'Poppins', sans-serif",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+            boxShadow: "0 4px 10px rgba(214, 51, 108, 0.2)",
             "&:hover": {
               backgroundColor: accentColor,
-              color: "#2D1B10",
-              boxShadow: "0 6px 12px rgba(0,0,0,0.25)",
+              color: primaryColor,
+              boxShadow: "0 6px 12px rgba(214, 51, 108, 0.25)",
             },
           }}
         >
@@ -166,14 +168,14 @@ const Webservices = () => {
           variant="body2"
           sx={{
             mt: 2,
-            color: "text.secondary",
+            color: primaryColor,
+            opacity: 0.8,
             maxWidth: 500,
             mx: "auto",
             fontFamily: "'Inter', sans-serif",
           }}
         >
-          Whether you’re a small business, artist, or entrepreneur — we’ll help you
-          launch a digital presence that truly represents you.
+          Whether you’re an artist, small business, or entrepreneur — we help you launch a digital presence that looks minimal, pink, and aesthetic.
         </Typography>
       </Box>
     </Box>
