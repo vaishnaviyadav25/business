@@ -53,7 +53,7 @@ const products: Product[] = [
     category: "Beaded Art 🎨 ",
     name: "Colorful Beaded Keychain",
     price: 159,
-    images: ["/Keychain.jpeg"],
+    images: ["/beadskeychain.jpeg","/beadskeychain1.jpeg"],
     desc: "Vibrant handmade beaded keychain — a perfect accessory for bags, keys, or as a thoughtful gift.",
     material: "Durable high-quality beads and thread",
     size: "Free size",
@@ -62,7 +62,7 @@ const products: Product[] = [
   {
     id: 4,
     category: "Beaded Art 🎨 ",
-    name: "Beaded Keychain",
+    name: "Beaded Bow Keychain",
     price: 159,
     images: ["/Key.jpeg"],
     desc: "Handcrafted beaded keychain — colorful, durable, and perfect as a gift or accessory.",
@@ -81,8 +81,37 @@ const products: Product[] = [
     size: "Free size, stretches to fit most wrists",
     care: "Avoid water and harsh chemicals to keep beads bright and elastic intact.",
   },
-  {
+  
+   {
     id: 6,
+    category: "Beaded Art 🎨 ",
+    name: "Aesthetic beads phone charms",
+    price: 99,
+    images: ["/minicharm.jpeg",
+      "/minicharm1.jpeg"
+
+    ],
+  desc: "Adorable mini phone charm featuring a cute penguin — a charming accessory to brighten up any phone.",
+  material: "High-quality beads with elastic thread",
+    size: "Free size, stretches to fit most wrists",
+    care: "Avoid water and harsh chemicals to keep beads bright and elastic intact.",
+  },
+   {
+    id: 7,
+    category: "Beaded Art 🎨 ",
+    name: "Aesthetic beads phone charms",
+    price: 99,
+    images: ["/cherry.jpeg",
+      "/cherry1.jpeg"
+
+    ],
+  desc: "Adorable mini phone charm featuring a cute cherry — a charming accessory to brighten up any phone.",
+  material: "High-quality beads with elastic thread",
+    size: "Free size, stretches to fit most wrists",
+    care: "Avoid water and harsh chemicals to keep beads bright and elastic intact.",
+  },
+  {
+    id: 8,
     category: "Embriodery Art 🧶",
     name: " Hair Clips",
     price: 99,
@@ -91,20 +120,37 @@ const products: Product[] = [
       "https://m.media-amazon.com/images/I/81dHQ1htg6L._SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71qp5fyjU2L._SL1500_.jpg",
     ],
-    desc: "Red  and white  small rose — lightweight and elegant.(Pack of 2)",
+    desc: "Red  and white  small rose — lightweight and elegant.(Set of 2)",
     material: "cotton cloth",
     size: "Free size",
     care: "Dry clean only.",
   },
   {
-    id: 7,
+    id: 9,
     category: "Embriodery Art 🧶",
     name: " Hair Clips",
     price: 99,
     images: [
-      "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
+      "/rose1.jpeg",
+      "/rose.jpeg",
     ],
-    desc: "Hand-made hair clip . Beautiful flowers and leaves -- lightweight  and elegant.(pack of 2)",
+    desc: "Hand-made hair clip . Beautiful flowers and leaves -- lightweight  and elegant.(Set of 2)",
+    material: "cotton cloth ",
+    size: "Free size",
+    care: "Dry clean only.",
+  },
+   {
+    id: 10,
+    category: "Potli bags",
+    name: " Potli",
+    price: 99,
+    images: [
+      "/potli.jpeg",
+      "/potli1.jpeg",
+      "/potli3.jpeg",
+    ],
+ desc: "Elegant handmade potli bag — perfect for festive occasions, weddings, or gifting loved ones.",
+
     material: "cotton cloth ",
     size: "Free size",
     care: "Dry clean only.",
@@ -267,11 +313,10 @@ export default function Productpage() {
                         width={100}
                         height={100}
                         onClick={() => setActiveImage(i)}
-                        className={`w-16 h-16 object-cover rounded-xl cursor-pointer transition-all duration-300 border-2 ${
-                          activeImage === i
+                        className={`w-16 h-16 object-cover rounded-xl cursor-pointer transition-all duration-300 border-2 ${activeImage === i
                             ? "border-pink-500 scale-110 shadow-md"
                             : "border-transparent opacity-70 hover:opacity-100"
-                        }`}
+                          }`}
                       />
                     ))}
                   </div>
