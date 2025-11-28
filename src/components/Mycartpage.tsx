@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trash2 } from "lucide-react";
+import { Trash2, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -14,18 +14,48 @@ interface CartItem {
   images: string[];
 }
 
+interface Product {
+  id: number;
+  category: string;
+  name: string;
+  price: number;
+  images: string[];
+  desc: string;
+  material: string;
+  size: string;
+  care: string;
+}
+
 const Mycartpage: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [likedProducts, setLikedProducts] = useState<number[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // 🧠 Load cart data only after component mounts
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const liked = JSON.parse(localStorage.getItem("likedProducts") || "[]");
       setCart(storedCart);
+      setLikedProducts(liked);
       setIsLoaded(true);
     }
   }, []);
+
+  // Load products for liked items
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    if (isLoaded) fetchProducts();
+  }, [isLoaded]);
 
   // 💾 Save cart back to localStorage whenever it changes
   useEffect(() => {
@@ -93,21 +123,10 @@ const Mycartpage: React.FC = () => {
         My Cart 🛍️
       </motion.h1>
 
-      {cart.length === 0 ? (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-700">
-            Your cart is empty 😔
-          </h2>
-          <p className="text-gray-500">Add something to your cart!</p>
-          <Link
-            href="/"
-            className="mt-4 bg-pink-500 text-white px-6 py-3 rounded-full hover:bg-pink-600 transition"
-          >
-            Continue Shopping
-          </Link>
-        </div>
-      ) : (
-        <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-3xl p-6 sm:p-10">
+      {/* Cart Section */}
+      {cart.length > 0 && (
+        <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-3xl p-6 sm:p-10 mb-8">
+          <h2 className="text-2xl font-bold text-pink-600 mb-6">Your Cart</h2>
           <AnimatePresence>
             {cart.map((item) => (
               <motion.div
@@ -124,7 +143,7 @@ const Mycartpage: React.FC = () => {
                     src={item.images[0]}
                     alt={item.name}
                     width={800}
-  height={450}
+                    height={450}
                     className="w-24 h-24 object-cover rounded-xl shadow-sm"
                   />
                   <div>
@@ -186,6 +205,83 @@ const Mycartpage: React.FC = () => {
               Proceed to Checkout
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Liked Items Section */}
+      {likedProducts.length > 0 && (
+        <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-3xl p-6 sm:p-10">
+          <h2 className="text-2xl font-bold text-pink-600 mb-6 flex items-center gap-2">
+            <Heart className="text-red-500" size={24} /> Liked Items
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {products
+              .filter((product) => likedProducts.includes(product.id))
+              .map((product) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gradient-to-br from-pink-50 to-rose-50 border border-pink-100 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    width={400}
+                    height={400}
+                    className="w-full h-32 object-cover rounded-xl mb-3"
+                  />
+                  <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                    {product.name}
+                  </h3>
+                  <p className="text-pink-600 font-bold mb-3">₹{product.price}</p>
+                  <div className="flex justify-between items-center">
+                    <button
+                      onClick={() => {
+                        const cartItem = { ...product, quantity: 1 };
+                        const updatedCart = [...cart];
+                        const existingIndex = updatedCart.findIndex((item) => item.id === product.id);
+                        if (existingIndex !== -1) {
+                          updatedCart[existingIndex].quantity += 1;
+                        } else {
+                          updatedCart.push(cartItem);
+                        }
+                        setCart(updatedCart);
+                      }}
+                      className="bg-pink-500 text-white px-4 py-2 rounded-full hover:bg-pink-600 transition text-sm"
+                    >
+                      Add to Cart
+                    </button>
+                    <button
+                      onClick={() => {
+                        const updatedLiked = likedProducts.filter((id) => id !== product.id);
+                        setLikedProducts(updatedLiked);
+                        localStorage.setItem("likedProducts", JSON.stringify(updatedLiked));
+                      }}
+                      className="text-red-500 hover:text-red-600"
+                    >
+                      <Heart size={20} fill="currentColor" />
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+          </div>
+        </div>
+      )}
+
+      {cart.length === 0 && likedProducts.length === 0 && (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6">
+          <h2 className="text-2xl font-semibold text-gray-700">
+            Your cart is empty 😔
+          </h2>
+          <p className="text-gray-500">Add something to your cart or like some items!</p>
+          <Link
+            href="/"
+            className="mt-4 bg-pink-500 text-white px-6 py-3 rounded-full hover:bg-pink-600 transition"
+          >
+            Continue Shopping
+          </Link>
         </div>
       )}
     </div>

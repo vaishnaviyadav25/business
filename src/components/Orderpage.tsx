@@ -14,14 +14,15 @@ type CartItem = {
 
 export default function OrderPage() {
   const searchParams = useSearchParams();
-  const urlProduct = searchParams.get("product") || "";
-  const urlPrice = parseFloat(searchParams.get("price") || "0");
+  const urlProduct = searchParams?.get("product") || "";
+  const urlPrice = parseFloat(searchParams?.get("price") || "0");
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [singleQuantity, setSingleQuantity] = useState(1);
   const [status, setStatus] = useState<string | null>(null);
   const [address, setAddress] = useState("");
   const [loadingLocation, setLoadingLocation] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("COD");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -120,33 +121,95 @@ export default function OrderPage() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    const productSummary = itemsToShow
-      .map(
-        (it) =>
-          `${it.name} — ₹${it.price} × ${it.quantity} = ₹${it.price * it.quantity}`
-      )
-      .join(" | ");
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const address = formData.get("address") as string;
+    const message = formData.get("message") as string;
 
-    formData.append("products", productSummary);
-    formData.append("grandTotal", `₹${grandTotal}`);
-    formData.append("totalQuantity", String(totalQuantity));
+    // Generate unique order ID
+    const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+    // Prepare order data for API
+    const orderData = {
+      orderId,
+      customer: {
+        name,
+        email,
+        phone,
+        address,
+      },
+      products: itemsToShow.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        images: item.images || [],
+      })),
+      payment: {
+        method: paymentMethod,
+        status: paymentMethod === "COD" ? "pending" : "pending",
+        amount: grandTotal,
+      },
+      message,
+    };
 
     try {
-      const response = await fetch("https://formspree.io/f/manledon", {
+      // Save order to database via API
+      const response = await fetch("/api/orders", {
         method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
       });
 
-      if (response.ok) {
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("cart");
-        }
-        setStatus("success");
-      } else {
-        setStatus("error");
+      if (!response.ok) {
+        throw new Error("Failed to create order");
       }
-    } catch {
+
+      const result = await response.json();
+      console.log("Order created:", result);
+
+      if (paymentMethod === "Online") {
+        // For online payment, save order data and redirect to payment page
+        localStorage.setItem("pendingOrder", JSON.stringify(orderData));
+        window.location.href = "/payment";
+        return;
+      }
+
+      // For COD, also submit to Formspree for backup
+      try {
+        const productSummary = itemsToShow
+          .map(
+            (it) =>
+              `${it.name} — ₹${it.price} × ${it.quantity} = ₹${it.price * it.quantity}`
+          )
+          .join(" | ");
+
+        formData.append("products", productSummary);
+        formData.append("grandTotal", `₹${grandTotal}`);
+        formData.append("totalQuantity", String(totalQuantity));
+        formData.append("paymentMethod", paymentMethod);
+        formData.append("orderId", orderId);
+
+        await fetch("https://formspree.io/f/manledon", {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+      } catch (formspreeError) {
+        console.warn("Formspree submission failed:", formspreeError);
+        // Don't fail the order if Formspree fails
+      }
+
+      // Clear cart and redirect to success
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("cart");
+      }
+      setStatus("success");
+
+    } catch (error) {
+      console.error("Order submission failed:", error);
       setStatus("error");
     }
   };
@@ -244,12 +307,20 @@ export default function OrderPage() {
               ✅ Thank you! Your order has been placed successfully.
             </div>
 
-            <Link
-              href="/"
-              className="mt-6 inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition"
-            >
-              Go Back to Home
-            </Link>
+            <div className="flex gap-4 mt-6">
+              <Link
+                href="/"
+                className="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition"
+              >
+                Go Back to Home
+              </Link>
+              <Link
+                href="/my-orders"
+                className="inline-block bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition"
+              >
+                View My Orders
+              </Link>
+            </div>
 
             <p className="text-gray-700 mt-4">
               Want to know about your delivery?{" "}
@@ -315,6 +386,36 @@ export default function OrderPage() {
               placeholder="Any special instructions — e.g., mention color preference"
               className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-pink-400 placeholder:text-pink-400 text-sm"
             />
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Payment Method
+              </label>
+              <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="COD"
+                    checked={paymentMethod === "COD"}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="mr-2"
+                  />
+                  Cash on Delivery (COD)
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="Online"
+                    checked={paymentMethod === "Online"}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="mr-2"
+                  />
+                  Online Payment
+                </label>
+              </div>
+            </div>
 
             <button
               type="submit"

@@ -8,8 +8,36 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ReviewModal from "./ReviewModal";
 
 export default function HomePage() {
+  const [reviews, setReviews] = useState<Array<{ text: string; name: string; rating: number; date: string }>>([]);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get('/api/reviews');
+        setReviews((response.data as any).reviews);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+        // Fallback to default reviews if API fails
+        setReviews([
+          { text: "The macramé sling bag is stunning — perfect for daily use!", name: "Varsha", rating: 5, date: "" },
+          { text: "The resin pendant I ordered is unique and so pretty!", name: "Gaytri", rating: 5, date: "" },
+          { text: "Loved the silk thread earrings — super elegant!", name: "Riya", rating: 5, date: "" },
+          { text: "Amazing packaging and fast delivery! Definitely ordering again 💕", name: "Sneha", rating: 5, date: "" },
+          { text: "The wall hanging added such warmth to my living room ✨", name: "Prachi", rating: 5, date: "" },
+          { text: "Beautiful craftsmanship — every detail is perfect ❤️", name: "Ananya", rating: 5, date: "" },
+        ]);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
   const products = [
     {
       name: "Macramé Sling Bag",
@@ -39,6 +67,22 @@ export default function HomePage() {
   ];
 
   // Promotional posters for the scrolling banner - Professional with product focus
+  const handleSubmitReview = async (rating: number, comment: string) => {
+    try {
+      await axios.post('/api/review', {
+        rating,
+        comment,
+        type: 'general'
+      });
+      // Refresh reviews after submission
+      const response = await axios.get('/api/reviews');
+      setReviews((response.data as any).reviews);
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      throw error;
+    }
+  };
+
   const promotionalPosters = [
     {
       title: "Macramé Sling Bag",
@@ -276,8 +320,18 @@ export default function HomePage() {
         </div>
       </SwiperSlide>
     ))}
-  </Swiper>
-</section>
+        </Swiper>
+
+        <div className="mt-12 text-center">
+          <p className="text-gray-600 mb-6 text-lg">Loved our products? Share your experience!</p>
+          <button
+            onClick={() => setShowReviewModal(true)}
+            className="inline-block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-3 px-8 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+          >
+            Write a Review ⭐
+          </button>
+        </div>
+      </section>
       {/* 🎁 Offer Banner */}
       <div className="bg-pink-500 text-white py-3 overflow-hidden relative">
         <motion.div
@@ -314,12 +368,20 @@ export default function HomePage() {
             <p className="text-lg md:text-xl mb-10 text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Macramé Bags &amp; Butterflies • Resin Preserved Jewelry • Silk Thread Designs
             </p>
-            <Link
-              href="/product"
-              className="inline-block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            >
-              Shop Now
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/product"
+                className="inline-block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+              >
+                Shop Now
+              </Link>
+              <button
+                onClick={() => setShowReviewModal(true)}
+                className="inline-block bg-white text-pink-600 border-2 border-pink-600 hover:bg-pink-50 font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-sm"
+              >
+                Write a Review ⭐
+              </button>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -459,32 +521,7 @@ export default function HomePage() {
           }}
           className="max-w-6xl mx-auto"
         >
-          {[
-            {
-              text: "The macramé sling bag is stunning — perfect for daily use!",
-              name: "Varsha",
-            },
-            {
-              text: "The resin pendant I ordered is unique and so pretty!",
-              name: "Gaytri",
-            },
-            {
-              text: "Loved the silk thread earrings — super elegant!",
-              name: "Riya",
-            },
-            {
-              text: "Amazing packaging and fast delivery! Definitely ordering again 💕",
-              name: "Sneha",
-            },
-            {
-              text: "The wall hanging added such warmth to my living room ✨",
-              name: "Prachi",
-            },
-            {
-              text: "Beautiful craftsmanship — every detail is perfect ❤️",
-              name: "Ananya",
-            },
-          ].map((review, index) => (
+          {reviews.map((review, index) => (
             <SwiperSlide key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -606,6 +643,13 @@ export default function HomePage() {
           }}
         />
       </motion.a>
+
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={showReviewModal}
+        onClose={() => setShowReviewModal(false)}
+        onSubmitReview={handleSubmitReview}
+      />
     </main>
   );
 }

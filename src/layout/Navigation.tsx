@@ -6,16 +6,26 @@ import { motion } from 'framer-motion';
 import { ShoppingCart, Home, Phone, ClipboardList, Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { auth } from '@/context/firebase';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -76,8 +86,31 @@ export const Navigation = () => {
             {pathname === '/contact' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>
 
-          {/* Order */}
+          {/* Admin Orders - Only for admin user */}
+          {currentUser?.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
+            <div className="flex flex-col items-center">
+              <Link
+                href="/admin/orders"
+                className="flex items-center gap-2 p-3 rounded-full border border-green-300 text-green-600 hover:bg-green-100 transition-all"
+              >
+                <ClipboardList size={18} /> Orders
+              </Link>
+              {pathname === '/admin/orders' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
+            </div>
+          )}
 
+          {/* My Orders - For all authenticated users */}
+          {currentUser && (
+            <div className="flex flex-col items-center">
+              <Link
+                href="/my-orders"
+                className="flex items-center gap-2 p-3 rounded-full border border-orange-300 text-orange-600 hover:bg-orange-100 transition-all"
+              >
+                <ClipboardList size={18} /> My Orders
+              </Link>
+              {pathname === '/my-orders' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
+            </div>
+          )}
 
           <div className="flex flex-col items-start">
             <Link
@@ -92,13 +125,13 @@ export const Navigation = () => {
 
           <div className="flex flex-col items-start">
             <Link
-              href="/webpage"
+              href="/login"
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 p-3 rounded-full border border-red-300 text-red-500 hover:bg-green-100 transition-all w-full"
             >
-              <ShoppingCart size={18} /> Webservices
+              <ShoppingCart size={18} /> Login
             </Link>
-            {pathname === '/webpage' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
+            {pathname === '/login' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>
 
         </div>
@@ -158,7 +191,33 @@ export const Navigation = () => {
             {pathname === '/contact' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>
 
+          {/* Admin Orders - Only for admin user */}
+          {currentUser?.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
+            <div className="flex flex-col items-start">
+              <Link
+                href="/admin/orders"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-2 p-3 rounded-full border border-green-300 text-green-600 hover:bg-green-100 transition-all w-full"
+              >
+                <ClipboardList size={18} /> Orders
+              </Link>
+              {pathname === '/admin/orders' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
+            </div>
+          )}
 
+          {/* My Orders - For all authenticated users */}
+          {currentUser && (
+            <div className="flex flex-col items-start">
+              <Link
+                href="/my-orders"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-2 p-3 rounded-full border border-orange-300 text-orange-600 hover:bg-orange-100 transition-all w-full"
+              >
+                <ClipboardList size={18} /> My Orders
+              </Link>
+              {pathname === '/my-orders' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
+            </div>
+          )}
 
           <div className="flex flex-col items-start">
             <Link
@@ -166,21 +225,20 @@ export const Navigation = () => {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 p-3 rounded-full border border-red-300 text-red-500 hover:bg-green-100 transition-all w-full"
             >
-              <ClipboardList size={18} /> Cart
+              <ShoppingCart size={18} /> Cart
             </Link>
             {pathname === '/cart' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>
 
-
           <div className="flex flex-col items-start">
             <Link
-              href="/webpage"
+              href="/login"
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 p-3 rounded-full border border-red-300 text-red-500 hover:bg-green-100 transition-all w-full"
             >
-              <ShoppingCart size={18} /> Webservices
+              <ShoppingCart size={18} /> Login
             </Link>
-            {pathname === '/webpage' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
+            {pathname === '/login' && <div className="h-[2px] w-10 bg-blue-500 mt-1 rounded-full"></div>}
           </div>
         </motion.div>
       )}
