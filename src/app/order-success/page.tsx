@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ReviewModal from "@/components/ReviewModal";
 import axios from "axios";
 
-export default function OrderSuccess() {
+function OrderSuccessContent() {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
   const searchParams = useSearchParams();
