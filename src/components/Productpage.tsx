@@ -35,6 +35,7 @@ export default function Productpage() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true);
 
   const [likedProducts, setLikedProducts] = useState<number[]>([]);

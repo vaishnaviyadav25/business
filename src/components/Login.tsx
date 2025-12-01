@@ -52,6 +52,11 @@ const LoginPage: React.FC = () => {
   };
 
   const handleGoogleLogin = async () => {
+    if (!auth) {
+      setError("Authentication service is not available");
+      return;
+    }
+
     setLoading(true);
     try {
       const provider = new GoogleAuthProvider();
@@ -72,7 +77,9 @@ const LoginPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (!auth) return; // Skip if Firebase auth is not available
+
+    const unsubscribe = onAuthStateChanged(auth, () => {
       // No need to set current user here as login functions handle navigation
     });
 

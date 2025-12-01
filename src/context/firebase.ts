@@ -13,8 +13,18 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const storage = getStorage(app);
+// Only initialize Firebase if API key is available
+let app: any = null;
+let auth: any = null;
+let storage: any = null;
 
+if (firebaseConfig.apiKey) {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  storage = getStorage(app);
+} else {
+  console.warn("Firebase API key not found. Firebase features will be disabled.");
+}
+
+export { auth, storage };
 export default app;
