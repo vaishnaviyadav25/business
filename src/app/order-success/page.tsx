@@ -84,3 +84,11 @@ function OrderSuccessContent() {
   );
 }
 
+export default function OrderSuccess() {
+  return (
+    <Suspense fallback={<div className="text-center py-20">Loading...</div>}>
+      <OrderSuccessContent />
+    </Suspense>
+  );
+}
+
