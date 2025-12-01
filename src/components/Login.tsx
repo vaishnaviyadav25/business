@@ -8,41 +8,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-  User,
 } from "firebase/auth";
 import axios from "axios";
-
-interface Order {
-  _id: string;
-  orderId: string;
-  customer: {
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-  };
-  products: Array<{
-    name: string;
-    price: number;
-    quantity: number;
-    images?: string[];
-  }>;
-  payment: {
-    method: string;
-    status: 'pending' | 'completed' | 'failed';
-    paymentId?: string;
-    amount: number;
-  };
-  orderStatus: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-  orderDate: string;
-  deliveryDate?: string;
-  review?: {
-    rating: number;
-    comment: string;
-    date: string;
-  };
-  message?: string;
-}
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -50,9 +17,7 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [ordersLoading, setOrdersLoading] = useState(false);
+
 
   // Helper: store user in MongoDB
   const storeUser = async (user: any) => {
@@ -108,40 +73,13 @@ const LoginPage: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      if (user) {
-        fetchOrders();
-      }
+      // No need to set current user here as login functions handle navigation
     });
 
     return () => unsubscribe();
   }, []);
 
-  const fetchOrders = async () => {
-    if (!currentUser?.email) return;
 
-    setOrdersLoading(true);
-    try {
-      const response = await axios.get(`/api/my-orders?email=${encodeURIComponent(currentUser.email)}`);
-      setOrders((response.data as { orders: Order[] }).orders);
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    } finally {
-      setOrdersLoading(false);
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'delivered': return '#10b981';
-      case 'shipped': return '#3b82f6';
-      case 'processing': return '#f59e0b';
-      case 'confirmed': return '#8b5cf6';
-      case 'pending': return '#f97316';
-      case 'cancelled': return '#ef4444';
-      default: return '#6b7280';
-    }
-  };
 
   return (
     <div

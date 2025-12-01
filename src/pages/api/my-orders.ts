@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../lib/mongodb';
 import Order from '../../lib/models/Order';
 import mongoose from 'mongoose';
 
@@ -16,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
-    const { email, isAdmin } = req.query;
+    const { email } = req.query;
 
     if (!email || typeof email !== 'string') {
       return res.status(400).json({ message: 'Email parameter is required' });

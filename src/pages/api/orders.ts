@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../lib/mongodb';
 import Order from '../../lib/models/Order';
 import mongoose from 'mongoose';
 
@@ -37,8 +36,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await order.save();
 
     // Twilio integration
-    const twilio = require('twilio');
-    const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+    const twilio = await import('twilio');
+    const client = twilio.default(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
     // Send WhatsApp notification to admin
     try {

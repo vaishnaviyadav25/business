@@ -10,7 +10,7 @@ interface ReviewModalProps {
   onSubmitReview?: (rating: number, comment: string) => void;
 }
 
-const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, orderId, onSubmitReview }) => {
+const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmitReview }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState("");

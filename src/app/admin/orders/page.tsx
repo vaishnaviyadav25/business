@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import { auth } from "@/context/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import axios from "axios";
-
 interface Order {
   _id: string;
   orderId: string;
@@ -72,7 +72,7 @@ export default function AdminOrdersPage() {
 
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
     try {
-      const response = await axios.patch(`/api/admin/update-order-status?isAdmin=true&email=${encodeURIComponent(currentUser?.email!)}`, {
+      const response = await axios.patch(`/api/admin/update-order-status?isAdmin=true&email=${encodeURIComponent(currentUser!.email || '')}`, {
         orderId,
         newStatus,
       });
@@ -95,7 +95,7 @@ export default function AdminOrdersPage() {
 
   const updatePaymentStatus = async (orderId: string, newPaymentStatus: string) => {
     try {
-      const response = await axios.patch(`/api/admin/update-order-status?isAdmin=true&email=${encodeURIComponent(currentUser?.email!)}`, {
+      const response = await axios.patch(`/api/admin/update-order-status?isAdmin=true&email=${encodeURIComponent(currentUser!.email || '')}`, {
         orderId,
         newPaymentStatus,
       });
@@ -336,9 +336,11 @@ export default function AdminOrdersPage() {
                             <div key={index} className="flex items-center justify-between bg-white/60 rounded-lg p-3">
                               <div className="flex items-center gap-3">
                                 {product.images && product.images[0] && (
-                                  <img
+                                  <Image
                                     src={product.images[0]}
                                     alt={product.name}
+                                    width={48}
+                                    height={48}
                                     className="w-12 h-12 object-cover rounded-lg"
                                   />
                                 )}

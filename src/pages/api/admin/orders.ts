@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../../lib/mongodb';
 import Order from '../../../lib/models/Order';
 import mongoose from 'mongoose';
 

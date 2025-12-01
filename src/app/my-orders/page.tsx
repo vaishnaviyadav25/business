@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@/context/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
@@ -154,7 +153,7 @@ export default function MyOrdersPage() {
           <div className="text-center py-20">
             <div className="text-6xl mb-4">📦</div>
             <h2 className="text-2xl font-bold text-pink-700 mb-2">No Orders Yet</h2>
-            <p className="text-gray-600 mb-6">You haven't placed any orders yet.</p>
+            <p className="text-gray-600 mb-6">You haven&apos;t placed any orders yet.</p>
             <Link
               href="/product"
               className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-3 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 font-medium"
@@ -219,16 +218,16 @@ export default function MyOrdersPage() {
                           <h4 className="text-sm font-medium text-gray-700">Your Review:</h4>
                           <div className="flex items-center gap-1">
                             {[...Array(5)].map((_, i) => (
-                              <span key={i} className={`text-sm ${i < order.review.rating ? 'text-yellow-400' : 'text-gray-300'}`}>
+                              <span key={i} className={`text-sm ${i < order.review!.rating ? 'text-yellow-400' : 'text-gray-300'}`}>
                                 ★
                               </span>
                             ))}
                             <span className="text-xs text-gray-500 ml-2">
-                              {new Date(order.review.date).toLocaleDateString()}
+                              {new Date(order.review!.date).toLocaleDateString()}
                             </span>
                           </div>
-                          {order.review.comment && (
-                            <p className="text-sm text-gray-600 italic">"{order.review.comment}"</p>
+                          {order.review!.comment && (
+                            <p className="text-sm text-gray-600 italic">{order.review!.comment}</p>
                           )}
                         </div>
                       ) : (

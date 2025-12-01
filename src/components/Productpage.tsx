@@ -5,16 +5,9 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import type { ComponentType } from "react";
-import type { MotionProps } from "framer-motion";
-import type { ImageProps } from "next/image";
 import { auth } from "@/context/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import axios from "axios";
-
-const MotionImage = motion(
-  Image as unknown as ComponentType<ImageProps & MotionProps>
-);
 
 interface Product {
   id: number;
@@ -43,6 +36,7 @@ export default function Productpage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
   const [formData, setFormData] = useState({
     category: "",
@@ -231,7 +225,7 @@ export default function Productpage() {
                       </button>
 
                       <div className="relative w-full h-28 sm:h-52 flex items-center justify-center">
-                        <MotionImage
+                        <Image
                           src={product.images[0]}
                           alt={product.name}
                           width={400}
@@ -507,9 +501,11 @@ export default function Productpage() {
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {formData.images.map((file, index) => (
                           <div key={index} className="relative">
-                            <img
+                            <Image
                               src={URL.createObjectURL(file)}
                               alt={`Preview ${index + 1}`}
+                              width={100}
+                              height={80}
                               className="w-full h-20 object-cover rounded-lg border"
                             />
                             <button
