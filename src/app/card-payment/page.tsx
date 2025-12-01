@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function CardPaymentPage() {
+function CardPaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const amount = searchParams?.get("amount") || "0";
@@ -163,5 +163,13 @@ export default function CardPaymentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CardPaymentPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CardPaymentContent />
+    </Suspense>
   );
 }
