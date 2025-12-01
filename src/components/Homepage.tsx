@@ -134,7 +134,7 @@ export default function HomePage() {
       pauseOnMouseEnter: true,
     }}
     speed={1000}
-    loop={true}
+    loop={false}
     pagination={{
       clickable: true,
       dynamicBullets: true,
