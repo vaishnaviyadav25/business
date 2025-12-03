@@ -11,10 +11,10 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ReviewModal from "./ReviewModal";
-import { useRouter } from "next/navigation";
+
 
 export default function HomePage() {
-  const router = useRouter();
+
   const [reviews, setReviews] = useState<Array<{ text: string; name: string; rating: number; date: string }>>([]);
   const [promotionalPosters, setPromotionalPosters] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([]);
   const [bestSellers, setBestSellers] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([]);

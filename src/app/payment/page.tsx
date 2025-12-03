@@ -46,15 +46,7 @@ export default function PaymentPage() {
     }
   }, [router]);
 
-  const handlePaymentComplete = () => {
-    if (!orderData) return;
 
-    // Clear pending order
-    localStorage.removeItem("pendingOrder");
-
-    // Redirect to success page
-    router.push("/order-success");
-  };
 
   if (!orderData) {
     return (
@@ -114,7 +106,7 @@ export default function PaymentPage() {
               <p>1. Click the WhatsApp button below to contact our payment team.</p>
               <p>2. Our team will share a QR code for payment.</p>
               <p>3. Complete your payment of <strong>₹{orderData.payment.amount}</strong> using any UPI app.</p>
-              <p>4. Once payment is received, we&apos;ll update your order status to "Completed".</p>
+              <p>4. Once payment is received, we&apos;ll update your order status to Completed.</p>
             </div>
           </div>
 
@@ -133,7 +125,7 @@ export default function PaymentPage() {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-           
+           ,
             <Link
               href="/order"
               className="flex-1 py-3 px-6 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all duration-300 text-center"

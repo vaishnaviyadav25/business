@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 
 // ✅ SEO Metadata
 export const metadata: Metadata = {
-  title: " Vaishi Handmade Creations – Vaishi",
+  title:" Vaishi Handmade Creations Bags,Charms ,keychain – Vaishi",
   description:
-    "Vaishi offers handcrafted products made with creativity and care. Explore our exclusive collection and bring art into your everyday life.",
+"Vaishi offers handcrafted mobile phone charms and flower hair clips made with love & care. Explore our exclusive collection and  grab exciting discounts now!",
   keywords: [
     "Vaishi",
     "Vaishi handmade products",
