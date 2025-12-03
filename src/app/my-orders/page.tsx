@@ -168,7 +168,7 @@ export default function MyOrdersPage() {
                 key={order._id}
                 className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-pink-100"
               >
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex flex-wrap justify-between items-start mb-4 gap-2">
                   <div>
                     <h3 className="text-lg font-bold text-pink-700">Order #{order.orderId}</h3>
                     <p className="text-sm text-gray-500">{new Date(order.orderDate).toLocaleDateString()}</p>

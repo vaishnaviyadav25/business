@@ -11,9 +11,13 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ReviewModal from "./ReviewModal";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const router = useRouter();
   const [reviews, setReviews] = useState<Array<{ text: string; name: string; rating: number; date: string }>>([]);
+  const [promotionalPosters, setPromotionalPosters] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([]);
+  const [bestSellers, setBestSellers] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
 
   useEffect(() => {
@@ -35,36 +39,106 @@ export default function HomePage() {
       }
     };
 
+    const fetchPromotionalProducts = async () => {
+      try {
+        const response = await axios.get('/api/promotional');
+        setPromotionalPosters(response.data as Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>);
+      } catch (error) {
+        console.error('Error fetching promotional products:', error);
+        // Fallback to default promotional posters if API fails
+        setPromotionalPosters([
+          {
+            title: "Macramé Sling Bag",
+            subtitle: "₹450",
+            description: "Stylish & Handcrafted",
+            image: "/Bag.jpeg",
+            gradient: "from-pink-300 via-rose-300 to-pink-300",
+            link: "/product",
+            badge: "Best Seller",
+          },
+          {
+            title: "Beaded Keychain",
+            subtitle: "₹159",
+            description: " Keychain pack of 1 ",
+            image: "/Keychain.jpeg",
+            gradient: "from-purple-300 via-pink-300 to-purple-300",
+            link: "/product",
+            badge: "New",
+          },
+          {
+            title: "Hair Clip Set",
+            subtitle: "₹99",
+            description: "Elegant Accessories",
+            image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
+            gradient: "from-rose-300 via-pink-300 to-rose-300",
+            link: "/product",
+            badge: "Trending",
+          },
+          {
+            title: "Macramé Wall Hanging",
+            subtitle: "₹399",
+            description: "Transform Your Space",
+            image: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
+            gradient: "from-pink-300 via-rose-300 to-pink-00",
+            link: "/product",
+            badge: "Popular",
+          },
+        ]);
+      }
+    };
+
+    const fetchBestSellers = async () => {
+      try {
+        const response = await axios.get('/api/best-sellers');
+        setBestSellers(response.data as Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>);
+      } catch (error) {
+        console.error('Error fetching best sellers:', error);
+        // Fallback to default best sellers if API fails
+        setBestSellers([
+          {
+            title: "Macramé Sling Bag",
+            subtitle: "₹450",
+            description: "Stylish & Handcrafted",
+            image: "/Bag.jpeg",
+            gradient: "from-pink-300 via-rose-300 to-pink-300",
+            link: "/product",
+            badge: "Best Seller",
+          },
+          {
+            title: "Beaded Keychain",
+            subtitle: "₹159",
+            description: " Keychain pack of 1 ",
+            image: "/Keychain.jpeg",
+            gradient: "from-purple-300 via-pink-300 to-purple-300",
+            link: "/product",
+            badge: "New",
+          },
+          {
+            title: "Hair Clip Set",
+            subtitle: "₹99",
+            description: "Elegant Accessories",
+            image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
+            gradient: "from-rose-300 via-pink-300 to-rose-300",
+            link: "/product",
+            badge: "Trending",
+          },
+          {
+            title: "Macramé Wall Hanging",
+            subtitle: "₹399",
+            description: "Transform Your Space",
+            image: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
+            gradient: "from-pink-300 via-rose-300 to-pink-00",
+            link: "/product",
+            badge: "Popular",
+          },
+        ]);
+      }
+    };
+
     fetchReviews();
+    fetchPromotionalProducts();
+    fetchBestSellers();
   }, []);
-
-  const products = [
-    {
-      name: "Macramé Sling Bag",
-      img: "/Bag.jpeg",
-      price: "₹450",
-      icon: "🌸",
-    },
-    {
-      name: " Keychain",
-      img: "/Keychain.jpeg",
-      price: "₹159",
-      icon: "🌼",
-    },
-
-    {
-      name: "Hair clip set",
-      img: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
-      price: "₹99",
-      icon: "🌻",
-    },
-    {
-      name: "Macramé Wall Hanging",
-      img: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
-      price: "₹399",
-      icon: "🌾",
-    },
-  ];
 
   // Promotional posters for the scrolling banner - Professional with product focus
   const handleSubmitReview = async (rating: number, comment: string) => {
@@ -83,243 +157,203 @@ export default function HomePage() {
     }
   };
 
-  const promotionalPosters = [
-    {
-      title: "Macramé Sling Bag",
-      subtitle: "₹450",
-      description: "Stylish & Handcrafted",
-      image: "/Bag.jpeg",
-      gradient: "from-pink-300 via-rose-300 to-pink-300",
-      link: "/product",
-      badge: "Best Seller",
-    },
-    {
-      title: "Beaded Keychain",
-      subtitle: "₹159",
-      description: " Keychain pack of 1 ",
-      image: "/Keychain.jpeg",
-      gradient: "from-purple-300 via-pink-300 to-purple-300",
-      link: "/product",
-      badge: "New",
-    },
-    {
-      title: "Hair Clip Set",
-      subtitle: "₹99",
-      description: "Elegant Accessories",
-      image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
-      gradient: "from-rose-300 via-pink-300 to-rose-300",
-      link: "/product",
-      badge: "Trending",
-    },
-    {
-      title: "Macramé Wall Hanging",
-      subtitle: "₹399",
-      description: "Transform Your Space",
-      image: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
-      gradient: "from-pink-300 via-rose-300 to-pink-00",
-      link: "/product",
-      badge: "Popular",
-    },
-  ];
+
 
   return (
     <main className="bg-gradient-to-b from-pink-50 to-white text-gray-800">
       {/* 🎨 Scrolling Promotional Banner */}
-  <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden">
-  <Swiper
-    modules={[Autoplay, Pagination]}
-    autoplay={{
-      delay: 600,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    }}
-    speed={1000}
-    loop={false}
-    pagination={{
-      clickable: true,
-      dynamicBullets: true,
-    }}
-    className="h-full w-full mt-10"
-  >
-    {promotionalPosters.map((poster, index) => (
-      <SwiperSlide key={index}>
-        <div
-          className={`relative h-full w-full bg-gradient-to-br ${poster.gradient} flex items-center justify-center overflow-hidden`}
+      <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden">
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          autoplay={{
+            delay: 600,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={1000}
+          loop={false}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          className="h-full w-full mt-10"
         >
-          {/* Ambient glow layers */}
-          <motion.div
-            className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/20 blur-[90px]"
-            animate={{ opacity: [0.25, 0.4, 0.25], scale: [1, 1.1, 1] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-rose-200/30 blur-[110px]"
-            animate={{ opacity: [0.15, 0.3, 0.15], scale: [1, 1.12, 1] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-          
-          {/* Main Square Container */}
-          <div className="relative w-[90%] h-[80%] max-w-4xl max-h-[450px] flex flex-col md:flex-row items-center justify-between bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
-            
-            {/* Left Side - Product Image with Motion */}
-            <div className="relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8">
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0, rotate: -6 }}
-                animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 120 }}
-                whileHover={{ scale: 1.04, rotate: 2 }}
-                className="relative z-10 w-full h-full flex items-center justify-center"
-              >
-                {/* Square framed product with animated shine */}
-                <div className="relative w-full h-full max-w-xs max-h-80 p-2 rounded-xl bg-gradient-to-br from-white/70 via-white/30 to-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
-                  <div className="relative w-full h-full bg-white/20 backdrop-blur-md rounded-lg border border-white/30 overflow-hidden">
+          {promotionalPosters.map((poster, index) => (
+            <SwiperSlide key={index} className="pointer-events-auto">
+              <div className={`relative h-full w-full bg-gradient-to-br ${poster.gradient} flex items-center justify-center overflow-hidden`}>
+                {/* Ambient glow layers */}
+                <motion.div
+                  className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/20 blur-[90px]"
+                  animate={{ opacity: [0.25, 0.4, 0.25], scale: [1, 1.1, 1] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-rose-200/30 blur-[110px]"
+                  animate={{ opacity: [0.15, 0.3, 0.15], scale: [1, 1.12, 1] }}
+                  transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                />
+
+                {/* Main Square Container */}
+                <Link href="/product" className="pointer-events-auto block relative w-[90%] h-[80%] max-w-4xl max-h-[450px] flex flex-col md:flex-row items-center justify-between bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden hover:bg-white/15 transition-all duration-300 cursor-pointer">
+
+                  {/* Left Side - Product Image with Motion */}
+                  <div className="relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8">
                     <motion.div
-                      className="absolute -top-10 -left-10 w-40 h-40 rotate-45 bg-white/20"
-                      animate={{ x: [0, 220, 0] }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    />
-                    <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.35, duration: 0.6 }}
-                      whileHover={{ y: -8 }}
-                      className="w-full h-full flex items-center justify-center"
+                      initial={{ scale: 0.9, opacity: 0, rotate: -6 }}
+                      animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 120 }}
+                      whileHover={{ scale: 1.04, rotate: 2 }}
+                      className="relative z-10 w-full h-full flex items-center justify-center"
                     >
-                      <div className="relative w-full h-full flex items-center justify-center p-4">
-                        <Image
-                          src={poster.image}
-                          alt={poster.title}
-                          width={400}
-                          height={300}
-                          className="w-full h-full max-h-64 object-contain drop-shadow-2xl"
-                        />
+                      {/* Square framed product with animated shine */}
+                      <div className="relative w-full h-full max-w-xs max-h-80 p-2 rounded-xl bg-gradient-to-br from-white/70 via-white/30 to-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+                        <div className="relative w-full h-full bg-white/20 backdrop-blur-md rounded-lg border border-white/30 overflow-hidden">
+                          <motion.div
+                            className="absolute -top-10 -left-10 w-40 h-40 rotate-45 bg-white/20"
+                            animate={{ x: [0, 220, 0] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                          />
+                          <motion.div
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.35, duration: 0.6 }}
+                            whileHover={{ y: -8 }}
+                            className="w-full h-full flex items-center justify-center"
+                          >
+                            <div className="relative w-full h-full flex items-center justify-center p-4">
+                              <Image
+                                src={poster.image}
+                                alt={poster.title}
+                                width={400}
+                                height={300}
+                                className="w-full h-full max-h-64 object-contain drop-shadow-2xl"
+                              />
+                            </div>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Floating Badge */}
+                    <motion.div
+                      className="absolute top-4 left-4 bg-white text-pink-600 font-bold px-3 py-1 rounded-lg text-sm shadow-[0_10px_30px_rgba(255,255,255,0.4)] border border-white/70"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ delay: 0.6, type: "spring" }}
+                    >
+                      {poster.badge}
+                    </motion.div>
+                  </div>
+
+                  {/* Right Side - Content (Hidden on mobile) */}
+                  <div className="absolute md:relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8 bg-gradient-to-l md:bg-gradient-to-r from-black/40 md:from-transparent to-transparent">
+                    <motion.div
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
+                      className="text-center md:text-left z-20 w-full max-w-md"
+                    >
+                      {/* All text content hidden on mobile */}
+                      <div className="hidden md:block">
+                        <motion.h2
+                          className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 drop-shadow-2xl leading-tight"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 }}
+                        >
+                          {poster.title}
+                        </motion.h2>
+                        <motion.p
+                          className="text-xl md:text-2xl text-white/95 mb-2 font-extrabold drop-shadow-lg tracking-tight"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 }}
+                        >
+                          {poster.subtitle}
+                        </motion.p>
+                        {/* Rating */}
+                        <motion.div
+                          className="flex items-center justify-center md:justify-start gap-2 text-white/90 mb-3"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.65 }}
+                        >
+                          <span className="text-yellow-300">★★★★★</span>
+                          <span className="text-xs">4.9/5 • 120+ reviews</span>
+                        </motion.div>
+                        <motion.p
+                          className="text-sm md:text-base text-white/90 mb-6 drop-shadow-md leading-relaxed"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.7 }}
+                        >
+                          {poster.description}
+                        </motion.p>
+                        <motion.div
+                          className="flex items-center justify-center md:justify-start gap-2"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.8 }}
+                        >
+                          <span
+                            className="inline-block bg-white text-pink-600 font-bold py-2 px-5 rounded-lg shadow-2xl hover:bg-pink-50 hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 text-sm cursor-pointer"
+                          >
+                            Shop Now →
+                          </span>
+                          <span
+                            className="inline-block bg-white/15 text-white font-semibold py-2 px-5 rounded-lg border border-white/40 hover:bg-white/25 transition-all duration-300 text-sm cursor-pointer"
+                          >
+                            View Details
+                          </span>
+                        </motion.div>
+
+                        {/* Small preview chips */}
+                        <motion.div
+                          className="mt-4 hidden md:flex items-center gap-2"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.9 }}
+                        >
+                          {[bestSellers[0]?.image, bestSellers[1]?.image, bestSellers[2]?.image]
+                            .filter(Boolean)
+                            .map((thumb, i) => (
+                              <div key={`thumb-${i}`} className="w-8 h-8 relative rounded-lg overflow-hidden ring-2 ring-white/70 shadow">
+                                <Image
+                                  src={thumb as string}
+                                  alt="thumb"
+                                  fill
+                                  sizes="32px"
+                                  className="object-cover"
+                                />
+                              </div>
+                            ))}
+                          <span className="text-white/90 text-xs">More colors &amp; styles</span>
+                        </motion.div>
                       </div>
                     </motion.div>
                   </div>
+                </Link>
+
+                {/* Animated Background Pattern */}
+                <div className="pointer-events-none absolute inset-0 opacity-10">
+
+                  <motion.div
+                    className="absolute top-0 right-0 w-64 h-64 bg-white rounded-lg blur-3xl"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      x: [0, 50, 0],
+                      y: [0, 30, 0],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
                 </div>
-              </motion.div>
-
-              {/* Floating Badge */}
-              <motion.div
-                className="absolute top-4 left-4 bg-white text-pink-600 font-bold px-3 py-1 rounded-lg text-sm shadow-[0_10px_30px_rgba(255,255,255,0.4)] border border-white/70"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.6, type: "spring" }}
-              >
-                {poster.badge}
-              </motion.div>
-            </div>
-
-            {/* Right Side - Content (Hidden on mobile) */}
-            <div className="absolute md:relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8 bg-gradient-to-l md:bg-gradient-to-r from-black/40 md:from-transparent to-transparent">
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-center md:text-left z-20 w-full max-w-md"
-              >
-                {/* All text content hidden on mobile */}
-                <div className="hidden md:block">
-                  <motion.h2
-                    className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 drop-shadow-2xl leading-tight"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    {poster.title}
-                  </motion.h2>
-                  <motion.p
-                    className="text-xl md:text-2xl text-white/95 mb-2 font-extrabold drop-shadow-lg tracking-tight"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                  >
-                    {poster.subtitle}
-                  </motion.p>
-                  {/* Rating */}
-                  <motion.div
-                    className="flex items-center justify-center md:justify-start gap-2 text-white/90 mb-3"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.65 }}
-                  >
-                    <span className="text-yellow-300">★★★★★</span>
-                    <span className="text-xs">4.9/5 • 120+ reviews</span>
-                  </motion.div>
-                  <motion.p
-                    className="text-sm md:text-base text-white/90 mb-6 drop-shadow-md leading-relaxed"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 }}
-                  >
-                    {poster.description}
-                  </motion.p>
-                  <motion.div
-                    className="flex items-center justify-center md:justify-start gap-2"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8 }}
-                  >
-                    <Link
-                      href={poster.link}
-                      className="inline-block bg-white text-pink-600 font-bold py-2 px-5 rounded-lg shadow-2xl hover:bg-pink-50 hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 text-sm"
-                    >
-                      Shop Now →
-                    </Link>
-                    <Link
-                      href={poster.link}
-                      className="inline-block bg-white/15 text-white font-semibold py-2 px-5 rounded-lg border border-white/40 hover:bg-white/25 transition-all duration-300 text-sm"
-                    >
-                      View Details
-                    </Link>
-                  </motion.div>
-
-                  {/* Small preview chips */}
-                  <motion.div
-                    className="mt-4 hidden md:flex items-center gap-2"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.9 }}
-                  >
-                    {[products[0]?.img, products[1]?.img, products[2]?.img]
-                      .filter(Boolean)
-                      .map((thumb, i) => (
-                        <div key={`thumb-${i}`} className="w-8 h-8 relative rounded-lg overflow-hidden ring-2 ring-white/70 shadow">
-                          <Image
-                            src={thumb as string}
-                            alt="thumb"
-                            fill
-                            sizes="32px"
-                            className="object-cover"
-                          />
-                        </div>
-                      ))}
-                    <span className="text-white/90 text-xs">More colors &amp; styles</span>
-                  </motion.div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Animated Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <motion.div
-              className="absolute top-0 right-0 w-64 h-64 bg-white rounded-lg blur-3xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                x: [0, 50, 0],
-                y: [0, 30, 0],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </div>
-        </div>
-      </SwiperSlide>
-    ))}
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         <div className="mt-12 text-center">
@@ -348,7 +382,9 @@ export default function HomePage() {
           </span>
           <span className="w-[400px] inline-block"></span>
           <span className="mr-[400px]">
-            🎁 Special Offer: Get a FREE GIFT on your FIRST order above ₹250 💖
+           For <span className="font-semibold text-white">customized hampers 🎀</span>,  
+<span className="font-medium text-yellow-200">DM me on WhatsApp 💬</span>!
+
           </span>
         </motion.div>
       </div>
@@ -366,7 +402,7 @@ export default function HomePage() {
               Every Piece Tells a Story — Crafted with Love 💖
             </h1>
             <p className="text-lg md:text-xl mb-10 text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Macramé Bags &amp; Butterflies • Resin Preserved Jewelry • Silk Thread Designs
+              Macramé Bags &amp; Aesthetic Phone Charms  • Flower Keychains • Embriodery Hair clips • Customized Hampers 
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
@@ -402,12 +438,15 @@ export default function HomePage() {
             <p className="max-w-3xl mx-auto text-lg md:text-xl leading-relaxed text-gray-700">
               Hi, I&apos;m <span className="font-semibold text-pink-600">Vaishnavi</span> — a passionate
               artist who finds beauty in handmade creations. From intricate{" "}
-              <span className="font-medium text-pink-600">macramé bags</span> and dreamy{" "}
-              <span className="font-medium text-pink-600">resin preserved jewelry</span> to vibrant{" "}
-              <span className="font-medium text-pink-600">silk thread accessories</span>, every piece I create
+              <span className="font-medium text-pink-600">macramé bags</span>, dreamy{" "}
+              <span className="font-medium text-pink-600">aesthetic beads phone charms</span>, vibrant{" "}
+              <span className="font-medium text-pink-600">flower bouquet keychains</span>, delicate{" "}
+              <span className="font-medium text-pink-600">embroidery hair clips</span>, to charming{" "}
+              <span className="font-medium text-pink-600">macramé daisy keychains</span>, every piece I create
               carries a touch of warmth, patience, and love. My goal is to turn simple materials
               into meaningful treasures that bring joy and elegance to your everyday life ✨
             </p>
+
           </motion.div>
         </div>
       </section>
@@ -439,7 +478,7 @@ export default function HomePage() {
             1024: { slidesPerView: 3 },
           }}
         >
-          {products.map((item, index) => (
+          {bestSellers.map((item, index) => (
             <SwiperSlide key={index}>
               <motion.div
                 whileHover={{
@@ -455,8 +494,8 @@ export default function HomePage() {
                   <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.4 }} className="max-h-[240px] w-auto">
                     <div className="relative max-h-[240px] w-auto">
                       <Image
-                        src={item.img}
-                        alt={item.name}
+                        src={item.image}
+                        alt={item.title}
                         width={400}
                         height={400}
                         className="max-h-[240px] w-auto object-contain drop-shadow-md"
@@ -465,8 +504,8 @@ export default function HomePage() {
                   </motion.div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">{item.name}</h3>
-                <p className="text-pink-600 font-semibold text-lg">{item.price}</p>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">{item.title}</h3>
+                <p className="text-pink-600 font-semibold text-lg">{item.subtitle}</p>
 
                 <Link
                   href="/product"

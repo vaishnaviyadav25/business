@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { auth } from "@/context/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 interface Order {
@@ -285,7 +286,7 @@ export default function AdminOrdersPage() {
                 >
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                     <div className="flex-1">
-                      <div className="flex items-center gap-4 mb-4">
+                      <div className="flex flex-wrap items-center gap-2 mb-4">
                         <h3 className="text-lg font-semibold text-pink-700">
                           Order #{order.orderId}
                         </h3>

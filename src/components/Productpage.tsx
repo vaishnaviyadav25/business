@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { auth } from "@/context/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
@@ -25,6 +25,28 @@ interface UploadResponse {
   imageUrls: string[];
 }
 
+interface PromotionalProduct {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  gradient: string;
+  link: string;
+  badge: string;
+  visible: boolean;
+}
+
+interface BestSellerProduct {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  gradient: string;
+  link: string;
+  badge: string;
+  visible: boolean;
+}
+
 
 
 export default function Productpage() {
@@ -32,6 +54,7 @@ export default function Productpage() {
   const [activeImage, setActiveImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,6 +62,8 @@ export default function Productpage() {
   const [loading, setLoading] = useState(true);
 
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
+  const [promotionalProducts, setPromotionalProducts] = useState<PromotionalProduct[]>([]);
+  const [bestSellerProducts, setBestSellerProducts] = useState<BestSellerProduct[]>([]);
   const [formData, setFormData] = useState({
     category: "",
     name: "",
@@ -62,6 +87,19 @@ export default function Productpage() {
       try {
         const response = await axios.get<Product[]>('/api/products');
         setProducts(response.data);
+
+        // Check for product query parameter and select the product
+        if (searchParams) {
+          const productName = searchParams.get('product');
+          if (productName) {
+            const product = response.data.find(p => p.name === decodeURIComponent(productName));
+            if (product) {
+              setSelectedProduct(product);
+              setActiveImage(0);
+              setQuantity(1);
+            }
+          }
+        }
       } catch (error) {
         console.error('Error fetching products:', error);
         // If API fails, show empty array
@@ -72,12 +110,35 @@ export default function Productpage() {
     };
 
     fetchProducts();
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     // Load liked products from localStorage
     const liked = JSON.parse(localStorage.getItem("likedProducts") || "[]");
     setLikedProducts(liked);
+  }, []);
+
+  useEffect(() => {
+    const fetchPromotionalProducts = async () => {
+      try {
+        const response = await axios.get<PromotionalProduct[]>('/api/promotional');
+        setPromotionalProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching promotional products:', error);
+      }
+    };
+
+    const fetchBestSellerProducts = async () => {
+      try {
+        const response = await axios.get<BestSellerProduct[]>('/api/best-sellers');
+        setBestSellerProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching best seller products:', error);
+      }
+    };
+
+    fetchPromotionalProducts();
+    fetchBestSellerProducts();
   }, []);
 
   const toggleLike = (productId: number, e: React.MouseEvent) => {
@@ -87,6 +148,48 @@ export default function Productpage() {
       : [...likedProducts, productId];
     setLikedProducts(updatedLiked);
     localStorage.setItem("likedProducts", JSON.stringify(updatedLiked));
+  };
+
+  const addToPromotional = async (product: Product, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the product modal
+    try {
+      const promotionalData = {
+        title: product.name,
+        subtitle: `₹${product.price}`,
+        description: product.desc,
+        image: product.images[0],
+        gradient: "from-pink-300 via-rose-300 to-pink-300",
+        link: "/product",
+        badge: product.category,
+        visible: true,
+      };
+      await axios.post('/api/promotional', promotionalData);
+      alert('Product added to promotional banner successfully!');
+    } catch (error) {
+      console.error('Error adding to promotional:', error);
+      alert('Failed to add product to promotional banner. Please try again.');
+    }
+  };
+
+  const addToBestSellers = async (product: Product, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the product modal
+    try {
+      const bestSellerData = {
+        title: product.name,
+        subtitle: `₹${product.price}`,
+        description: product.desc,
+        image: product.images[0],
+        gradient: "from-yellow-300 via-orange-300 to-red-300",
+        link: "/product",
+        badge: product.category,
+        visible: true,
+      };
+      await axios.post('/api/best-sellers', bestSellerData);
+      alert('Product added to best sellers successfully!');
+    } catch (error) {
+      console.error('Error adding to best sellers:', error);
+      alert('Failed to add product to best sellers. Please try again.');
+    }
   };
 
   const addToCart = (product: Product) => {
@@ -224,6 +327,36 @@ export default function Productpage() {
                       >
                         {likedProducts.includes(product.id) ? '❤️' : '🤍'}
                       </button>
+
+                      {/* Add to Promotional Button - Only for admin */}
+                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
+                        <button
+                          onClick={(e) => addToPromotional(product, e)}
+                          className={`absolute top-2 left-2 z-10 w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
+                            promotionalProducts.some(p => p.title === product.name)
+                              ? 'bg-red-500 hover:bg-red-600'
+                              : 'bg-blue-500 hover:bg-blue-600'
+                          }`}
+                          title={promotionalProducts.some(p => p.title === product.name) ? "Already in Promotional Banner" : "Add to Promotional Banner"}
+                        >
+                          📢
+                        </button>
+                      )}
+
+                      {/* Add to Best Sellers Button - Only for admin */}
+                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
+                        <button
+                          onClick={(e) => addToBestSellers(product, e)}
+                          className={`absolute top-12 left-2 z-10 w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
+                            bestSellerProducts.some(p => p.title === product.name)
+                              ? 'bg-red-500 hover:bg-red-600'
+                              : 'bg-green-500 hover:bg-green-600'
+                          }`}
+                          title={bestSellerProducts.some(p => p.title === product.name) ? "Already in Best Sellers" : "Add to Best Sellers"}
+                        >
+                          ⭐
+                        </button>
+                      )}
 
                       <div className="relative w-full h-28 sm:h-52 flex items-center justify-center">
                         <Image
@@ -433,14 +566,20 @@ export default function Productpage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                    <input
-                      type="text"
+                    <select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                      placeholder="e.g., Macramé, Beaded Art"
                       required
-                    />
+                    >
+                      <option value="">Select a category</option>
+                      <option value="Macramé">Macramé</option>
+                      <option value="Beaded Art">Beaded Art</option>
+                      <option value="Keychains">Keychains</option>
+                      <option value="Bags & Pouches">Bags & Pouches</option>
+                      <option value="Wall Hangings">Wall Hangings</option>
+                      <option value="Jewelry">Jewelry</option>
+                    </select>
                   </div>
 
                   <div>
