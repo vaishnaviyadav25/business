@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -56,6 +56,7 @@ const categoryIcons: { [key: string]: string } = {
   "Bags & Pouches": "👜",
   "Wall Hangings": "🖼️",
   "Jewelry": "💍",
+  "Hair Clips": "💇‍♀️",
 };
 
 export default function Productpage() {
@@ -381,59 +382,7 @@ export default function Productpage() {
                         {likedProducts.includes(product.id) ? '❤️' : '🤍'}
                       </button>
 
-                      {/* Add to Promotional Button - Only for admin */}
-                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
-                        <button
-                          onClick={(e) => addToPromotional(product, e)}
-                          className={`absolute top-2 left-2 z-10 w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
-                            promotionalProducts.some(p => p.title === product.name)
-                              ? 'bg-red-500 hover:bg-red-600'
-                              : 'bg-blue-500 hover:bg-blue-600'
-                          }`}
-                          title={promotionalProducts.some(p => p.title === product.name) ? "Already in Promotional Banner" : "Add to Promotional Banner"}
-                        >
-                          📢
-                        </button>
-                      )}
-
-                      {/* Add to Best Sellers Button - Only for admin */}
-                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
-                        <button
-                          onClick={(e) => addToBestSellers(product, e)}
-                          className={`absolute top-12 left-2 z-10 w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
-                            bestSellerProducts.some(p => p.title === product.name)
-                              ? 'bg-red-500 hover:bg-red-600'
-                              : 'bg-green-500 hover:bg-green-600'
-                          }`}
-                          title={bestSellerProducts.some(p => p.title === product.name) ? "Already in Best Sellers" : "Add to Best Sellers"}
-                        >
-                          ⭐
-                        </button>
-                      )}
-
-                      {/* Edit Button - Only for admin */}
-                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
-                        <button
-                          onClick={(e) => handleEdit(product, e)}
-                          className="absolute top-2 right-12 z-10 w-8 h-8 rounded-full bg-purple-500 hover:bg-purple-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
-                          title="Edit Product"
-                        >
-                          ✏️
-                        </button>
-                      )}
-
-                      {/* Delete Button - Only for admin */}
-                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
-                        <button
-                          onClick={(e) => handleDelete(product, e)}
-                          className="absolute top-12 right-12 z-10 w-8 h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
-                          title="Delete Product"
-                        >
-                          🗑️
-                        </button>
-                      )}
-
-                      <div className="relative w-full h-28 sm:h-52 flex items-center justify-center">
+                      <div className="relative w-full h-40 sm:h-52 flex items-center justify-center">
                         <Image
                           src={product.images[0]}
                           alt={product.name}
@@ -443,6 +392,51 @@ export default function Productpage() {
                           className="w-full h-full object-contain"
                         />
                       </div>
+
+                      {/* Admin Buttons - Below Image */}
+                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
+                        <div className="flex gap-2 mt-2 justify-center">
+                          <button
+                            onClick={(e) => addToPromotional(product, e)}
+                            className={`w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
+                              promotionalProducts.some(p => p.title === product.name)
+                                ? 'bg-red-500 hover:bg-red-600'
+                                : 'bg-blue-500 hover:bg-blue-600'
+                            }`}
+                            title={promotionalProducts.some(p => p.title === product.name) ? "Already in Promotional Banner" : "Add to Promotional Banner"}
+                          >
+                            📢
+                          </button>
+
+                          <button
+                            onClick={(e) => addToBestSellers(product, e)}
+                            className={`w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
+                              bestSellerProducts.some(p => p.title === product.name)
+                                ? 'bg-red-500 hover:bg-red-600'
+                                : 'bg-green-500 hover:bg-green-600'
+                            }`}
+                            title={bestSellerProducts.some(p => p.title === product.name) ? "Already in Best Sellers" : "Add to Best Sellers"}
+                          >
+                            ⭐
+                          </button>
+
+                          <button
+                            onClick={(e) => handleEdit(product, e)}
+                            className="w-8 h-8 rounded-full bg-purple-500 hover:bg-purple-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                            title="Edit Product"
+                          >
+                            ✏️
+                          </button>
+
+                          <button
+                            onClick={(e) => handleDelete(product, e)}
+                            className="w-8 h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                            title="Delete Product"
+                          >
+                            🗑️
+                          </button>
+                        </div>
+                      )}
 
                       <h3 className="mt-2 text-sm sm:text-lg font-semibold text-gray-800 text-center truncate">
                         {product.name}
@@ -655,7 +649,8 @@ export default function Productpage() {
                       <option value="Bags & Pouches">Bags & Pouches</option>
                       <option value="Wall Hangings">Wall Hangings</option>
                       <option value="Jewelry">Jewelry</option>
-                    </select>
+                      <option value="Hair Clips">Hair Clips</option>
+ge                    </select>
                   </div>
 
                   <div>
