@@ -390,51 +390,56 @@ export default function Productpage() {
                           height={400}
                           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                           className="w-full h-full object-contain"
+                          loading="lazy"
+                          blurDataURL="blur"
                         />
                       </div>
 
                       {/* Admin Buttons - Below Image */}
                       {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
-                        <div className="flex gap-2 mt-2 justify-center">
-                          <button
-                            onClick={(e) => addToPromotional(product, e)}
-                            className={`w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
-                              promotionalProducts.some(p => p.title === product.name)
-                                ? 'bg-red-500 hover:bg-red-600'
-                                : 'bg-blue-500 hover:bg-blue-600'
-                            }`}
-                            title={promotionalProducts.some(p => p.title === product.name) ? "Already in Promotional Banner" : "Add to Promotional Banner"}
-                          >
-                            📢
-                          </button>
+                        <div className="flex flex-col sm:flex-row gap-2 mt-2 justify-center items-center">
+                          <div className="flex gap-2">
+                            <button
+                              onClick={(e) => addToPromotional(product, e)}
+                              className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base ${
+                                promotionalProducts.some(p => p.title === product.name)
+                                  ? 'bg-red-500 hover:bg-red-600'
+                                  : 'bg-blue-500 hover:bg-blue-600'
+                              }`}
+                              title={promotionalProducts.some(p => p.title === product.name) ? "Already in Promotional Banner" : "Add to Promotional Banner"}
+                            >
+                              📢
+                            </button>
 
-                          <button
-                            onClick={(e) => addToBestSellers(product, e)}
-                            className={`w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md ${
-                              bestSellerProducts.some(p => p.title === product.name)
-                                ? 'bg-red-500 hover:bg-red-600'
-                                : 'bg-green-500 hover:bg-green-600'
-                            }`}
-                            title={bestSellerProducts.some(p => p.title === product.name) ? "Already in Best Sellers" : "Add to Best Sellers"}
-                          >
-                            ⭐
-                          </button>
+                            <button
+                              onClick={(e) => addToBestSellers(product, e)}
+                              className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base ${
+                                bestSellerProducts.some(p => p.title === product.name)
+                                  ? 'bg-red-500 hover:bg-red-600'
+                                  : 'bg-green-500 hover:bg-green-600'
+                              }`}
+                              title={bestSellerProducts.some(p => p.title === product.name) ? "Already in Best Sellers" : "Add to Best Sellers"}
+                            >
+                              ⭐
+                            </button>
+                          </div>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={(e) => handleEdit(product, e)}
+                              className="w-10 h-10 sm:w-8 sm:h-8 rounded-full bg-purple-500 hover:bg-purple-600 text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base"
+                              title="Edit Product"
+                            >
+                              ✏️
+                            </button>
 
-                          <button
-                            onClick={(e) => handleEdit(product, e)}
-                            className="w-8 h-8 rounded-full bg-purple-500 hover:bg-purple-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
-                            title="Edit Product"
-                          >
-                            ✏️
-                          </button>
-
-                          <button
-                            onClick={(e) => handleDelete(product, e)}
-                            className="w-8 h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
-                            title="Delete Product"
-                          >
-                            🗑️
-                          </button>
+                            <button
+                              onClick={(e) => handleDelete(product, e)}
+                              className="w-10 h-10 sm:w-8 sm:h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base"
+                              title="Delete Product"
+                            >
+                              🗑️
+                            </button>
+                          </div>
                         </div>
                       )}
 
@@ -506,6 +511,9 @@ export default function Productpage() {
                       width={500}
                       height={500}
                       className="object-contain max-h-full max-w-full drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
+                      loading="lazy"
+                      priority
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+1Vv1pBhWn1qF1BfFWa+lfeNF13rhnqdV1asndrKX8YNo9eSZueishP8AMj/2Q=="
                     />
                   </motion.div>
 
@@ -522,6 +530,7 @@ export default function Productpage() {
                             ? "border-pink-500 scale-110 shadow-md"
                             : "border-transparent opacity-70 hover:opacity-100"
                           }`}
+                        loading="lazy"
                       />
                     ))}
                   </div>
@@ -718,6 +727,7 @@ ge                    </select>
                               width={100}
                               height={80}
                               className="w-full h-20 object-cover rounded-lg border"
+                              loading="lazy"
                             />
                           </div>
                         ))}
@@ -736,6 +746,7 @@ ge                    </select>
                               width={100}
                               height={80}
                               className="w-full h-20 object-cover rounded-lg border"
+                              loading="lazy"
                             />
                             <button
                               type="button"

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/layout/Navigation";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // ✅ Google Fonts
 const geistSans = Geist({
@@ -19,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title:" Vaishi Handmade Creations Bags,Charms ,keychain – Vaishi",
   description:
-"Vaishi offers handcrafted mobile phone charms and flower hair clips made with love & care. Explore our exclusive collection and  grab exciting discounts now!",
+"Vaishi offers handcrafted mobile phone charms , hair clips made with love & care. Explore our exclusive collection and  grab exciting discounts now!",
   keywords: [
     "Vaishi",
     "Vaishi handmade products",
@@ -103,7 +104,7 @@ export default function RootLayout({
               url: "https://vaishi.vercel.app",
               logo: "https://vaishi.vercel.app/Mylogo.png", // ✅ absolute path
               sameAs: [
-                "https://www.instagram.com/vaishi_handmade",
+                "https://www.instagram.com/vaishi2059/",
                 "https://www.pinterest.com/vaishiart",
               ],
             }),
@@ -117,6 +118,7 @@ export default function RootLayout({
         <Navigation />
         <main className="pt-20">{children}</main>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

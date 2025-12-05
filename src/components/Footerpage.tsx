@@ -101,7 +101,7 @@ export default function Footer() {
             </p>
             <div className="flex justify-center md:justify-start gap-6 text-pink-500 text-2xl mt-4">
               <motion.a
-                href="https://www.instagram.com/"
+                href="https://www.instagram.com/vaishi2059/"
                 target="_blank"
                 whileHover={{ scale: 1.2, rotate: 10 }}
                 transition={{ type: "spring", stiffness: 200 }}

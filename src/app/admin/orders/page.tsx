@@ -284,7 +284,7 @@ export default function AdminOrdersPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                  <div className="flex flex-col gap-6">
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-2 mb-4">
                         <h3 className="text-lg font-semibold text-pink-700">
