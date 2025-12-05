@@ -221,13 +221,15 @@ export default function HomePage() {
                             className="w-full h-full flex items-center justify-center"
                           >
                             <div className="relative w-full h-full flex items-center justify-center p-4">
-                              <Image
-                                src={poster.image}
-                                alt={poster.title}
-                                width={400}
-                                height={300}
-                                className="w-full h-full max-h-64 object-contain drop-shadow-2xl"
-                              />
+                            <Image
+                              src={poster.image}
+                              alt={poster.title}
+                              width={400}
+                              height={300}
+                              priority={index === 0}
+                              sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 33vw"
+                              className="w-full h-full max-h-64 object-contain drop-shadow-2xl"
+                            />
                             </div>
                           </motion.div>
                         </div>

@@ -1,8 +1,9 @@
-# TODO: Implement Promotional Banner Products API and Homepage Integration
+# Optimization Plan for Image Loading, Mobile View, and SEO
 
 ## Tasks
-- [ ] Create new API endpoint `/api/promotional` for saving and fetching promotional products in "promotional" collection
-- [ ] Update Homepage.tsx to fetch promotional products from API instead of hardcoded data
-- [ ] Test adding a promotional product via API
-- [ ] Verify homepage displays fetched promotional products correctly
-- [ ] Ensure only visible products are displayed (add 'visible' field if needed)
+- [ ] Update SEO keywords in layout.tsx using keywords from keywords.xlsx
+- [ ] Optimize image loading in Homepage.tsx (add priority, sizes)
+- [ ] Optimize image loading in Productpage.tsx (add priority, sizes)
+- [ ] Enhance next.config.ts for better image compression
+- [ ] Verify mobile responsiveness and touch interactions
+- [ ] Test performance and layout shifts

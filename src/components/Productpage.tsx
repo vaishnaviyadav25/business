@@ -364,6 +364,7 @@ export default function Productpage() {
                           alt={product.name}
                           width={400}
                           height={400}
+                          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                           className="w-full h-full object-contain"
                         />
                       </div>
