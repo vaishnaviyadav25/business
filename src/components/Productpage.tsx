@@ -49,6 +49,15 @@ interface BestSellerProduct {
 
 
 
+const categoryIcons: { [key: string]: string } = {
+  "Macramé": "🧵",
+  "Beaded Art": "💎",
+  "Keychains": "🔑",
+  "Bags & Pouches": "👜",
+  "Wall Hangings": "🖼️",
+  "Jewelry": "💍",
+};
+
 export default function Productpage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeImage, setActiveImage] = useState(0);
@@ -57,6 +66,7 @@ export default function Productpage() {
   const searchParams = useSearchParams();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true);
@@ -211,26 +221,62 @@ export default function Productpage() {
 
   const categories = Array.from(new Set(products.map((p) => p.category)));
 
+  const handleEdit = (product: Product, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the product modal
+    setEditingProduct(product);
+    setFormData({
+      category: product.category,
+      name: product.name,
+      price: product.price.toString(),
+      images: [], // Keep existing images, but allow adding new ones
+      desc: product.desc,
+      material: product.material,
+      size: product.size,
+      care: product.care,
+    });
+    setShowAddForm(true);
+  };
+
+  const handleDelete = async (product: Product, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the product modal
+    if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
+      try {
+        await axios.delete(`/api/products?id=${product.id}`);
+        alert('Product deleted successfully!');
+        // Refresh products list
+        window.location.reload();
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        alert('Failed to delete product. Please try again.');
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      // Upload images to server
-      const formDataUpload = new FormData();
-      formData.images.forEach((file) => {
-        formDataUpload.append('images', file);
-      });
+      let imageUrls = editingProduct ? editingProduct.images : [];
 
-      const uploadResponse = await axios.post<UploadResponse>('/api/upload', formDataUpload, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      // Upload images to server if new images are selected
+      if (formData.images.length > 0) {
+        const formDataUpload = new FormData();
+        formData.images.forEach((file) => {
+          formDataUpload.append('images', file);
+        });
 
-      const imageUrls = uploadResponse.data.imageUrls;
+        const uploadResponse = await axios.post<UploadResponse>('/api/upload', formDataUpload, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        imageUrls = uploadResponse.data.imageUrls;
+      }
 
       // Save product to database
       const productData = {
+        ...(editingProduct && { id: editingProduct.id }),
         category: formData.category,
         name: formData.name,
         price: parseFloat(formData.price),
@@ -241,7 +287,13 @@ export default function Productpage() {
         care: formData.care,
       };
 
-      await axios.post('/api/products', productData);
+      if (editingProduct) {
+        await axios.put('/api/products', productData);
+        alert('Product updated successfully!');
+      } else {
+        await axios.post('/api/products', productData);
+        alert('Product added successfully!');
+      }
 
       // Reset form and close modal
       setFormData({
@@ -254,13 +306,14 @@ export default function Productpage() {
         size: "",
         care: "",
       });
+      setEditingProduct(null);
       setShowAddForm(false);
 
-      // Optionally refresh the page or update the products list
+      // Refresh the page to update the products list
       window.location.reload();
     } catch (error) {
-      console.error('Error adding product:', error);
-      alert('Failed to add product. Please try again.');
+      console.error('Error saving product:', error);
+      alert('Failed to save product. Please try again.');
     }
   };
 
@@ -298,7 +351,7 @@ export default function Productpage() {
               viewport={{ once: true }}
             >
               <h2 className="text-2xl sm:text-3xl font-semibold text-pink-700 mb-6 text-center">
-                {cat} Collection
+                {categoryIcons[cat] || "📦"} {cat} Collection
               </h2>
 
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
@@ -355,6 +408,28 @@ export default function Productpage() {
                           title={bestSellerProducts.some(p => p.title === product.name) ? "Already in Best Sellers" : "Add to Best Sellers"}
                         >
                           ⭐
+                        </button>
+                      )}
+
+                      {/* Edit Button - Only for admin */}
+                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
+                        <button
+                          onClick={(e) => handleEdit(product, e)}
+                          className="absolute top-2 right-12 z-10 w-8 h-8 rounded-full bg-purple-500 hover:bg-purple-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                          title="Edit Product"
+                        >
+                          ✏️
+                        </button>
+                      )}
+
+                      {/* Delete Button - Only for admin */}
+                      {currentUser && currentUser.uid === "St2c5SF4MPXWHilp4a1C6HZNACF3" && (
+                        <button
+                          onClick={(e) => handleDelete(product, e)}
+                          className="absolute top-12 right-12 z-10 w-8 h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                          title="Delete Product"
+                        >
+                          🗑️
                         </button>
                       )}
 
@@ -560,7 +635,7 @@ export default function Productpage() {
               </button>
 
               <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 text-center">
-                Add New Product
+                {editingProduct ? "Edit Product" : "Add New Product"}
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -624,7 +699,7 @@ export default function Productpage() {
                       className="hidden"
                       id="image-upload"
                       name="images"
-                      required
+                      required={!editingProduct}
                     />
                     <label htmlFor="image-upload" className="cursor-pointer">
                       <div className="text-gray-500 mb-2">
@@ -636,9 +711,27 @@ export default function Productpage() {
                       <p className="text-xs text-gray-500 mt-1">PNG, JPG, GIF up to 10MB each</p>
                     </label>
                   </div>
+                  {editingProduct && editingProduct.images.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-sm text-gray-600 mb-2">Existing images:</p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {editingProduct.images.map((img, index) => (
+                          <div key={index} className="relative">
+                            <Image
+                              src={img}
+                              alt={`Existing ${index + 1}`}
+                              width={100}
+                              height={80}
+                              className="w-full h-20 object-cover rounded-lg border"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   {formData.images.length > 0 && (
                     <div className="mt-4">
-                      <p className="text-sm text-gray-600 mb-2">Selected images: {formData.images.length}</p>
+                      <p className="text-sm text-gray-600 mb-2">New images to add: {formData.images.length}</p>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {formData.images.map((file, index) => (
                           <div key={index} className="relative">
@@ -721,11 +814,14 @@ export default function Productpage() {
                     type="submit"
                     className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-4 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 flex-1 font-medium text-lg"
                   >
-                    ✨ Add Product
+                    {editingProduct ? "✨ Update Product" : "✨ Add Product"}
                   </button>
                   <button
                     type="button"
-                    onClick={() => setShowAddForm(false)}
+                    onClick={() => {
+                      setShowAddForm(false);
+                      setEditingProduct(null);
+                    }}
                     className="border-2 border-pink-400 text-pink-600 px-8 py-4 rounded-full hover:bg-pink-50 hover:scale-105 transition-all duration-300 flex-1 font-medium text-lg"
                   >
                     Cancel

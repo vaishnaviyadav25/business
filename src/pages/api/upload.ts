@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import formidable, { File } from "formidable";
-import fs from "fs";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
 
 export const config = {
   api: {
@@ -13,6 +12,13 @@ interface UploadResponse {
   imageUrls: string[];
 }
 
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<UploadResponse | { message: string; error?: string }>
@@ -23,18 +29,11 @@ export default async function handler(
 
   try {
     const form = formidable({
-      uploadDir: path.join(process.cwd(), "public/uploads"),
       keepExtensions: true,
       maxFileSize: 10 * 1024 * 1024, // 10MB
     });
 
-    // Ensure upload directory exists
-    const uploadDir = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {
       if (err) {
         console.error("Error parsing form:", err);
         return res.status(500).json({ message: "Error parsing form", error: err.message });
@@ -46,13 +45,22 @@ export default async function handler(
       }
 
       const fileArray = Array.isArray(uploadedFiles) ? uploadedFiles : [uploadedFiles];
-      const imageUrls = fileArray.map((file) => {
-        // Return relative path for Next.js public folder
-        const relativePath = file.filepath.replace(path.join(process.cwd(), "public"), "");
-        return relativePath.replace(/\\/g, "/"); // Normalize path separators
-      });
+      const imageUrls: string[] = [];
 
-      res.status(200).json({ imageUrls });
+      try {
+        // Upload each file to Cloudinary
+        for (const file of fileArray) {
+          const result = await cloudinary.uploader.upload(file.filepath, {
+            folder: "products", // Optional: organize uploads in a folder
+          });
+          imageUrls.push(result.secure_url);
+        }
+
+        res.status(200).json({ imageUrls });
+      } catch (uploadError) {
+        console.error("Cloudinary upload error:", uploadError);
+        res.status(500).json({ message: "Error uploading to Cloudinary", error: (uploadError as Error).message });
+      }
     });
   } catch (error) {
     console.error("Upload error:", error);

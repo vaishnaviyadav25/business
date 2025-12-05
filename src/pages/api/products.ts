@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const client = await clientPromise;
@@ -44,6 +45,45 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(201).json({ message: "Product added", id: result.insertedId });
     } catch (error) {
       res.status(500).json({ message: "Error adding product", error });
+    }
+  } else if (req.method === "PUT") {
+    try {
+      const { id, category, name, price, images, desc, material, size, care } = req.body;
+      const result = await db.collection("products").updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            category,
+            name,
+            price: Number(price),
+            images,
+            desc,
+            material,
+            size,
+            care,
+            updatedAt: new Date(),
+          },
+        }
+      );
+      if (result.matchedCount === 0) {
+        res.status(404).json({ message: "Product not found" });
+      } else {
+        res.status(200).json({ message: "Product updated" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error updating product", error });
+    }
+  } else if (req.method === "DELETE") {
+    try {
+      const { id } = req.query;
+      const result = await db.collection("products").deleteOne({ _id: new ObjectId(id as string) });
+      if (result.deletedCount === 0) {
+        res.status(404).json({ message: "Product not found" });
+      } else {
+        res.status(200).json({ message: "Product deleted" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting product", error });
     }
   } else {
     res.status(405).json({ message: "Method not allowed" });
