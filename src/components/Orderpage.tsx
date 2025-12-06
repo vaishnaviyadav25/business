@@ -64,7 +64,7 @@ export default function OrderPage() {
   }, [urlProduct, urlPrice]);
 
   const itemsToShow: CartItem[] =
-    urlProduct && cartItems.length === 1
+    urlProduct && cartItems?.length === 1
       ? [{ ...cartItems[0], quantity: Math.max(1, singleQuantity) }]
       : cartItems;
 
@@ -113,10 +113,11 @@ export default function OrderPage() {
     e.preventDefault();
     setStatus("loading");
 
-    if (itemsToShow.length === 0) {
-      setStatus("error");
-      return;
-    }
+ if (!itemsToShow?.length) {
+  setStatus("error");
+  return;
+}
+
 
     const form = e.currentTarget;
     const formData = new FormData(form);
