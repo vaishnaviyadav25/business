@@ -16,7 +16,44 @@ import ReviewModal from "./ReviewModal";
 export default function HomePage() {
 
   const [reviews, setReviews] = useState<Array<{ text: string; name: string; rating: number; date: string }>>([]);
-  const [promotionalPosters, setPromotionalPosters] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([]);
+  const [promotionalPosters, setPromotionalPosters] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([
+    {
+      title: "Macramé Sling Bag",
+      subtitle: "₹450",
+      description: "Stylish & Handcrafted",
+      image: "/Bag.jpeg",
+      gradient: "from-pink-300 via-rose-300 to-pink-300",
+      link: "/product",
+      badge: "Best Seller",
+    },
+    {
+      title: "Beaded Keychain",
+      subtitle: "₹159",
+      description: " Keychain pack of 1 ",
+      image: "/Keychain.jpeg",
+      gradient: "from-purple-300 via-pink-300 to-purple-300",
+      link: "/product",
+      badge: "New",
+    },
+    {
+      title: "Hair Clip Set",
+      subtitle: "₹99",
+      description: "Elegant Accessories",
+      image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
+      gradient: "from-rose-300 via-pink-300 to-rose-300",
+      link: "/product",
+      badge: "Trending",
+    },
+    {
+      title: "Macramé Wall Hanging",
+      subtitle: "₹399",
+      description: "Transform Your Space",
+      image: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
+      gradient: "from-pink-300 via-rose-300 to-pink-00",
+      link: "/product",
+      badge: "Popular",
+    },
+  ]);
   const [bestSellers, setBestSellers] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
 
@@ -171,7 +208,7 @@ export default function HomePage() {
             pauseOnMouseEnter: true,
           }}
           speed={1000}
-          loop={false}
+          loop={promotionalPosters.length > 1}
           pagination={{
             clickable: true,
             dynamicBullets: true,
@@ -470,8 +507,13 @@ export default function HomePage() {
 
         <Swiper
           modules={[Autoplay]}
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          loop={true}
+          autoplay={{
+            delay: 1000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={2000}
+          loop={bestSellers.length > 3}
           spaceBetween={30}
           slidesPerView={1}
           breakpoints={{
@@ -506,7 +548,9 @@ export default function HomePage() {
                   </motion.div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">{item.title}</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2" title={item.title}>
+                  {item.title.length > 25 ? `${item.title.substring(0, 25)}...` : item.title}
+                </h3>
                 <p className="text-pink-600 font-semibold text-lg">{item.subtitle}</p>
 
                 <Link

@@ -163,43 +163,81 @@ export default function Productpage() {
 
   const addToPromotional = async (product: Product, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent triggering the product modal
+    const isAlreadyAdded = promotionalProducts.some(p => p.title === product.name);
+
     try {
-      const promotionalData = {
-        title: product.name,
-        subtitle: `₹${product.price}`,
-        description: product.desc,
-        image: product.images[0],
-        gradient: "from-pink-300 via-rose-300 to-pink-300",
-        link: "/product",
-        badge: product.category,
-        visible: true,
-      };
-      await axios.post('/api/promotional', promotionalData);
-      alert('Product added to promotional banner successfully!');
+      if (isAlreadyAdded) {
+        // Confirm removal
+        if (!window.confirm(`Are you sure you want to remove "${product.name}" from promotional banner?`)) {
+          return;
+        }
+        // Remove from promotional
+        await axios.request({ method: 'DELETE', url: '/api/promotional', data: { title: product.name } });
+        alert('Product removed from promotional banner successfully!');
+        // Refresh promotional products
+        const response = await axios.get<PromotionalProduct[]>('/api/promotional');
+        setPromotionalProducts(response.data);
+      } else {
+        // Add to promotional
+        const promotionalData = {
+          title: product.name,
+          subtitle: `₹${product.price}`,
+          description: product.desc,
+          image: product.images[0],
+          gradient: "from-pink-300 via-rose-300 to-pink-300",
+          link: "/product",
+          badge: product.category,
+          visible: true,
+        };
+        await axios.post('/api/promotional', promotionalData);
+        alert('Product added to promotional banner successfully!');
+        // Refresh promotional products
+        const response = await axios.get<PromotionalProduct[]>('/api/promotional');
+        setPromotionalProducts(response.data);
+      }
     } catch (error) {
-      console.error('Error adding to promotional:', error);
-      alert('Failed to add product to promotional banner. Please try again.');
+      console.error('Error updating promotional:', error);
+      alert('Failed to update promotional banner. Please try again.');
     }
   };
 
   const addToBestSellers = async (product: Product, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent triggering the product modal
+    const isAlreadyAdded = bestSellerProducts.some(p => p.title === product.name);
+
     try {
-      const bestSellerData = {
-        title: product.name,
-        subtitle: `₹${product.price}`,
-        description: product.desc,
-        image: product.images[0],
-        gradient: "from-yellow-300 via-orange-300 to-red-300",
-        link: "/product",
-        badge: product.category,
-        visible: true,
-      };
-      await axios.post('/api/best-sellers', bestSellerData);
-      alert('Product added to best sellers successfully!');
+      if (isAlreadyAdded) {
+        // Confirm removal
+        if (!window.confirm(`Are you sure you want to remove "${product.name}" from best sellers?`)) {
+          return;
+        }
+        // Remove from best sellers
+        await axios.request({ method: 'DELETE', url: '/api/best-sellers', data: { title: product.name } });
+        alert('Product removed from best sellers successfully!');
+        // Refresh best seller products
+        const response = await axios.get<BestSellerProduct[]>('/api/best-sellers');
+        setBestSellerProducts(response.data);
+      } else {
+        // Add to best sellers
+        const bestSellerData = {
+          title: product.name,
+          subtitle: `₹${product.price}`,
+          description: product.desc,
+          image: product.images[0],
+          gradient: "from-yellow-300 via-orange-300 to-red-300",
+          link: "/product",
+          badge: product.category,
+          visible: true,
+        };
+        await axios.post('/api/best-sellers', bestSellerData);
+        alert('Product added to best sellers successfully!');
+        // Refresh best seller products
+        const response = await axios.get<BestSellerProduct[]>('/api/best-sellers');
+        setBestSellerProducts(response.data);
+      }
     } catch (error) {
-      console.error('Error adding to best sellers:', error);
-      alert('Failed to add product to best sellers. Please try again.');
+      console.error('Error updating best sellers:', error);
+      alert('Failed to update best sellers. Please try again.');
     }
   };
 
@@ -391,7 +429,7 @@ export default function Productpage() {
                           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                           className="w-full h-full object-contain"
                           loading="lazy"
-                          blurDataURL="blur"
+                          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+1Vv1pBhWn1qF1BfFWa+lfeNF13rhnqdV1asndrKX8YNo9eSZueishP8AMj/2Q=="
                         />
                       </div>
 
@@ -404,7 +442,7 @@ export default function Productpage() {
                               className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base ${
                                 promotionalProducts.some(p => p.title === product.name)
                                   ? 'bg-red-500 hover:bg-red-600'
-                                  : 'bg-blue-500 hover:bg-blue-600'
+                                  : 'bg-green-500 hover:bg-green-600'
                               }`}
                               title={promotionalProducts.some(p => p.title === product.name) ? "Already in Promotional Banner" : "Add to Promotional Banner"}
                             >
@@ -443,7 +481,7 @@ export default function Productpage() {
                         </div>
                       )}
 
-                      <h3 className="mt-2 text-sm sm:text-lg font-semibold text-gray-800 text-center truncate">
+<h3 className="mt-2 text-sm sm:text-lg font-semibold text-gray-800 text-center">
                         {product.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 text-center">
@@ -512,7 +550,6 @@ export default function Productpage() {
                       height={500}
                       className="object-contain max-h-full max-w-full drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
                       loading="lazy"
-                      priority
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+1Vv1pBhWn1qF1BfFWa+lfeNF13rhnqdV1asndrKX8YNo9eSZueishP8AMj/2Q=="
                     />
                   </motion.div>
@@ -659,7 +696,7 @@ export default function Productpage() {
                       <option value="Wall Hangings">Wall Hangings</option>
                       <option value="Jewelry">Jewelry</option>
                       <option value="Hair Clips">Hair Clips</option>
-ge                    </select>
+                    </select>
                   </div>
 
                   <div>
