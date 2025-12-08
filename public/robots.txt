@@ -1,9 +1,3 @@
 User-agent: *
-Disallow: /cart
-Disallow: /login
-Disallow: /my-orders
-Disallow: /order-success
 Allow: /
-
-# Sitemap location
 Sitemap: https://vaishi.vercel.app/sitemap.xml
