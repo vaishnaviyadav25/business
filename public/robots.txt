@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# SITEMAP
+Sitemap: https://vaishi.vercel.app/sitemap.xml
