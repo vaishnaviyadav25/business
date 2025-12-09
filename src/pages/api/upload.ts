@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import formidable, { File } from "formidable";
 import { v2 as cloudinary } from "cloudinary";
 
+// Disable default body parsing (required for formidable)
 export const config = {
   api: {
     bodyParser: false,
@@ -51,19 +52,22 @@ export default async function handler(
         // Upload each file to Cloudinary
         for (const file of fileArray) {
           const result = await cloudinary.uploader.upload(file.filepath, {
-            folder: "products", // Optional: organize uploads in a folder
+            folder: "products", // Optional folder
           });
           imageUrls.push(result.secure_url);
         }
 
-        res.status(200).json({ imageUrls });
+        return res.status(200).json({ imageUrls });
       } catch (uploadError) {
         console.error("Cloudinary upload error:", uploadError);
-        res.status(500).json({ message: "Error uploading to Cloudinary", error: (uploadError as Error).message });
+        return res.status(500).json({
+          message: "Error uploading to Cloudinary",
+          error: (uploadError as Error).message,
+        });
       }
     });
   } catch (error) {
     console.error("Upload error:", error);
-    res.status(500).json({ message: "Error uploading files", error: (error as Error).message });
+    return res.status(500).json({ message: "Error uploading files", error: (error as Error).message });
   }
 }
