@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -411,11 +411,10 @@ export default function Productpage() {
                       {/* Like Button */}
                       <button
                         onClick={(e) => toggleLike(product.id, e)}
-                        className={`absolute top-2 right-2 z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                          likedProducts.includes(product.id)
+                        className={`absolute top-2 right-2 z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${likedProducts.includes(product.id)
                             ? 'bg-red-500 text-white shadow-lg'
                             : 'bg-white/80 text-gray-600 hover:bg-white shadow-md'
-                        }`}
+                          }`}
                       >
                         {likedProducts.includes(product.id) ? '❤️' : '🤍'}
                       </button>
@@ -439,11 +438,10 @@ export default function Productpage() {
                           <div className="flex gap-2">
                             <button
                               onClick={(e) => addToPromotional(product, e)}
-                              className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base ${
-                                promotionalProducts.some(p => p.title === product.name)
+                              className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base ${promotionalProducts.some(p => p.title === product.name)
                                   ? 'bg-red-500 hover:bg-red-600'
                                   : 'bg-green-500 hover:bg-green-600'
-                              }`}
+                                }`}
                               title={promotionalProducts.some(p => p.title === product.name) ? "Already in Promotional Banner" : "Add to Promotional Banner"}
                             >
                               📢
@@ -451,11 +449,10 @@ export default function Productpage() {
 
                             <button
                               onClick={(e) => addToBestSellers(product, e)}
-                              className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base ${
-                                bestSellerProducts.some(p => p.title === product.name)
+                              className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-md text-lg sm:text-base ${bestSellerProducts.some(p => p.title === product.name)
                                   ? 'bg-red-500 hover:bg-red-600'
                                   : 'bg-green-500 hover:bg-green-600'
-                              }`}
+                                }`}
                               title={bestSellerProducts.some(p => p.title === product.name) ? "Already in Best Sellers" : "Add to Best Sellers"}
                             >
                               ⭐
@@ -481,7 +478,7 @@ export default function Productpage() {
                         </div>
                       )}
 
-<h3 className="mt-2 text-sm sm:text-lg font-semibold text-gray-800 text-center">
+                      <h3 className="mt-2 text-sm sm:text-lg font-semibold text-gray-800 text-center">
                         {product.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 text-center">
@@ -509,372 +506,373 @@ export default function Productpage() {
 
         </div>
 
-      {/* Modal remains same as your desktop layout */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+        {/* Modal remains same as your desktop layout */}
+        <AnimatePresence>
+          {selectedProduct && (
             <motion.div
-              className="relative bg-white/80 backdrop-blur-lg border border-white/30 shadow-2xl rounded-3xl max-w-5xl w-full p-6 sm:p-8 mx-4 overflow-y-auto max-h-[90vh]"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 20, stiffness: 120 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              {/* Close button */}
-              <button
-                onClick={() => setSelectedProduct(null)}
-                className="absolute top-3 right-4 z-50 text-gray-500 hover:text-pink-600 text-3xl sm:text-4xl font-bold bg-white/70 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:shadow-lg transition-all"
+              <motion.div
+                className="relative bg-white/80 backdrop-blur-lg border border-white/30 shadow-2xl rounded-3xl max-w-5xl w-full p-6 sm:p-8 mx-4 overflow-y-auto max-h-[90vh]"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", damping: 20, stiffness: 120 }}
               >
-                ×
-              </button>
+                {/* Close button */}
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="absolute top-3 right-4 z-50 text-gray-500 hover:text-pink-600 text-3xl sm:text-4xl font-bold bg-white/70 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:shadow-lg transition-all"
+                >
+                  ×
+                </button>
 
-              {/* Modal content remains the same */}
-              <div className="flex flex-col md:flex-row gap-8 md:gap-10">
-                <div className="flex-1">
-                  <motion.div
-                    key={selectedProduct!.images[activeImage]}
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="relative rounded-3xl overflow-hidden w-full h-80 flex items-center justify-center bg-gradient-to-br from-pink-50 via-rose-100 to-amber-50 shadow-[0_12px_40px_rgba(0,0,0,0.18)] border border-pink-200/60 hover:shadow-[0_20px_55px_rgba(0,0,0,0.28)] hover:scale-[1.02] transition-all duration-500"
-                  >
-                    <Image
-                      src={selectedProduct!.images[activeImage]}
-                      alt={selectedProduct!.name}
-                      width={500}
-                      height={500}
-                      className="object-contain max-h-full max-w-full drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
-                      loading="lazy"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+1Vv1pBhWn1qF1BfFWa+lfeNF13rhnqdV1asndrKX8YNo9eSZueishP8AMj/2Q=="
-                    />
-                  </motion.div>
-
-                  <div className="flex justify-center mt-4 gap-3 flex-wrap">
-                    {selectedProduct!.images.map((img, i) => (
+                {/* Modal content remains the same */}
+                <div className="flex flex-col md:flex-row gap-8 md:gap-10">
+                  <div className="flex-1">
+                    <motion.div
+                      key={selectedProduct!.images[activeImage]}
+                      initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ duration: 0.35 }}
+                      className="relative rounded-3xl overflow-hidden w-full h-80 flex items-center justify-center bg-gradient-to-br from-pink-50 via-rose-100 to-amber-50 shadow-[0_12px_40px_rgba(0,0,0,0.18)] border border-pink-200/60 hover:shadow-[0_20px_55px_rgba(0,0,0,0.28)] hover:scale-[1.02] transition-all duration-500"
+                    >
                       <Image
-                        key={i}
-                        src={img}
-                        alt="thumb"
-                        width={100}
-                        height={100}
-                        onClick={() => setActiveImage(i)}
-                        className={`w-16 h-16 object-cover rounded-xl cursor-pointer transition-all duration-300 border-2 ${activeImage === i
+                        src={selectedProduct!.images[activeImage]}
+                        alt={selectedProduct!.name}
+                        width={500}
+                        height={500}
+                        className="object-contain max-h-full max-w-full drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
+                        loading="lazy"
+                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+1Vv1pBhWn1qF1BfFWa+lfeNF13rhnqdV1asndrKX8YNo9eSZueishP8AMj/2Q=="
+                      />
+                    </motion.div>
+
+                    <div className="flex justify-center mt-4 gap-3 flex-wrap">
+                      {selectedProduct!.images.map((img, i) => (
+                        <Image
+                          key={i}
+                          src={img}
+                          alt={`${selectedProduct!.name} thumbnail ${i + 1}`}
+
+                          width={100}
+                          height={100}
+                          onClick={() => setActiveImage(i)}
+                          className={`w-16 h-16 object-cover rounded-xl cursor-pointer transition-all duration-300 border-2 ${activeImage === i
                             ? "border-pink-500 scale-110 shadow-md"
                             : "border-transparent opacity-70 hover:opacity-100"
-                          }`}
-                        loading="lazy"
-                      />
-                    ))}
+                            }`}
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-3">
+                        {selectedProduct!.name}
+                      </h2>
+                      <p className="text-gray-600 mb-4 text-base sm:text-lg">
+                        {selectedProduct!.desc}
+                      </p>
+
+                      <div className="bg-white/60 rounded-2xl p-4 border border-pink-100 mb-4">
+                        <ul className="text-sm text-gray-700 space-y-2">
+                          <li>
+                            <strong>Material:</strong> {selectedProduct!.material}
+                          </li>
+                          <li>
+                            <strong>Size:</strong> {selectedProduct!.size}
+                          </li>
+                          <li>
+                            <strong>Care:</strong> {selectedProduct!.care}
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="flex items-center gap-3 mb-5">
+                        <span className="font-medium text-gray-700">
+                          Quantity:
+                        </span>
+                        <div className="flex items-center border rounded-xl bg-white/80 backdrop-blur-sm">
+                          <button
+                            onClick={() =>
+                              setQuantity((q) => (q > 1 ? q - 1 : 1))
+                            }
+                            className="px-3 py-1 text-lg font-bold text-pink-600"
+                          >
+                            −
+                          </button>
+                          <span className="px-4 font-medium">{quantity}</span>
+                          <button
+                            onClick={() => setQuantity((q) => q + 1)}
+                            className="px-3 py-1 text-lg font-bold text-pink-600"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+
+                      <p className="text-xl font-bold text-pink-700">
+                        ₹{selectedProduct!.price * quantity}
+                      </p>
+                    </div>
+
+                    <div className="flex gap-4 mt-6 flex-col sm:flex-row">
+                      <Link
+                        href={`/order?product=${encodeURIComponent(
+                          selectedProduct!.name
+                        )}&price=${selectedProduct!.price}&qty=${quantity}&image=${encodeURIComponent(
+                          selectedProduct!.images[0]
+                        )}`}
+                        className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-3 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 text-center flex-1"
+                      >
+                        Buy Now
+                      </Link>
+
+                      <button
+                        onClick={() => addToCart(selectedProduct!)}
+                        className="border-2 border-pink-400 text-pink-600 px-6 py-3 rounded-full hover:bg-pink-50 hover:scale-105 transition-all duration-300 flex-1 font-medium"
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
                 </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-3">
-                      {selectedProduct!.name}
-                    </h2>
-                    <p className="text-gray-600 mb-4 text-base sm:text-lg">
-                      {selectedProduct!.desc}
-                    </p>
+        {/* Add Product Form Modal */}
+        <AnimatePresence>
+          {showAddForm && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="relative bg-white/80 backdrop-blur-lg border border-white/30 shadow-2xl rounded-3xl max-w-2xl w-full p-6 sm:p-8 mx-4 overflow-y-auto max-h-[90vh]"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", damping: 20, stiffness: 120 }}
+              >
+                {/* Close button */}
+                <button
+                  onClick={() => setShowAddForm(false)}
+                  className="absolute top-3 right-4 z-50 text-gray-500 hover:text-pink-600 text-3xl sm:text-4xl font-bold bg-white/70 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:shadow-lg transition-all"
+                >
+                  ×
+                </button>
 
-                    <div className="bg-white/60 rounded-2xl p-4 border border-pink-100 mb-4">
-                      <ul className="text-sm text-gray-700 space-y-2">
-                        <li>
-                          <strong>Material:</strong> {selectedProduct!.material}
-                        </li>
-                        <li>
-                          <strong>Size:</strong> {selectedProduct!.size}
-                        </li>
-                        <li>
-                          <strong>Care:</strong> {selectedProduct!.care}
-                        </li>
-                      </ul>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 text-center">
+                  {editingProduct ? "Edit Product" : "Add New Product"}
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                      <select
+                        value={formData.category}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                        required
+                      >
+                        <option value="">Select a category</option>
+                        <option value="Macramé">Macramé</option>
+                        <option value="Beaded Art">Beaded Art</option>
+                        <option value="Keychains">Keychains</option>
+                        <option value="Bags & Pouches">Bags & Pouches</option>
+                        <option value="Wall Hangings">Wall Hangings</option>
+                        <option value="Jewelry">Jewelry</option>
+                        <option value="Hair Clips">Hair Clips</option>
+                      </select>
                     </div>
 
-                    <div className="flex items-center gap-3 mb-5">
-                      <span className="font-medium text-gray-700">
-                        Quantity:
-                      </span>
-                      <div className="flex items-center border rounded-xl bg-white/80 backdrop-blur-sm">
-                        <button
-                          onClick={() =>
-                            setQuantity((q) => (q > 1 ? q - 1 : 1))
-                          }
-                          className="px-3 py-1 text-lg font-bold text-pink-600"
-                        >
-                          −
-                        </button>
-                        <span className="px-4 font-medium">{quantity}</span>
-                        <button
-                          onClick={() => setQuantity((q) => q + 1)}
-                          className="px-3 py-1 text-lg font-bold text-pink-600"
-                        >
-                          +
-                        </button>
-                      </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                        placeholder="Product name"
+                        required
+                      />
                     </div>
-
-                    <p className="text-xl font-bold text-pink-700">
-                      ₹{selectedProduct!.price * quantity}
-                    </p>
                   </div>
 
-                  <div className="flex gap-4 mt-6 flex-col sm:flex-row">
-                    <Link
-                      href={`/order?product=${encodeURIComponent(
-                        selectedProduct!.name
-                      )}&price=${selectedProduct!.price}&qty=${quantity}&image=${encodeURIComponent(
-                        selectedProduct!.images[0]
-                      )}`}
-                      className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-3 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 text-center flex-1"
-                    >
-                      Buy Now
-                    </Link>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
+                    <input
+                      type="number"
+                      value={formData.price}
+                      onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                      placeholder="299"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </div>
 
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Product Images</label>
+                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-pink-400 transition-colors">
+                      <input
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={(e) => {
+                          const newFiles = Array.from(e.target.files || []);
+                          setFormData({ ...formData, images: [...formData.images, ...newFiles] });
+                        }}
+                        className="hidden"
+                        id="image-upload"
+                        name="images"
+                        required={!editingProduct}
+                      />
+                      <label htmlFor="image-upload" className="cursor-pointer">
+                        <div className="text-gray-500 mb-2">
+                          <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                        <p className="text-sm text-gray-600">Click to upload multiple images</p>
+                        <p className="text-xs text-gray-500 mt-1">PNG, JPG, GIF up to 10MB each</p>
+                      </label>
+                    </div>
+                    {editingProduct && editingProduct.images.length > 0 && (
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 mb-2">Existing images:</p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {editingProduct.images.map((img, index) => (
+                            <div key={index} className="relative">
+                              <Image
+                                src={img}
+                                alt={`Existing ${index + 1}`}
+                                width={100}
+                                height={80}
+                                className="w-full h-20 object-cover rounded-lg border"
+                                loading="lazy"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {formData.images.length > 0 && (
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 mb-2">New images to add: {formData.images.length}</p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {formData.images.map((file, index) => (
+                            <div key={index} className="relative">
+                              <Image
+                                src={URL.createObjectURL(file)}
+                                alt={`Preview ${index + 1}`}
+                                width={100}
+                                height={80}
+                                className="w-full h-20 object-cover rounded-lg border"
+                                loading="lazy"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const newImages = formData.images.filter((_, i) => i !== index);
+                                  setFormData({ ...formData, images: newImages });
+                                }}
+                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                              >
+                                ×
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea
+                      value={formData.desc}
+                      onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                      rows={4}
+                      placeholder="Describe your beautiful creation..."
+                      required
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Material</label>
+                      <input
+                        type="text"
+                        value={formData.material}
+                        onChange={(e) => setFormData({ ...formData, material: e.target.value })}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                        placeholder="e.g., Cotton thread"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Size</label>
+                      <input
+                        type="text"
+                        value={formData.size}
+                        onChange={(e) => setFormData({ ...formData, size: e.target.value })}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                        placeholder="e.g., 10cm x 6cm"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Care Instructions</label>
+                      <input
+                        type="text"
+                        value={formData.care}
+                        onChange={(e) => setFormData({ ...formData, care: e.target.value })}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                        placeholder="e.g., Wipe gently"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 pt-4">
                     <button
-                      onClick={() => addToCart(selectedProduct!)}
-                      className="border-2 border-pink-400 text-pink-600 px-6 py-3 rounded-full hover:bg-pink-50 hover:scale-105 transition-all duration-300 flex-1 font-medium"
+                      type="submit"
+                      className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-4 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 flex-1 font-medium text-lg"
                     >
-                      Add to Cart
+                      {editingProduct ? "✨ Update Product" : "✨ Add Product"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowAddForm(false);
+                        setEditingProduct(null);
+                      }}
+                      className="border-2 border-pink-400 text-pink-600 px-8 py-4 rounded-full hover:bg-pink-50 hover:scale-105 transition-all duration-300 flex-1 font-medium text-lg"
+                    >
+                      Cancel
                     </button>
                   </div>
-                </div>
-              </div>
+                </form>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Add Product Form Modal */}
-      <AnimatePresence>
-        {showAddForm && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="relative bg-white/80 backdrop-blur-lg border border-white/30 shadow-2xl rounded-3xl max-w-2xl w-full p-6 sm:p-8 mx-4 overflow-y-auto max-h-[90vh]"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 20, stiffness: 120 }}
-            >
-              {/* Close button */}
-              <button
-                onClick={() => setShowAddForm(false)}
-                className="absolute top-3 right-4 z-50 text-gray-500 hover:text-pink-600 text-3xl sm:text-4xl font-bold bg-white/70 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:shadow-lg transition-all"
-              >
-                ×
-              </button>
-
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 text-center">
-                {editingProduct ? "Edit Product" : "Add New Product"}
-              </h2>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                    <select
-                      value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                      required
-                    >
-                      <option value="">Select a category</option>
-                      <option value="Macramé">Macramé</option>
-                      <option value="Beaded Art">Beaded Art</option>
-                      <option value="Keychains">Keychains</option>
-                      <option value="Bags & Pouches">Bags & Pouches</option>
-                      <option value="Wall Hangings">Wall Hangings</option>
-                      <option value="Jewelry">Jewelry</option>
-                      <option value="Hair Clips">Hair Clips</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
-                    <input
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                      placeholder="Product name"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
-                  <input
-                    type="number"
-                    value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                    placeholder="299"
-                    min="0"
-                    step="0.01"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Product Images</label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-pink-400 transition-colors">
-                    <input
-                      type="file"
-                      multiple
-                      accept="image/*"
-                      onChange={(e) => {
-                        const newFiles = Array.from(e.target.files || []);
-                        setFormData({ ...formData, images: [...formData.images, ...newFiles] });
-                      }}
-                      className="hidden"
-                      id="image-upload"
-                      name="images"
-                      required={!editingProduct}
-                    />
-                    <label htmlFor="image-upload" className="cursor-pointer">
-                      <div className="text-gray-500 mb-2">
-                        <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                          <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                      <p className="text-sm text-gray-600">Click to upload multiple images</p>
-                      <p className="text-xs text-gray-500 mt-1">PNG, JPG, GIF up to 10MB each</p>
-                    </label>
-                  </div>
-                  {editingProduct && editingProduct.images.length > 0 && (
-                    <div className="mt-4">
-                      <p className="text-sm text-gray-600 mb-2">Existing images:</p>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {editingProduct.images.map((img, index) => (
-                          <div key={index} className="relative">
-                            <Image
-                              src={img}
-                              alt={`Existing ${index + 1}`}
-                              width={100}
-                              height={80}
-                              className="w-full h-20 object-cover rounded-lg border"
-                              loading="lazy"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {formData.images.length > 0 && (
-                    <div className="mt-4">
-                      <p className="text-sm text-gray-600 mb-2">New images to add: {formData.images.length}</p>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {formData.images.map((file, index) => (
-                          <div key={index} className="relative">
-                            <Image
-                              src={URL.createObjectURL(file)}
-                              alt={`Preview ${index + 1}`}
-                              width={100}
-                              height={80}
-                              className="w-full h-20 object-cover rounded-lg border"
-                              loading="lazy"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const newImages = formData.images.filter((_, i) => i !== index);
-                                setFormData({ ...formData, images: newImages });
-                              }}
-                              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
-                            >
-                              ×
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                  <textarea
-                    value={formData.desc}
-                    onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                    rows={4}
-                    placeholder="Describe your beautiful creation..."
-                    required
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Material</label>
-                    <input
-                      type="text"
-                      value={formData.material}
-                      onChange={(e) => setFormData({ ...formData, material: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                      placeholder="e.g., Cotton thread"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Size</label>
-                    <input
-                      type="text"
-                      value={formData.size}
-                      onChange={(e) => setFormData({ ...formData, size: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                      placeholder="e.g., 10cm x 6cm"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Care Instructions</label>
-                    <input
-                      type="text"
-                      value={formData.care}
-                      onChange={(e) => setFormData({ ...formData, care: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                      placeholder="e.g., Wipe gently"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-4 pt-4">
-                  <button
-                    type="submit"
-                    className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-4 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 flex-1 font-medium text-lg"
-                  >
-                    {editingProduct ? "✨ Update Product" : "✨ Add Product"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowAddForm(false);
-                      setEditingProduct(null);
-                    }}
-                    className="border-2 border-pink-400 text-pink-600 px-8 py-4 rounded-full hover:bg-pink-50 hover:scale-105 transition-all duration-300 flex-1 font-medium text-lg"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

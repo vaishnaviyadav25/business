@@ -35,24 +35,6 @@ export default function HomePage() {
       link: "/product",
       badge: "New",
     },
-    {
-      title: "Hair Clip Set",
-      subtitle: "₹99",
-      description: "Elegant Accessories",
-      image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
-      gradient: "from-rose-300 via-pink-300 to-rose-300",
-      link: "/product",
-      badge: "Trending",
-    },
-    {
-      title: "Macramé Wall Hanging",
-      subtitle: "₹399",
-      description: "Transform Your Space",
-      image: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
-      gradient: "from-pink-300 via-rose-300 to-pink-00",
-      link: "/product",
-      badge: "Popular",
-    },
   ]);
   const [bestSellers, setBestSellers] = useState<Array<{ title: string; subtitle: string; description: string; image: string; gradient: string; link: string; badge: string; }>>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
@@ -102,24 +84,7 @@ export default function HomePage() {
             link: "/product",
             badge: "New",
           },
-          {
-            title: "Hair Clip Set",
-            subtitle: "₹99",
-            description: "Elegant Accessories",
-            image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
-            gradient: "from-rose-300 via-pink-300 to-rose-300",
-            link: "/product",
-            badge: "Trending",
-          },
-          {
-            title: "Macramé Wall Hanging",
-            subtitle: "₹399",
-            description: "Transform Your Space",
-            image: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
-            gradient: "from-pink-300 via-rose-300 to-pink-00",
-            link: "/product",
-            badge: "Popular",
-          },
+
         ]);
       }
     };
@@ -150,24 +115,7 @@ export default function HomePage() {
             link: "/product",
             badge: "New",
           },
-          {
-            title: "Hair Clip Set",
-            subtitle: "₹99",
-            description: "Elegant Accessories",
-            image: "https://5.imimg.com/data5/SELLER/Default/2023/10/356882773/RM/JT/RC/394432/whatsapp-image-2023-10-29-at-9-30-33-am-1000x1000.jpeg",
-            gradient: "from-rose-300 via-pink-300 to-rose-300",
-            link: "/product",
-            badge: "Trending",
-          },
-          {
-            title: "Macramé Wall Hanging",
-            subtitle: "₹399",
-            description: "Transform Your Space",
-            image: "https://imagedelivery.net/0ObHXyjKhN5YJrtuYFSvjQ/i-b45fda22-f060-4271-a636-f09a53dfae66-Macrame-Heart-Wall-Hanging-Heart-Wall-Art-Valentine-Gift-Eco-Friendly-Natural-Craft-Studio/display",
-            gradient: "from-pink-300 via-rose-300 to-pink-00",
-            link: "/product",
-            badge: "Popular",
-          },
+
         ]);
       }
     };
@@ -199,212 +147,208 @@ export default function HomePage() {
   return (
     <main className="bg-gradient-to-b from-pink-50 to-white text-gray-800">
       {/* 🎨 Scrolling Promotional Banner */}
-      <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden">
-        <Swiper
-          modules={[Autoplay, Pagination]}
-          autoplay={{
-            delay: 600,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          speed={1000}
-          loop={promotionalPosters.length > 1}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-          }}
-          className="h-full w-full mt-10"
-        >
-          {promotionalPosters.map((poster, index) => (
-            <SwiperSlide key={index} className="pointer-events-auto">
-              <div className={`relative h-full w-full bg-gradient-to-br ${poster.gradient} flex items-center justify-center overflow-hidden`}>
-                {/* Ambient glow layers */}
-                <motion.div
-                  className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/20 blur-[90px]"
-                  animate={{ opacity: [0.25, 0.4, 0.25], scale: [1, 1.1, 1] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <motion.div
-                  className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-rose-200/30 blur-[110px]"
-                  animate={{ opacity: [0.15, 0.3, 0.15], scale: [1, 1.12, 1] }}
-                  transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                />
+    <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden">
+  <Swiper
+    modules={[Autoplay, Pagination]}
+    autoplay={{
+      delay: 2000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    }}
+    speed={800}
+    loop={promotionalPosters.length > 1}
+    pagination={{
+      clickable: true,
+      dynamicBullets: true,
+    }}
+    className="h-full w-full mt-10"
+  >
+    {promotionalPosters.map((poster, index) => (
+      <SwiperSlide key={index} className="pointer-events-auto">
+        <div className={`relative h-full w-full bg-gradient-to-br ${poster.gradient} flex items-center justify-center overflow-hidden`}>
 
-                {/* Main Square Container */}
-                <Link href="/product" className="pointer-events-auto block relative w-[90%] h-[80%] max-w-4xl max-h-[450px] flex flex-col md:flex-row items-center justify-between bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden hover:bg-white/15 transition-all duration-300 cursor-pointer">
+          {/* Ambient glow layers - Desktop only */}
+          <div className="hidden md:block">
+            <motion.div
+              className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/20 blur-[50px]"
+              animate={{ opacity: [0.25, 0.4, 0.25], scale: [1, 1.1, 1] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.div
+              className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-rose-200/30 blur-[70px]"
+              animate={{ opacity: [0.15, 0.3, 0.15], scale: [1, 1.12, 1] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            />
+          </div>
 
-                  {/* Left Side - Product Image with Motion */}
-                  <div className="relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8">
+          {/* Main Square Container */}
+          <Link
+            href="/product"
+            className="group pointer-events-auto block relative w-[90%] h-[80%] max-w-4xl max-h-[450px] flex flex-col md:flex-row items-center justify-between bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden md:hover:bg-white/15 transition-all duration-300 cursor-pointer"
+          >
+            {/* Left Side - Product Image */}
+            <div className="relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8">
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0, rotate: -6 }}
+                animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 120 }}
+                className="relative z-10 w-full h-full flex items-center justify-center"
+              >
+                <div className="relative w-full h-full max-w-xs max-h-80 p-2 rounded-xl bg-gradient-to-br from-white/70 via-white/30 to-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+                  <div className="relative w-full h-full bg-white/20 backdrop-blur-md rounded-lg border border-white/30 overflow-hidden">
                     <motion.div
-                      initial={{ scale: 0.9, opacity: 0, rotate: -6 }}
-                      animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                      transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 120 }}
-                      whileHover={{ scale: 1.04, rotate: 2 }}
-                      className="relative z-10 w-full h-full flex items-center justify-center"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.35, duration: 0.6 }}
+                      className="w-full h-full flex items-center justify-center md:group-hover:-translate-y-2 transition-transform duration-300"
                     >
-                      {/* Square framed product with animated shine */}
-                      <div className="relative w-full h-full max-w-xs max-h-80 p-2 rounded-xl bg-gradient-to-br from-white/70 via-white/30 to-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
-                        <div className="relative w-full h-full bg-white/20 backdrop-blur-md rounded-lg border border-white/30 overflow-hidden">
-                          <motion.div
-                            className="absolute -top-10 -left-10 w-40 h-40 rotate-45 bg-white/20"
-                            animate={{ x: [0, 220, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                          />
-                          <motion.div
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.35, duration: 0.6 }}
-                            whileHover={{ y: -8 }}
-                            className="w-full h-full flex items-center justify-center"
-                          >
-                            <div className="relative w-full h-full flex items-center justify-center p-4">
-                            <Image
-                              src={poster.image}
-                              alt={poster.title}
-                              width={400}
-                              height={300}
-                              priority={index === 0}
-                              sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 33vw"
-                              className="w-full h-full max-h-64 object-contain drop-shadow-2xl"
-                            />
-                            </div>
-                          </motion.div>
-                        </div>
-                      </div>
-                    </motion.div>
-
-                    {/* Floating Badge */}
-                    <motion.div
-                      className="absolute top-4 left-4 bg-white text-pink-600 font-bold px-3 py-1 rounded-lg text-sm shadow-[0_10px_30px_rgba(255,255,255,0.4)] border border-white/70"
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: 0.6, type: "spring" }}
-                    >
-                      {poster.badge}
-                    </motion.div>
-                  </div>
-
-                  {/* Right Side - Content (Hidden on mobile) */}
-                  <div className="absolute md:relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8 bg-gradient-to-l md:bg-gradient-to-r from-black/40 md:from-transparent to-transparent">
-                    <motion.div
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.8, delay: 0.3 }}
-                      className="text-center md:text-left z-20 w-full max-w-md"
-                    >
-                      {/* All text content hidden on mobile */}
-                      <div className="hidden md:block">
-                        <motion.h2
-                          className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 drop-shadow-2xl leading-tight"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.5 }}
-                        >
-                          {poster.title}
-                        </motion.h2>
-                        <motion.p
-                          className="text-xl md:text-2xl text-white/95 mb-2 font-extrabold drop-shadow-lg tracking-tight"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.6 }}
-                        >
-                          {poster.subtitle}
-                        </motion.p>
-                        {/* Rating */}
-                        <motion.div
-                          className="flex items-center justify-center md:justify-start gap-2 text-white/90 mb-3"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.65 }}
-                        >
-                          <span className="text-yellow-300">★★★★★</span>
-                          <span className="text-xs">4.9/5 • 120+ reviews</span>
-                        </motion.div>
-                        <motion.p
-                          className="text-sm md:text-base text-white/90 mb-6 drop-shadow-md leading-relaxed"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.7 }}
-                        >
-                          {poster.description}
-                        </motion.p>
-                        <motion.div
-                          className="flex items-center justify-center md:justify-start gap-2"
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.8 }}
-                        >
-                          <span
-                            className="inline-block bg-white text-pink-600 font-bold py-2 px-5 rounded-lg shadow-2xl hover:bg-pink-50 hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 text-sm cursor-pointer"
-                          >
-                            Shop Now →
-                          </span>
-                          <span
-                            className="inline-block bg-white/15 text-white font-semibold py-2 px-5 rounded-lg border border-white/40 hover:bg-white/25 transition-all duration-300 text-sm cursor-pointer"
-                          >
-                            View Details
-                          </span>
-                        </motion.div>
-
-                        {/* Small preview chips */}
-                        <motion.div
-                          className="mt-4 hidden md:flex items-center gap-2"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.9 }}
-                        >
-                          {[bestSellers[0]?.image, bestSellers[1]?.image, bestSellers[2]?.image]
-                            .filter(Boolean)
-                            .map((thumb, i) => (
-                              <div key={`thumb-${i}`} className="w-8 h-8 relative rounded-lg overflow-hidden ring-2 ring-white/70 shadow">
-                                <Image
-                                  src={thumb as string}
-                                  alt="thumb"
-                                  fill
-                                  sizes="32px"
-                                  className="object-cover"
-                                />
-                              </div>
-                            ))}
-                          <span className="text-white/90 text-xs">More colors &amp; styles</span>
-                        </motion.div>
+                      <div className="relative w-full h-full flex items-center justify-center p-4">
+                        <Image
+                          src={poster.image}
+                          alt={poster.title}
+                          width={400}
+                          height={300}
+                          loading={index === 0 ? "eager" : "lazy"}
+                          sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 33vw"
+                          className="w-full h-full max-h-64 object-contain drop-shadow-2xl"
+                        />
                       </div>
                     </motion.div>
                   </div>
-                </Link>
+                </div>
+              </motion.div>
 
-                {/* Animated Background Pattern */}
-                <div className="pointer-events-none absolute inset-0 opacity-10">
+              {/* Floating Badge */}
+              <motion.div
+                className="absolute top-4 left-4 bg-white text-pink-600 font-bold px-3 py-1 rounded-lg text-sm shadow-[0_10px_30px_rgba(255,255,255,0.4)] border border-white/70"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.6, type: "spring" }}
+              >
+                {poster.badge}
+              </motion.div>
+            </div>
+
+            {/* Right Side - Content (Desktop only) */}
+            <div className="absolute md:relative w-full md:w-1/2 h-full flex items-center justify-center p-6 md:p-8 bg-gradient-to-l md:bg-gradient-to-r from-black/40 md:from-transparent to-transparent">
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-center md:text-left z-20 w-full max-w-md"
+              >
+                <div className="hidden md:block">
+                  <motion.h2
+                    className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 drop-shadow-2xl leading-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    {poster.title}
+                  </motion.h2>
+                  <motion.p
+                    className="text-xl md:text-2xl text-white/95 mb-2 font-extrabold drop-shadow-lg tracking-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    {poster.subtitle}
+                  </motion.p>
+
+                  {/* Rating */}
+                  <motion.div
+                    className="flex items-center justify-center md:justify-start gap-2 text-white/90 mb-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.65 }}
+                  >
+                    <span className="text-yellow-300">★★★★★</span>
+                    <span className="text-xs">4.9/5 • 120+ reviews</span>
+                  </motion.div>
+
+                  <motion.p
+                    className="text-sm md:text-base text-white/90 mb-6 drop-shadow-md leading-relaxed"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    {poster.description}
+                  </motion.p>
 
                   <motion.div
-                    className="absolute top-0 right-0 w-64 h-64 bg-white rounded-lg blur-3xl"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      x: [0, 50, 0],
-                      y: [0, 30, 0],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                    className="flex items-center justify-center md:justify-start gap-2"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <span className="inline-block bg-white text-pink-600 font-bold py-2 px-5 rounded-lg shadow-2xl md:hover:bg-pink-50 md:hover:shadow-pink-500/50 transition-all duration-300 transform md:group-hover:scale-105 text-sm cursor-pointer">
+                      Shop Now →
+                    </span>
+                    <span className="inline-block bg-white/15 text-white font-semibold py-2 px-5 rounded-lg border border-white/40 md:hover:bg-white/25 transition-all duration-300 text-sm cursor-pointer">
+                      View Details
+                    </span>
+                  </motion.div>
 
-        <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-6 text-lg">Loved our products? Share your experience!</p>
-          <button
-            onClick={() => setShowReviewModal(true)}
-            className="inline-block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-3 px-8 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-          >
-            Write a Review ⭐
-          </button>
+                  {/* Small preview chips */}
+                  <motion.div
+                    className="mt-4 hidden md:flex items-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                  >
+                    {[bestSellers[0]?.image, bestSellers[1]?.image, bestSellers[2]?.image]
+                      .filter(Boolean)
+                      .map((thumb, i) => (
+                        <div key={`thumb-${i}`} className="w-8 h-8 relative rounded-lg overflow-hidden ring-2 ring-white/70 shadow">
+                          <Image
+                            src={thumb as string}
+                            alt="thumb"
+                            fill
+                            sizes="32px"
+                            className="object-cover"
+                            loading={index === 0 ? "eager" : "lazy"}
+                          />
+                        </div>
+                      ))}
+                    <span className="text-white/90 text-xs">More colors &amp; styles</span>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
+          </Link>
+
+          {/* Animated Background Pattern - Desktop only */}
+          <div className="hidden md:block pointer-events-none absolute inset-0 opacity-10">
+            <motion.div
+              className="absolute top-0 right-0 w-64 h-64 bg-white rounded-lg blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                x: [0, 50, 0],
+                y: [0, 30, 0],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
         </div>
-      </section>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+
+  <div className="mt-12 text-center">
+    <p className="text-gray-600 mb-6 text-lg">Loved our products? Share your experience!</p>
+    <button
+      onClick={() => setShowReviewModal(true)}
+      className="inline-block bg-gradient-to-r from-pink-500 to-rose-500 md:hover:from-pink-600 md:hover:to-rose-600 text-white font-semibold py-3 px-8 rounded-full shadow-xl md:hover:shadow-2xl transition-all duration-300 transform md:group-hover:scale-105"
+    >
+      Write a Review ⭐
+    </button>
+  </div>
+</section>
+
       {/* 🎁 Offer Banner */}
       <div className="bg-pink-500 text-white py-3 overflow-hidden relative">
         <motion.div
@@ -421,8 +365,8 @@ export default function HomePage() {
           </span>
           <span className="w-[400px] inline-block"></span>
           <span className="mr-[400px]">
-           For <span className="font-semibold text-white">customized hampers 🎀</span>,  
-<span className="font-medium text-yellow-200">DM me on WhatsApp 💬</span>!
+            For <span className="font-semibold text-white">customized hampers 🎀</span>,
+            <span className="font-medium text-yellow-200">DM me on WhatsApp 💬</span>!
 
           </span>
         </motion.div>
@@ -441,7 +385,7 @@ export default function HomePage() {
               Every Piece Tells a Story — Crafted with Love 💖
             </h1>
             <p className="text-lg md:text-xl mb-10 text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Macramé Bags &amp; Aesthetic Phone Charms  • Flower Keychains • Embriodery Hair clips • Customized Hampers 
+              Macramé Bags &amp; Aesthetic Phone Charms  • Flower Keychains • Embriodery Hair clips • Customized Hampers
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
@@ -542,6 +486,7 @@ export default function HomePage() {
                         alt={item.title}
                         width={400}
                         height={400}
+                        loading={index === 0 ? "eager" : "lazy"}
                         className="max-h-[240px] w-auto object-contain drop-shadow-md"
                       />
                     </div>
