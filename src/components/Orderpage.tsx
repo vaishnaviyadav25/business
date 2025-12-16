@@ -171,14 +171,7 @@ export default function OrderPage() {
       const result = await response.json();
       console.log("Order created:", result);
 
-      if (paymentMethod === "Online") {
-        // For online payment, save order data and redirect to payment page
-        localStorage.setItem("pendingOrder", JSON.stringify(orderData));
-        window.location.href = "/payment";
-        return;
-      }
-
-      // For COD, also submit to Formspree for backup
+      // Submit to Formspree for both COD and Online payments
       try {
         const productSummary = itemsToShow
           .map(
@@ -203,7 +196,14 @@ export default function OrderPage() {
         // Don't fail the order if Formspree fails
       }
 
-      // Clear cart and redirect to success
+      if (paymentMethod === "Online") {
+        // For online payment, save order data and redirect to payment page
+        localStorage.setItem("pendingOrder", JSON.stringify(orderData));
+        window.location.href = "/payment";
+        return;
+      }
+
+      // Clear cart and show success for COD
       if (typeof window !== "undefined") {
         localStorage.removeItem("cart");
       }

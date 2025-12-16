@@ -1,29 +1,43 @@
 import React from "react";
-import Footerpage from "@/components/Footerpage";
 import type { Metadata } from "next";
+import Footerpage from "@/components/Footerpage";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy – Vaishi",
+  title: "Privacy Policy – Vaishi Handmade Creations",
+
   description:
-    "Read Vaishi’s Privacy Policy to understand how we protect your personal information and ensure a safe shopping experience.",
+    "Read Vaishi Handmade Creations’ Privacy Policy to understand how we collect, use, and protect your personal information for a safe shopping experience.",
+
   keywords: [
     "Vaishi privacy policy",
+    "Vaishi Handmade Creations privacy",
     "data protection",
     "user privacy",
-    "secure shopping",
-    "Vaishi store",
+    "secure shopping policy",
   ],
+
+  alternates: {
+    canonical: "https://vaishi.vercel.app/privacy-policy",
+  },
+
   openGraph: {
-    title: "Privacy Policy – Vaishi",
-    description: "Learn how Vaishi handles your data with transparency and care.",
+    title: "Privacy Policy – Vaishi Handmade Creations",
+    description:
+      "Learn how Vaishi Handmade Creations protects your personal data and privacy.",
     images: ["/Mylogo.png"],
   },
+
   twitter: {
     card: "summary",
-    title: "Privacy Policy – Vaishi",
+    title: "Privacy Policy – Vaishi Handmade Creations",
     description:
-      "Understand Vaishi’s commitment to protecting your privacy and data.",
+      "Understand how Vaishi Handmade Creations safeguards your personal information.",
     images: ["/Mylogo.png"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -37,7 +51,7 @@ export default function PrivacyPolicy() {
           </h1>
 
           <p className="text-gray-700 mb-4">
-            At <span className="font-semibold text-pink-600">Vaishi</span>, we
+            At <span className="font-semibold text-pink-600">Vaishi Handmade Creations</span>, we
             value your privacy and are committed to protecting your personal
             data. This Privacy Policy explains how we collect, use, and
             safeguard your information when you visit our website or make a

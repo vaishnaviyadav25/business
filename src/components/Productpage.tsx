@@ -10,7 +10,7 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import axios from "axios";
 
 interface Product {
-  id: number;
+  id: number | string;
   category: string;
   name: string;
   price: number;
@@ -47,7 +47,21 @@ interface BestSellerProduct {
   visible: boolean;
 }
 
+// Helper function to create SEO-friendly URLs from product names
+const createProductSlug = (name: string): string => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .trim();
+};
 
+// Helper function to create product URL
+const createProductUrl = (product: Product): string => {
+  const slug = createProductSlug(product.name);
+  return `/product/${product.id}-${slug}`;
+};
 
 const categoryIcons: { [key: string]: string } = {
   "Macramé": "🧵",
@@ -72,7 +86,7 @@ export default function Productpage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true);
 
-  const [likedProducts, setLikedProducts] = useState<number[]>([]);
+  const [likedProducts, setLikedProducts] = useState<string[]>([]);
   const [promotionalProducts, setPromotionalProducts] = useState<PromotionalProduct[]>([]);
   const [bestSellerProducts, setBestSellerProducts] = useState<BestSellerProduct[]>([]);
   const [formData, setFormData] = useState({
@@ -152,11 +166,11 @@ export default function Productpage() {
     fetchBestSellerProducts();
   }, []);
 
-  const toggleLike = (productId: number, e: React.MouseEvent) => {
+  const toggleLike = (productId: number | string, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent triggering the product modal
-    const updatedLiked = likedProducts.includes(productId)
-      ? likedProducts.filter((id) => id !== productId)
-      : [...likedProducts, productId];
+    const updatedLiked = likedProducts.includes(String(productId))
+      ? likedProducts.filter((id) => id !== String(productId))
+      : [...likedProducts, String(productId)];
     setLikedProducts(updatedLiked);
     localStorage.setItem("likedProducts", JSON.stringify(updatedLiked));
   };
@@ -185,7 +199,7 @@ export default function Productpage() {
           description: product.desc,
           image: product.images[0],
           gradient: "from-pink-300 via-rose-300 to-pink-300",
-          link: "/product",
+          link: createProductUrl(product), // Use SEO-friendly URL
           badge: product.category,
           visible: true,
         };
@@ -225,7 +239,7 @@ export default function Productpage() {
           description: product.desc,
           image: product.images[0],
           gradient: "from-yellow-300 via-orange-300 to-red-300",
-          link: "/product",
+          link: createProductUrl(product), // Use SEO-friendly URL
           badge: product.category,
           visible: true,
         };
@@ -245,7 +259,7 @@ export default function Productpage() {
     const cart: (Product & { quantity: number })[] = JSON.parse(
       localStorage.getItem("cart") || "[]"
     );
-    const existingIndex = cart.findIndex((item) => item.id === product.id);
+    const existingIndex = cart.findIndex((item) => String(item.id) === String(product.id));
 
     if (existingIndex !== -1) {
       cart[existingIndex].quantity += quantity;
@@ -400,9 +414,8 @@ export default function Productpage() {
                     <motion.div
                       key={product.id}
                       onClick={() => {
-                        setSelectedProduct(product);
-                        setActiveImage(0);
-                        setQuantity(1);
+                        // Navigate to SEO-friendly product URL
+                        router.push(createProductUrl(product));
                       }}
                       className="group relative rounded-3xl bg-gradient-to-br from-white via-pink-50 to-rose-50 border border-pink-100 shadow-md hover:shadow-lg transition-all duration-500 cursor-pointer overflow-hidden flex flex-col items-center p-3 sm:p-5"
                       whileHover={{ scale: 1.03 }}
@@ -411,12 +424,12 @@ export default function Productpage() {
                       {/* Like Button */}
                       <button
                         onClick={(e) => toggleLike(product.id, e)}
-                        className={`absolute top-2 right-2 z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${likedProducts.includes(product.id)
+                        className={`absolute top-2 right-2 z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${likedProducts.includes(String(product.id))
                             ? 'bg-red-500 text-white shadow-lg'
                             : 'bg-white/80 text-gray-600 hover:bg-white shadow-md'
                           }`}
                       >
-                        {likedProducts.includes(product.id) ? '❤️' : '🤍'}
+                        {likedProducts.includes(String(product.id)) ? '❤️' : '🤍'}
                       </button>
 
                       <div className="relative w-full h-40 sm:h-52 flex items-center justify-center">
@@ -488,16 +501,13 @@ export default function Productpage() {
                         ₹{product.price}
                       </p>
 
-                      <button
-                        className="mt-2 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs sm:text-sm text-pink-700 shadow-sm hover:shadow-md transition-all duration-300"
-                        onClick={() => {
-                          setSelectedProduct(product);
-                          setActiveImage(0);
-                          setQuantity(1);
-                        }}
+                      <Link
+                        href={createProductUrl(product)}
+                        className="mt-2 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs sm:text-sm text-pink-700 shadow-sm hover:shadow-md transition-all duration-300 inline-block text-center"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         👀 View Details
-                      </button>
+                      </Link>
                     </motion.div>
                   ))}
               </div>
@@ -628,7 +638,7 @@ export default function Productpage() {
                           selectedProduct!.name
                         )}&price=${selectedProduct!.price}&qty=${quantity}&image=${encodeURIComponent(
                           selectedProduct!.images[0]
-                        )}`}
+                        )}&productUrl=${encodeURIComponent(createProductUrl(selectedProduct!))}`}
                         className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-3 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 text-center flex-1"
                       >
                         Buy Now

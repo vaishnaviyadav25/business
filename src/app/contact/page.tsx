@@ -1,30 +1,51 @@
-import {Contactpage} from "@/components/Contactpage";
-import Footerpage from "@/components/Footerpage";
 import type { Metadata } from "next";
+import { Contactpage } from "@/components/Contactpage";
+import Footerpage from "@/components/Footerpage";
 
 export const metadata: Metadata = {
-  title: "Contact Us – Vaishi",
-  description: "Get in touch with Vaishi for queries, orders, or collaborations. We're happy to help!",
-  keywords: ["Vaishi contact", "customer support", "help", "inquiry", "Vaishi shop"],
+  title: "Contact Us – Vaishi Handmade Creations",
+
+  description:
+    "Contact Vaishi Handmade Creations for product queries, custom orders, collaborations or support. We’re happy to help you.",
+
+  keywords: [
+    "Vaishi contact",
+    "Vaishi Handmade Creations contact",
+    "customer support",
+    "handmade product inquiry",
+    "custom order support",
+  ],
+
+  alternates: {
+    canonical: "https://vaishi.vercel.app/contact",
+  },
+
   openGraph: {
-    title: "Contact Us – Vaishi",
-    description: "Reach out to the Vaishi team for support or order assistance.",
+    title: "Contact Us – Vaishi Handmade Creations",
+    description:
+      "Get in touch with Vaishi Handmade Creations for support, queries or collaborations.",
     images: ["/Smalllogo.png"],
   },
+
   twitter: {
     card: "summary",
-    title: "Contact Vaishi",
-    description: "Message us for product inquiries, custom orders, or feedback.",
+    title: "Contact Vaishi Handmade Creations",
+    description:
+      "Reach out for handmade product inquiries, custom orders or feedback.",
     images: ["/Smalllogo.png"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
-
-export default function Home() {
+export default function Contact() {
   return (
-      <div className="bg-pink-50">
-        <Contactpage/>
-        <Footerpage/>
-        </div>
+    <div className="bg-pink-50">
+      <Contactpage />
+      <Footerpage />
+    </div>
   );
 }

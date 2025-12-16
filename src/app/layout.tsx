@@ -16,58 +16,76 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// ✅ SEO Metadata
+// ✅ GLOBAL SEO METADATA (NO HARDCODED CANONICAL)
 export const metadata: Metadata = {
-  title:" Vaishi Handmade Creations Bags,Charms ,keychain – Vaishi",
+  metadataBase: new URL("https://vaishi.vercel.app"),
+
+  title: {
+    default:
+      "Vaishi Handmade Creations – Phone Charms, Crochet Bags & Hair Accessories",
+    template: "%s | Vaishi Handmade Creations",
+  },
+
   description:
-"Vaishi offers handcrafted mobile phone charms , hair clips made with love & care. Explore our exclusive collection and  grab exciting discounts now!",
+    "Vaishi Handmade Creations offers handcrafted phone charms, mobile phone charms, crochet bags, hair accessories, macrame keychains and fridge magnets made with love & care.",
+
   keywords: [
-    "Vaishi",
-    "Vaishi handmade products",
+    "Vaishi Handmade Creations",
+    "phone charms",
+    "phone charm",
     "mobile phone charm",
+    "hair accessory",
+    "flower hair clips for hair",
+    "crochet bags",
+    "bags crochet",
     "macrame keychain",
     "fridge magnet",
-    "phone charms",
-     "hair accessory",
-     "flower hair clips for hair",
-     "crochet bags",
-     "phone keychain",
-     "charms for iphones",
+    "phone keychain",
+    "charms for iphones",
     "decorative handmade product",
   ],
+
   authors: [{ name: "Vaishi" }],
-  creator: "Vaishi",
-  publisher: "Vaishi",
+  creator: "Vaishi Handmade Creations",
+  publisher: "Vaishi Handmade Creations",
+
   icons: {
-    icon: "/Mylogo.png", // ✅ favicon in /public
+    icon: "/Mylogo.png",
   },
+
   openGraph: {
-    title: "Vaishi – Handcrafted with Love",
+    title: "Vaishi Handmade Creations – Handcrafted with Love",
     description:
-      "Discover Vaishi, where creativity meets craftsmanship. Explore our unique handmade creations.",
-    url: "https://vaishi.vercel.app", // ✅ absolute URL
-    siteName: "Vaishi",
+      "Discover handcrafted phone charms, crochet bags, hair accessories and more at Vaishi Handmade Creations.",
+    url: "https://vaishi.vercel.app",
+    siteName: "Vaishi Handmade Creations",
     images: [
       {
-        url: "https://vaishi.vercel.app/Mylogo.png", // ✅ absolute URL for OG image
+        url: "/Mylogo.png",
         width: 600,
         height: 600,
-        alt: "Vaishi Logo",
+        alt: "Vaishi Handmade Creations Logo",
       },
     ],
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Vaishi – Handcrafted with Love",
+    title: "Vaishi Handmade Creations",
     description:
-      "Discover Vaishi’s beautiful handmade products crafted with creativity and passion.",
-    images: ["https://vaishi.vercel.app/Mylogo.png"], // ✅ absolute URL
+      "Explore handmade phone charms, crochet bags & hair accessories by Vaishi Handmade Creations.",
+    images: ["/Mylogo.png"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
-// ✅ Root Layout
+// ✅ ROOT LAYOUT
 export default function RootLayout({
   children,
 }: {
@@ -76,7 +94,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* 🔹 Domain verifications */}
+        {/* 🔹 Domain Verifications */}
         <meta
           name="google-site-verification"
           content="DH-TpGgm-OrhsRnnst8fBWHcDsdEr8tp4Rf_C0Bqz9E"
@@ -86,23 +104,19 @@ export default function RootLayout({
           content="48a48a0bc656c4618998b020e156f197"
         />
 
-        {/* 🔹 Canonical & robots tags */}
-        <link rel="canonical" href="https://vaishi.vercel.app" />
-        <meta name="robots" content="index, follow" />
-
-        {/* 🔹 Browser theme color */}
+        {/* 🔹 Theme Color */}
         <meta name="theme-color" content="#fdd835" />
 
-        {/* 🔹 JSON-LD Structured Data for Brand */}
+        {/* 🔹 Structured Data (Brand) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Vaishi",
+              name: "Vaishi Handmade Creations",
               url: "https://vaishi.vercel.app",
-              logo: "https://vaishi.vercel.app/Mylogo.png", // ✅ absolute path
+              logo: "https://vaishi.vercel.app/Mylogo.png",
               sameAs: [
                 "https://www.instagram.com/vaishi2059/",
                 "https://www.pinterest.com/vaishiart",
@@ -117,11 +131,13 @@ export default function RootLayout({
       >
         <Navigation />
         <main className="pt-20">{children}</main>
+
+        {/* ✅ Vercel Analytics */}
         <Analytics />
+
+        {/* ✅ Vercel Speed Insights */}
         <SpeedInsights />
       </body>
     </html>
   );
 }
-
-

@@ -77,7 +77,7 @@ export default function TermsAndConditions() {
           Returns are only accepted for defective or damaged items.  
           An <strong>unboxing video</strong> from the moment of opening the parcel is mandatory for verification.  
           Please refer to our{" "}
-          <a href="/return" className="text-pink-500 font-medium hover:underline">
+          <a href="/return-policy" className="text-pink-500 font-medium hover:underline">
             Return Policy
           </a>{" "}
           for full details.
