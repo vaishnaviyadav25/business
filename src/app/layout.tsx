@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// ✅ GLOBAL SEO METADATA (NO HARDCODED CANONICAL)
+// ✅ GLOBAL SEO METADATA
 export const metadata: Metadata = {
   metadataBase: new URL("https://vaishi.vercel.app"),
 
@@ -27,30 +27,25 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Vaishi Handmade Creations offers handcrafted phone charms, mobile phone charms, crochet bags, hair accessories, macrame keychains and fridge magnets made with love & care.",
+    "Vaishi Handmade Creations offers handcrafted phone charms, crochet bags, hair accessories, macrame keychains and fridge magnets made with love & care.",
 
   keywords: [
     "Vaishi Handmade Creations",
-    "phone charms",
-    "phone charm",
-    "mobile phone charm",
-    "hair accessory",
-    "flower hair clips for hair",
+    "handmade phone charms",
     "crochet bags",
-    "bags crochet",
-    "macrame keychain",
-    "fridge magnet",
-    "phone keychain",
-    "charms for iphones",
-    "decorative handmade product",
+    "hair accessories",
+    "macrame keychains",
+    "handmade gifts",
+    "beaded accessories",
   ],
 
   authors: [{ name: "Vaishi" }],
   creator: "Vaishi Handmade Creations",
   publisher: "Vaishi Handmade Creations",
 
+  // ✅ CORRECT favicon reference
   icons: {
-    icon: "/Mylogo.png",
+    icon: "/favicon.ico",
   },
 
   openGraph: {
@@ -67,7 +62,6 @@ export const metadata: Metadata = {
         alt: "Vaishi Handmade Creations Logo",
       },
     ],
-    locale: "en_US",
     type: "website",
   },
 
@@ -107,7 +101,7 @@ export default function RootLayout({
         {/* 🔹 Theme Color */}
         <meta name="theme-color" content="#fdd835" />
 
-        {/* 🔹 Structured Data (Brand) */}
+        {/* 🔹 Structured Data (Brand Schema) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
